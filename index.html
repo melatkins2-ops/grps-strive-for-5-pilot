@@ -1,0 +1,583 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Strive for Less Than 5 | GRPS</title><style>
+:root{--blue:#005596;--orange:#f47b20;--orange-soft:#fff2e8;--yellow:#eeb211;--ink:#20313b;--muted:#66757d;--line:#dde5ea;--soft:#f6f8fa;--white:#fff;--shadow:0 10px 26px rgba(0,0,0,.07);--font:Arial,"Helvetica Neue",Helvetica,sans-serif;--display:"Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font);font-size:16px;color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:var(--blue)}button,input,select,textarea{font:inherit}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;padding:10px;z-index:999}
+header{border-bottom:1px solid var(--line);background:#fff;position:relative}header:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:4px;background:linear-gradient(90deg,var(--orange) 0 28%,var(--yellow) 28% 40%,transparent 40%)}.topbar{max-width:1100px;margin:auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:10px}.bar{width:7px;height:36px;border-radius:4px;background:var(--orange)}.brand strong{display:block;color:var(--blue);font-family:var(--display);font-size:.92rem;letter-spacing:.015em}.brand small{color:var(--muted);font-size:.82rem}.topbar a{text-decoration:none;font-weight:700;font-size:.9rem}
+.hero{background:linear-gradient(120deg,var(--blue) 0 72%,#0a669f 72% 100%);color:#fff;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;width:360px;height:360px;border:44px solid rgba(244,123,32,.26);border-radius:50%;right:-120px;top:-165px}.hero:after{content:"";position:absolute;width:150px;height:150px;background:rgba(238,178,17,.12);transform:rotate(32deg);right:170px;bottom:-95px;border-radius:26px}.hero-in{max-width:1100px;margin:auto;padding:48px 24px 46px;position:relative;z-index:1}.eyebrow{font-family:var(--display);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:#ffd7bb}.hero h1{font-family:var(--display);font-size:clamp(2.35rem,5vw,3.65rem);font-weight:750;letter-spacing:-.025em;line-height:1.02;margin:8px 0 14px;max-width:760px}.hero p{font-size:1rem;line-height:1.55;max-width:700px;margin:0;opacity:.94}.goal-line{margin-top:22px;display:inline-flex;gap:9px;align-items:center;background:var(--orange);padding:10px 15px;border-radius:999px;font-weight:900;box-shadow:0 8px 18px rgba(0,0,0,.12)}.goal-line{font-size:.94rem}.goal-line b{font-size:1rem}
+main{max-width:1100px;margin:auto;padding:38px 24px 70px}.section{margin:0 0 58px}.section h2{font-family:var(--display);font-size:1.7rem;font-weight:750;letter-spacing:-.015em;line-height:1.2;margin:0 0 8px;position:relative;padding-left:16px}.section h2:before{content:"";position:absolute;left:0;top:.12em;width:6px;height:.95em;border-radius:4px;background:var(--orange)}.lead{margin:0 0 22px;color:var(--muted);max-width:760px;font-size:.98rem;line-height:1.6}.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.choice{border:1px solid var(--line);border-top:5px solid var(--orange);border-radius:16px;padding:22px 24px 24px;background:#fff;cursor:pointer;transition:.16s;min-height:160px;position:relative}.choice:hover,.choice:focus-within{border-color:#efb186;box-shadow:var(--shadow);transform:translateY(-2px);background:#fffaf7}.choice .num{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--orange-soft);color:var(--orange);font-weight:900}.choice h3{font-family:var(--display);font-size:1.12rem;line-height:1.3;margin:14px 0 6px}.choice p{margin:0;color:var(--muted);font-size:.94rem;line-height:1.55}.choice button{margin-top:16px;border:0;background:var(--orange);padding:8px 11px;color:#fff;font-weight:900;cursor:pointer;border-radius:8px}
+.focus-box{border:1px solid #f0d3be;border-radius:18px;padding:24px;background:linear-gradient(180deg,#fff 0,#fffaf6 100%);box-shadow:0 6px 20px rgba(244,123,32,.05)}.builder-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.builder label{display:block;font-weight:800;margin:0 0 5px}.builder input,.builder select,.builder textarea{width:100%;border:1px solid #bdc9d0;border-radius:9px;padding:11px;background:#fff}.builder .wide{grid-column:1/-1}.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:800;cursor:pointer;margin:12px 6px 0 0}.btn.secondary{background:#fff;color:var(--blue);border:1px solid var(--blue)}.btn.orange{background:var(--orange)}.output{margin-top:18px;padding:18px;border-radius:12px;background:#fff;border:1px solid var(--line)}.output h3{font-family:var(--display);font-size:1.1rem;line-height:1.35;margin-top:0}.rec-list{display:grid;grid-template-columns:1fr;gap:10px}.rec{border-left:4px solid var(--orange);padding:10px 12px;background:#fff7f1;border-radius:8px}.rec h4{font-family:var(--display);font-size:1rem;line-height:1.35;margin:0 0 4px}.rec small{color:var(--muted)}
+.disclosure{border-top:1px solid var(--line);padding:0}.disclosure details{border-bottom:1px solid var(--line);padding:0}.disclosure summary{list-style:none;cursor:pointer;padding:18px 2px;font-weight:750;font-size:1rem;display:flex;justify-content:space-between}.disclosure summary::-webkit-details-marker{display:none}.disclosure summary:after{content:'+';color:var(--orange);font-size:1.35rem}.disclosure details[open] summary:after{content:'–'}.detail-content{padding:0 2px 22px;color:var(--muted)}
+.workflow-mini{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.workflow-mini div{padding:12px;border-radius:9px;background:var(--soft);text-align:center}.workflow-mini strong{display:block;color:var(--blue)}
+.root-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.root{border:1px solid var(--line);border-radius:10px;padding:14px}.root h3{font-family:var(--display);font-size:1.05rem;margin:0 0 4px}.root p{margin:0 0 8px}.root button{border:0;background:none;color:var(--orange);font-weight:900;padding:0;cursor:pointer}
+.tier-table{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}table{border-collapse:collapse;width:100%;min-width:700px}th,td{padding:11px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#eef5f9}.searchpanel{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff}.controls{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:9px}.controls input,.controls select{width:100%;border:1px solid #bdc9d0;border-radius:8px;padding:10px}.controls button{border:0;border-radius:8px;background:#20313b;color:#fff;padding:10px 13px;font-weight:800}.meta{margin:12px 0;color:var(--muted)}.resources{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff}.resource{min-height:190px;display:flex;flex-direction:column}.resource footer{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;gap:8px;align-items:end}.tag,.pill{display:inline-block;border-radius:999px;font-size:.72rem;font-weight:800}.tag{background:var(--orange-soft);color:#b34d09;padding:4px 8px}.pill{border:1px solid #c6d1d7;color:#5a6870;padding:3px 6px;margin:2px}.resource h3{font-family:var(--display);font-size:1.05rem;line-height:1.35;margin:8px 0 5px}.resource p{color:var(--muted);font-size:.93rem;line-height:1.55;margin:0}.resource button{border:0;border-radius:8px;background:var(--orange);color:#fff;padding:8px 10px;font-weight:800;cursor:pointer}.role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.role-card button{border:0;background:none;color:var(--orange);font-weight:900;padding:8px 0 0;cursor:pointer}.download-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.download-card a{display:inline-block;margin-top:10px;text-decoration:none;font-weight:800}.quick-links{display:flex;gap:10px;flex-wrap:wrap}.quick-links a{display:inline-block;text-decoration:none;border:1px solid #f0c5a5;padding:10px 12px;border-radius:9px;font-weight:900;background:#fff7f1;color:#a84406}
+.detail{position:fixed;inset:0;background:rgba(12,26,34,.62);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}.detail.open{display:flex}.panel{width:min(820px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.28)}.panel-head{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--line);padding:16px;display:flex;justify-content:space-between;gap:15px}.panel-body{padding:20px;font-size:.96rem;line-height:1.6}.close{width:36px;height:36px;border:0;border-radius:50%;background:#eef3f6;font-size:1.2rem;cursor:pointer}.detail-section{padding:10px 0;border-bottom:1px solid var(--line)}.detail-section:last-child{border:0}.related{display:flex;gap:7px;flex-wrap:wrap}.footer{background:#152832;color:#dce5e9;padding:24px}.footer-in{max-width:1100px;margin:auto}.footer p{margin:0}.hidden-structure{display:none}
+
+.scenario-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.scenario-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:#fff}.scenario-card h3{font-family:var(--display);font-size:1.08rem;line-height:1.35;margin:8px 0 6px}.scenario-card p{margin:0;color:var(--muted);font-size:.93rem;line-height:1.55}.scenario-card button{margin-top:13px;border:0;border-radius:8px;background:var(--orange);color:#fff;padding:8px 10px;font-weight:900;cursor:pointer}.scenario-result{margin-top:14px;border:1px solid #f0d3be;border-radius:12px;background:#fffaf6;padding:16px}.scenario-result h3{margin-top:0}.next-step{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start;margin:10px 0}.next-step .stepnum{width:28px;height:28px;border-radius:50%;background:var(--orange-soft);color:var(--orange);display:grid;place-items:center;font-weight:900}.callout{border-left:4px solid var(--yellow);background:#fffaf0;padding:12px 14px;border-radius:8px}.callout.orange{border-left-color:var(--orange);background:#fff7f1}.mini-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.mini-actions button{border:1px solid var(--orange);background:#fff;color:#a84406;border-radius:8px;padding:7px 9px;font-weight:900;cursor:pointer}
+@media(max-width:800px){.choice-grid,.resources,.role-grid,.download-grid,.builder-grid,.root-grid,.scenario-strip{grid-template-columns:1fr}.controls{grid-template-columns:1fr}.workflow-mini{grid-template-columns:1fr}.builder .wide{grid-column:auto}.hero-in{padding-top:38px}}
+@media print{header,.hero,.footer,.detail,.no-print{display:none!important}main{padding:0}.section{margin-bottom:24px}}
+
+/* V7 TYPOGRAPHY SYSTEM — component-level reset */
+:root{
+  --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-heading:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --font-campaign:"Arial Narrow","Helvetica Neue Condensed","Roboto Condensed",Arial,sans-serif;
+}
+body{font-family:var(--font-body);font-size:16px;line-height:1.58;letter-spacing:0;color:var(--ink)}
+button,input,select,textarea{font-family:var(--font-body)}
+.brand strong{font-family:var(--font-heading);font-size:15px;line-height:1.2;font-weight:700;letter-spacing:0}
+.brand small{font-size:13px;line-height:1.25}
+.topbar a{font-size:14px;line-height:1.2;font-weight:650}
+.eyebrow{font-family:var(--font-campaign);font-size:12px;line-height:1.2;letter-spacing:.13em;font-weight:700}
+.hero h1{font-family:var(--font-heading);font-size:clamp(38px,4.4vw,50px);line-height:1.06;font-weight:760;letter-spacing:-.028em;margin:9px 0 14px;max-width:760px}
+.hero p{font-size:17px;line-height:1.55;max-width:690px;font-weight:400}
+.goal-line{font-family:var(--font-body);font-size:15px;line-height:1.2;font-weight:750;padding:10px 15px}
+.goal-line b{font-size:15px}
+main{padding-top:42px}
+.section{margin-bottom:54px}
+.section h2{font-family:var(--font-heading);font-size:30px;line-height:1.18;font-weight:720;letter-spacing:-.02em;margin-bottom:9px}
+.lead{font-size:16px;line-height:1.62;max-width:760px;margin-bottom:24px}
+.choice{padding:22px 24px 23px;min-height:154px}
+.choice .num{font-size:14px}
+.choice h3,.scenario-card h3,.role-card h3,.download-card h3{font-family:var(--font-heading);font-size:19px;line-height:1.3;font-weight:700;letter-spacing:-.01em;margin:14px 0 7px}
+.choice p,.scenario-card p,.resource p,.card p{font-size:15px;line-height:1.58}
+.choice button,.scenario-card button,.resource button,.controls button,.btn{font-size:14px;line-height:1.2;font-weight:700}
+.builder label{font-size:14px;line-height:1.3;font-weight:700}
+.builder input,.builder select,.builder textarea,.controls input,.controls select{font-size:15px;line-height:1.35}
+.output h3,.panel-body h3,.scenario-result h3{font-family:var(--font-heading);font-size:20px;line-height:1.3;font-weight:700;letter-spacing:-.01em}
+.rec h4{font-family:var(--font-heading);font-size:16px;line-height:1.35;font-weight:700}
+.rec small{font-size:13px;line-height:1.5}
+.disclosure summary{font-size:16px;line-height:1.35;font-weight:680}
+.detail-content{font-size:15px;line-height:1.62}
+.workflow-mini div{font-size:14px;line-height:1.35}
+.workflow-mini strong{font-size:15px}
+.root h3,.resource h3{font-family:var(--font-heading);font-size:17px;line-height:1.34;font-weight:700;letter-spacing:-.005em}
+.root p{font-size:15px;line-height:1.58}
+th{font-size:14px;line-height:1.35;font-weight:700} td{font-size:14px;line-height:1.5}
+.meta{font-size:14px;line-height:1.4}
+.tag,.pill{font-size:12px;line-height:1.2;font-weight:700}
+.panel-head{align-items:flex-start}.panel-head h2{font-family:var(--font-heading);font-size:24px;line-height:1.2;font-weight:720;letter-spacing:-.015em;margin:3px 0 0}
+.panel-head .eyebrow{color:var(--orange)}
+.panel-body{font-size:15.5px;line-height:1.62}
+.panel-body li{margin-bottom:6px}
+.detail-section h3{margin-bottom:7px}
+.quick-links a,.download-card a,.role-card button{font-size:14px;line-height:1.3;font-weight:700}
+.footer{font-size:14px;line-height:1.5}
+@media(max-width:800px){
+  body{font-size:16px}
+  .hero h1{font-size:36px;line-height:1.08}
+  .hero p{font-size:16px}
+  .section h2{font-size:26px}
+  .choice h3,.scenario-card h3,.role-card h3,.download-card h3{font-size:18px}
+  .panel-head h2{font-size:22px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:32px}
+  .section h2{font-size:24px}
+  .hero-in{padding-top:34px;padding-bottom:36px}
+  main{padding-top:32px}
+}
+
+
+/* V8 — GRPS PROGRESS DASHBOARD DESIGN SYSTEM */
+:root{
+ --blue:#002f6c;--blue2:#0b4f8a;--orange:#e35205;--ink:#172033;--muted:#667085;
+ --bg:#f4f6f9;--white:#fff;--line:#d8dee8;--softblue:#eef4fb;--softorange:#fff7ed;
+ --shadow:0 1px 2px rgba(16,24,40,.04);--font:Arial,Helvetica,sans-serif;
+ --display:Arial,Helvetica,sans-serif;--font-body:Arial,Helvetica,sans-serif;
+ --font-heading:Arial,Helvetica,sans-serif;--font-campaign:Arial,Helvetica,sans-serif;
+}
+html{background:var(--bg)}body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5}
+button,input,select,textarea{font-family:Arial,Helvetica,sans-serif}
+header{background:var(--blue);color:#fff;border:0;border-bottom:6px solid var(--orange);position:sticky;top:0;z-index:30}
+header:after{display:none}.topbar{max-width:1400px;padding:15px 26px}.bar{display:none}.brand strong{color:#fff;font-size:14px;letter-spacing:.10em;text-transform:uppercase;font-weight:700}.brand small{display:block;color:rgba(255,255,255,.82);font-size:12px;margin-top:3px}.topbar a{color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:7px;padding:8px 10px;font-size:13px;font-weight:700}
+.hero{background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}.hero:before,.hero:after{display:none}.hero-in{max-width:1400px;padding:30px 28px 27px}.eyebrow{font-family:Arial,Helvetica,sans-serif;color:var(--orange);font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:800}.hero h1{font-family:Arial,Helvetica,sans-serif;color:var(--ink);font-size:34px;line-height:1.12;font-weight:700;letter-spacing:-.015em;margin:5px 0 8px}.hero p{font-size:16px;color:var(--muted);line-height:1.5}.hero div[style*="ffd7bb"]{color:var(--blue)!important;font-size:13px!important;font-weight:700!important}.goal-line{margin-top:15px;background:var(--softorange);color:#7c2d12;border-left:4px solid var(--orange);border-radius:7px;box-shadow:none;padding:9px 12px;font-size:13px;font-weight:700}
+main{max-width:1400px;padding:28px}.section{margin-bottom:36px}.section h2{font-family:Arial,Helvetica,sans-serif;font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-.01em;padding-left:0;margin:0 0 7px}.section h2:before{display:none}.lead{font-size:15px;line-height:1.5;color:var(--muted);margin-bottom:18px}
+.choice-grid{grid-template-columns:repeat(4,minmax(190px,1fr));gap:14px}.choice{border:1px solid var(--line)!important;border-top:4px solid var(--blue)!important;border-radius:12px;padding:17px;background:#fff!important;box-shadow:var(--shadow);min-height:160px;transform:none}.choice:first-child{border-top-color:var(--orange)!important}.choice:hover,.choice:focus-within{transform:translateY(-2px);box-shadow:0 5px 14px rgba(16,24,40,.08);background:#fff!important;border-color:var(--line)!important}.choice .num{width:30px;height:30px;background:var(--softblue);color:var(--blue);font-size:12px}.choice:first-child .num{background:var(--softorange);color:var(--orange)}.choice h3,.scenario-card h3,.role-card h3,.download-card h3{font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.3;font-weight:700;margin:10px 0 6px}.choice p,.scenario-card p,.resource p,.card p{font-size:13px;line-height:1.48;color:var(--muted)}.choice button,.scenario-card button,.resource button,.controls button,.btn{font-size:13px;font-weight:700;border-radius:7px;padding:8px 10px}.choice button{background:var(--softblue);color:var(--blue)}.choice:first-child button{background:var(--orange);color:#fff}
+.focus-box,.searchpanel,.card,.scenario-card,.panel,.root{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.focus-box{padding:18px;background:#fff}.builder label{font-size:13px}.builder input,.builder select,.builder textarea,.controls input,.controls select{border:1px solid var(--line);border-radius:7px;padding:9px 10px;font-size:14px}.btn{background:var(--blue)}.btn.orange{background:var(--blue)}.btn.secondary{color:var(--blue);border-color:var(--blue)}.output{border-radius:10px}.output h3,.panel-body h3,.scenario-result h3{font-size:17px}.rec{border-left-color:var(--orange);background:var(--softorange)}
+.disclosure{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}.disclosure summary{padding:15px 16px;font-size:14px}.detail-content{padding:0 16px 18px;font-size:14px}.workflow-mini div{background:#f8fafc;border:1px solid #eef1f5}.workflow-mini strong{color:var(--blue)}.root-grid{gap:12px}.root{padding:14px}.root h3,.resource h3{font-family:Arial,Helvetica,sans-serif;font-size:16px}.root button,.role-card button{color:var(--blue)}
+.tier-table{border-radius:10px}th{background:#f8fafc;color:#475467;font-size:12px}td{font-size:13px}.searchpanel{padding:16px}.controls button{background:var(--blue)}.resource{min-height:180px}.tag{background:var(--softorange);color:#7c2d12}.pill{background:#f2f4f7;border:0;color:#475467}.resource button{background:var(--softblue);color:var(--blue)}
+.quick-links a{border:1px solid var(--line);background:#fff;color:var(--blue);font-size:13px}.scenario-card button{background:var(--blue)}.scenario-result{background:#fff;border-color:var(--line)}.next-step .stepnum{background:var(--softblue);color:var(--blue)}.callout{background:#f8fafc;border-left-color:var(--orange)}.callout.orange{background:var(--softorange)}.mini-actions button{border-color:var(--blue);color:var(--blue)}
+.panel{border-radius:12px}.panel-head{padding:17px 18px}.panel-head h2{font-family:Arial,Helvetica,sans-serif;font-size:22px}.panel-body{font-size:14px}.close{border-radius:7px}.footer{background:#fff;color:var(--muted);border-top:1px solid var(--line);font-size:12px}.footer-in{max-width:1400px}
+@media(max-width:1100px){.choice-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.choice-grid{grid-template-columns:1fr}.hero h1{font-size:30px}.section h2{font-size:24px}main{padding:20px}.hero-in{padding:26px 20px}.topbar{padding:14px 18px}}
+
+
+/* === v9: GRPS Progress Dashboard visual system === */
+:root{--pd-navy:#123f63;--pd-blue:#005ea8;--pd-orange:#f47721;--pd-yellow:#f5b800;--pd-red:#d8342b;--pd-ink:#394f63;--pd-muted:#5f7283;--pd-bg:#f4f6f8;--pd-line:#d4dde5;--pd-card:#ffffff;--pd-green:#23865b;--pd-font:Arial,"Helvetica Neue",Helvetica,sans-serif}
+body{font-family:var(--pd-font);background:var(--pd-bg);color:var(--pd-ink);font-size:16px;line-height:1.55}
+.dash-header{background:#fff;border-bottom:1px solid var(--pd-line);position:relative}
+.dash-header:after{display:none}
+.dash-brandrow{max-width:1540px;margin:0 auto;padding:6px 32px 17px;display:flex;align-items:flex-start;gap:28px}
+.dash-logo-block{width:225px;height:73px;background:#2d5f97;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;flex:0 0 auto;margin-top:0}
+.dash-logo-text{font-weight:900;font-size:31px;line-height:.9;letter-spacing:-1.5px}.dash-logo-sub{font-size:11px;font-weight:700;margin-top:3px}.dash-logo-line{position:absolute;left:0;right:0;bottom:-7px;height:6px;border-top:2px solid #f28c28;border-bottom:2px solid #f4bd24}
+.dash-titleblock{padding-top:0}.dash-kicker{color:#f26f21;font-size:14px;font-weight:900;letter-spacing:.14em}.dash-title{color:#075c9e;font-size:38px;line-height:1.08;font-weight:900;letter-spacing:-1.4px;margin-top:5px}.dash-subtitle{color:#596a79;font-size:16px;margin-top:8px}
+.dash-tabs{max-width:100%;margin:0 auto;padding:14px 32px 0;display:flex;gap:8px;overflow-x:auto;white-space:nowrap;background:#fff}
+.dash-tabs a{color:#394f63;text-decoration:none;font-weight:800;font-size:15px;padding:13px 17px 16px;border:2px solid transparent;border-bottom:4px solid transparent;border-radius:4px 4px 0 0}
+.dash-tabs a:hover{color:#075c9e}.dash-tabs a.active{color:#075c9e;border-color:#1479dc;border-bottom-color:#f47721;background:#f8fafc}
+.dash-hero{background:var(--pd-bg);color:var(--pd-ink);overflow:visible;border:0}.dash-hero:before,.dash-hero:after{display:none}.dash-hero-in{max-width:1540px;padding:54px 32px 34px;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(330px,.7fr);gap:56px;align-items:center}
+.dash-hero-copy .eyebrow{color:#f26f21;font-size:14px;font-weight:900;letter-spacing:.15em}.dash-hero h1{color:var(--pd-navy);font-family:var(--pd-font);font-size:clamp(42px,4.3vw,58px);font-weight:900;letter-spacing:-2.3px;line-height:1.04;max-width:950px;margin:15px 0 20px}.dash-hero p{color:#526879;font-size:19px;line-height:1.55;max-width:980px}.dash-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.dash-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:900;font-size:16px;border-radius:4px;padding:14px 20px}.dash-btn.primary{background:#f47721;color:#fff}.dash-btn.secondary{background:#fff;color:#075c9e;border:1px solid #a7bfce}
+.dash-rule{background:#075f9f;color:#fff;border-radius:5px;min-height:174px;padding:26px 26px 26px 34px;position:relative;box-shadow:0 1px 0 rgba(0,0,0,.03)}.dash-rule-accent{position:absolute;left:0;top:0;bottom:0;width:7px;background:#f5b800;border-radius:5px 0 0 5px}.dash-rule h2{font-size:23px;line-height:1.15;margin:0 0 13px;color:#fff;padding:0}.dash-rule h2:before{display:none}.dash-rule p{color:#fff;font-size:16px;line-height:1.55;margin:0}
+main{max-width:1540px;padding:0 32px 72px;margin:0 auto;background:var(--pd-bg)}.section{margin:0 0 54px}.section h2{font-family:var(--pd-font);color:var(--pd-navy);font-size:31px;font-weight:900;letter-spacing:-.8px;padding-left:0;margin-bottom:10px}.section h2:before{display:none}.lead{font-size:16px;color:#5d7081;max-width:900px;margin-bottom:24px}
+#start{padding-top:0}.choice-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.choice{border:1px solid var(--pd-line);border-top:5px solid var(--pd-blue);border-radius:4px;background:#fff;box-shadow:0 2px 6px rgba(23,59,86,.05);padding:24px 24px 23px;min-height:230px;transform:none}.choice:nth-child(2){border-top-color:var(--pd-orange)}.choice:nth-child(3){border-top-color:var(--pd-yellow)}.choice:nth-child(4){border-top-color:var(--pd-red)}.choice:hover,.choice:focus-within{transform:none;background:#fff;border-color:#bfcbd4;box-shadow:0 5px 16px rgba(23,59,86,.09)}.choice .num{background:#edf4fa;color:#075c9e;border-radius:999px;width:36px;height:36px}.choice h3{font-family:var(--pd-font);color:#3c5367;font-size:18px;font-weight:900;margin:17px 0 9px}.choice p{font-size:15px;color:#637687}.choice button{background:#075f9f;border-radius:999px;padding:9px 15px;font-size:14px;margin-top:18px}.choice:nth-child(2) button{background:#075f9f}.choice:nth-child(3) button{background:#075f9f}.choice:nth-child(4) button{background:#075f9f}
+.focus-box,.searchpanel,.card,.scenario-card,.root,.tier-table,.output{border:1px solid var(--pd-line);border-radius:4px;background:#fff;box-shadow:0 2px 6px rgba(23,59,86,.04)}.focus-box{padding:25px;background:#fff}.builder input,.builder select,.builder textarea,.controls input,.controls select{border:1px solid #b8c8d3;border-radius:3px;padding:11px 12px;background:#fff}.builder label{color:#3d5264;font-size:14px}.btn{border-radius:999px;background:#075f9f;font-size:14px;padding:10px 16px}.btn.orange{background:#f47721}.btn.secondary{border-radius:4px;border:1px solid #a7bfce;color:#075c9e}.rec{border-left-color:#f47721;background:#fff8f3;border-radius:2px}.rec h4,.resource h3,.role-card h3,.scenario-card h3,.root h3,.output h3{font-family:var(--pd-font);color:#3e5365;font-weight:900}.tag{background:#e8f5ee;color:#24845b}.pill{border-color:#c8d4dc;color:#5b6f80;background:#f8fafb}.resource button,.scenario-card button{background:#075f9f;border-radius:999px}.resource{min-height:210px}.card{border-top:4px solid #0b67a8}.resources .card:nth-child(4n+2){border-top-color:#f47721}.resources .card:nth-child(4n+3){border-top-color:#f5b800}.resources .card:nth-child(4n+4){border-top-color:#d8342b}.role-card{border-top:4px solid #0b67a8}.role-card button,.root button{color:#075f9f}.download-card a{color:#075f9f}.quick-links a{background:#fff;color:#075f9e;border:1px solid #afc3d1;border-radius:4px}.workflow-mini div{background:#eef3f6;border-radius:3px}.workflow-mini strong{color:#075f9f}.tier-table th{background:#eef3f6;color:#3f5264}.disclosure summary{color:#394f63}.disclosure summary:after{color:#f47721}.panel{border-radius:5px}.panel-head{background:#f8fafb}.close{border-radius:4px}.footer{background:#123f63}.scenario-result{background:#fff;border-color:var(--pd-line);border-radius:4px}.callout.orange{border-left-color:#f47721;background:#fff7f1}
+@media(max-width:1100px){.choice-grid{grid-template-columns:repeat(2,1fr)}.dash-hero-in{grid-template-columns:1fr}.dash-rule{max-width:720px}.dash-brandrow{padding-left:20px;padding-right:20px}.dash-tabs{padding-left:20px;padding-right:20px}.dash-hero-in,main{padding-left:20px;padding-right:20px}}
+@media(max-width:700px){.dash-brandrow{align-items:center;gap:15px}.dash-logo-block{width:130px;height:58px}.dash-logo-text{font-size:24px}.dash-title{font-size:26px}.dash-kicker{font-size:11px}.dash-subtitle{font-size:13px}.dash-tabs{padding-top:8px}.dash-tabs a{padding:10px 12px 12px;font-size:13px}.dash-hero-in{padding-top:34px;gap:25px}.dash-hero h1{font-size:38px;letter-spacing:-1.5px}.dash-hero p{font-size:17px}.choice-grid{grid-template-columns:1fr}.choice{min-height:0}.builder-grid,.controls,.resources,.role-grid,.download-grid,.scenario-strip{grid-template-columns:1fr}.workflow-mini{grid-template-columns:1fr}.root-grid{grid-template-columns:1fr}}
+
+</style>
+<style id="v10-card-readability-fix">
+/* v10: improve pathway-card readability while preserving Progress Dashboard design */
+.path-card h3,
+.pathway-card h3,
+.start-card h3,
+.action-card h3 {
+  color: #173f61 !important;
+  font-weight: 700 !important;
+}
+.path-card p,
+.pathway-card p,
+.start-card p,
+.action-card p {
+  color: #526b80 !important;
+  font-weight: 400 !important;
+}
+.path-card .btn,
+.pathway-card .btn,
+.start-card .btn,
+.action-card .btn,
+.path-card button,
+.pathway-card button,
+.start-card button,
+.action-card button {
+  background: #0067a6 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+}
+.path-card .btn *,
+.pathway-card .btn *,
+.start-card .btn *,
+.action-card .btn *,
+.path-card button *,
+.pathway-card button *,
+.start-card button *,
+.action-card button * {
+  color: #ffffff !important;
+}
+</style>
+
+
+<style id="v10-choice-readability-fix">
+/* Pathway cards: stronger contrast and clearer hierarchy */
+.choice h3 {
+  color: #173f61 !important;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+  font-weight: 700 !important;
+}
+.choice p {
+  color: #536d82 !important;
+  font-size: 17px !important;
+  line-height: 1.5 !important;
+}
+.choice button {
+  background: #0067a6 !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.choice button:hover,
+.choice button:focus {
+  background: #004f82 !important;
+  color: #ffffff !important;
+}
+.choice .num {
+  color: #005b96 !important;
+  font-weight: 700 !important;
+}
+</style>
+
+
+<style id="v11-community-resource-styles">
+.action-intervention-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:26px 0}
+.definition-card{background:#fff;border:1px solid #d7e0e8;border-radius:6px;padding:24px 26px;box-shadow:0 2px 8px rgba(20,53,80,.05)}
+.definition-card h3{margin:8px 0 10px;color:#173f61;font-size:22px}
+.definition-card p{color:#536d82;line-height:1.55}
+.definition-label{font-size:13px;font-weight:800;letter-spacing:.12em}
+.action-def{border-top:5px solid #e35205}.action-def .definition-label{color:#e35205}
+.intervention-def{border-top:5px solid #0067a6}.intervention-def .definition-label{color:#0067a6}
+.community-callout{display:grid;grid-template-columns:1.5fr auto;gap:30px;align-items:center;background:#0067a6;border-left:8px solid #f2b705;color:#fff;padding:28px 30px;border-radius:5px;margin:30px 0}
+.community-callout h3{color:#fff;font-size:25px;margin:6px 0 10px}.community-callout p{color:#fff;line-height:1.55;margin:0}.eyebrow.light{color:#fff}
+.community-actions{display:flex;flex-direction:column;gap:10px;min-width:230px}
+.dash-btn.orange-link,.dash-btn.light-link{display:block;text-decoration:none;text-align:center;padding:13px 18px;border-radius:4px;font-weight:700}
+.dash-btn.orange-link{background:#e35205;color:#fff}.dash-btn.light-link{background:#fff;color:#005b96}
+.subhead{font-size:25px;color:#173f61;margin:34px 0 16px}
+.resource-category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.community-card{position:relative;background:#fff;border:1px solid #d7e0e8;border-radius:5px;padding:26px 24px 22px;box-shadow:0 2px 8px rgba(20,53,80,.05);overflow:hidden}
+.community-card .topline{position:absolute;left:0;right:0;top:0;height:5px}.topline.blue{background:#005b96}.topline.orange{background:#e35205}.topline.yellow{background:#f2b705}.topline.red{background:#d8322b}
+.community-card h3{font-size:19px;color:#294b66;margin:4px 0 10px}.community-card p{color:#61788b;line-height:1.5;min-height:72px}.community-card a{color:#005b96;font-weight:700;text-decoration:none}.link-stack{display:flex;flex-direction:column;gap:8px}
+.partner-panel{background:#fff;border:1px solid #d7e0e8;border-radius:5px;padding:26px;margin:30px 0}.partner-panel h3{color:#173f61;margin-top:0}.partner-intro{color:#61788b}
+.partner-chips{display:flex;flex-wrap:wrap;gap:9px}.partner-chips span{background:#edf4fa;color:#294b66;border:1px solid #d4e3ef;border-radius:999px;padding:8px 12px;font-size:14px;font-weight:700}
+.warm-handoff{background:#fff;border:1px solid #d7e0e8;border-top:5px solid #e35205;border-radius:5px;padding:26px 30px;margin:30px 0}.warm-handoff h3{color:#173f61;font-size:23px}.warm-handoff ol{color:#536d82;line-height:1.65;padding-left:22px}
+@media(max-width:900px){.action-intervention-grid,.community-callout{grid-template-columns:1fr}.resource-category-grid{grid-template-columns:1fr 1fr}.community-actions{min-width:0}}
+@media(max-width:620px){.resource-category-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style id="v14-role-pathway-fix">
+.role-helper{color:#536d82;max-width:760px;margin:-6px 0 20px;line-height:1.5}
+.role-card button{color:#fff !important;background:#0067a6 !important;font-weight:700 !important}
+.role-card button:hover,.role-card button:focus{background:#004f82 !important}
+</style>
+
+<style id="v14-matcher-resource-links">
+.matcher-resources{margin:18px 0;padding:18px 20px;background:#f3f7fa;border-left:5px solid #e35205;border-radius:4px}
+.matcher-resources h4{margin:0 0 8px;color:#173f61;font-size:18px}
+.matcher-resources p{color:#536d82;margin:0 0 10px;line-height:1.5}
+.matcher-resources a{display:block;color:#005b96;font-weight:700;text-decoration:none;margin:7px 0}
+</style>
+<style id="v15-enhancements">.pair-example{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}.pair-example>div{background:#fff;border:1px solid #d7e0e8;border-radius:5px;padding:16px 18px}.pair-example>div:first-child{border-top:4px solid #e35205}.pair-example>div:last-child{border-top:4px solid #0067a6}.pair-example span{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;color:#526b80;margin-bottom:7px}.pair-example strong{display:block;color:#173f61;line-height:1.45}.family-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.family-note{margin-top:20px;background:#fff;border-left:6px solid #e35205;padding:18px 20px;color:#294b66}.maintenance-note{margin:30px auto 10px;padding:14px 0;color:#667b8c;font-size:13px;border-top:1px solid #d7e0e8}.maintenance-note span{margin-left:8px}@media(max-width:850px){.pair-example,.family-grid{grid-template-columns:1fr}}</style><style id="v16-finalization">.partner-match,.ai-library,.qa-panel{background:#fff;border:1px solid #d7e0e8;border-radius:5px;padding:26px;margin:28px 0}.partner-match{border-top:5px solid #0067a6}.match-table{overflow-x:auto}.match-table table{width:100%;border-collapse:collapse}.match-table th,.match-table td{padding:13px 12px;border-bottom:1px solid #dfe6ec;text-align:left;vertical-align:top}.match-table th{color:#173f61;background:#f4f7f9}.ai-library{border-top:5px solid #e35205}.ai-grid,.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ai-grid>div,.qa-grid>div{background:#f5f8fa;padding:15px 16px;border-radius:4px;color:#526b80;line-height:1.5}.ai-grid b,.qa-grid b{color:#173f61}.qa-grid span{display:block;margin-top:5px}.qa-panel{border-top:5px solid #f2b705}.qa-rule{margin-bottom:0;color:#526b80}@media(max-width:800px){.ai-grid,.qa-grid{grid-template-columns:1fr}}</style><style id="pilot-freeze">.pilot-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#123f63;color:#fff;padding:10px 4%;font-size:13px}.pilot-bar strong{color:#f5b800;letter-spacing:.08em}.pilot-bar span{flex:1;min-width:260px}.pilot-bar a{color:#fff;border:1px solid rgba(255,255,255,.6);padding:6px 10px;border-radius:3px;text-decoration:none;font-weight:700}.pilot-bar a:hover,.pilot-bar a:focus{background:#fff;color:#123f63}</style></head><body><div class="pilot-bar"><strong>PILOT VERSION</strong><span>Feature-frozen for user validation. Report content corrections, usability problems, broken links, and accessibility issues.</span><a href="tools/Pilot_Feedback_Form.csv" download>Feedback form</a><a href="tools/Pilot_Testing_Guide.md" download>Testing guide</a></div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="dash-header">
+  <div class="dash-brandrow">
+    <div class="dash-logo-block" aria-label="Grand Rapids Public Schools"><div class="dash-logo-text">GRPS</div><div class="dash-logo-sub">my choice.</div><div class="dash-logo-line"></div></div>
+    <div class="dash-titleblock"><div class="dash-kicker">STRIVE FOR LESS THAN 5</div><div class="dash-title">Attendance Resource & Action Guide</div><div class="dash-subtitle">Grand Rapids Public Schools</div></div>
+  </div>
+  <nav class="dash-tabs" aria-label="Strive for Less Than 5 navigation">
+    <a class="active" href="#start">Overview</a>
+    <a href="#matcher">Support a Scholar</a>
+    <a href="#resources">Find Resources</a>
+    <a href="#practice">Practice Scenarios</a>
+    <a href="#leadership">Attendance Team</a>
+    <a href="Strive_for_Less_Than_5_Playbook.pdf" target="_blank">Playbook ↗</a>
+  </nav>
+</header>
+<section class="hero dash-hero"><div class="hero-in dash-hero-in">
+  <div class="dash-hero-copy">
+    <div class="eyebrow">ATTENDANCE SUPPORT</div>
+    <h1>How do we help every scholar get to school, belong, and succeed?</h1>
+    <p>Use Strive for Less Than 5 to understand attendance, identify what is getting in the way, and connect scholars and families with the right support.</p>
+    <div class="dash-actions"><a class="dash-btn primary" href="#matcher">Support a scholar</a><a class="dash-btn secondary" href="#resources">Find a resource ↗</a></div>
+  </div>
+  <aside class="dash-rule"><div class="dash-rule-accent"></div><div><h2>Strive for Less Than 5</h2><p>The district goal is for scholars to miss fewer than five days of school. Attendance percentage determines intensity; root cause determines the support.</p></div></aside>
+</div></section>
+<main id="main">
+<section class="section" id="start"><h2>What do you need today?</h2><p class="lead">Choose one path. Everything else stays out of the way until you need it.</p><div class="choice-grid">
+<article class="choice" style="background:linear-gradient(180deg,#fff 0,#fff6ef 100%);border-color:#f0c5a5"><div class="num">1</div><h3>I need to support a scholar</h3><p>Use attendance level and root cause to identify a matched response.</p><button data-anchor="matcher">Open intervention guide →</button></article>
+<article class="choice"><div class="num">2</div><h3>I need a tool or resource</h3><p>Search templates, scripts, intervention guidance, Playbook resources, and community supports.</p><button data-anchor="resources">Search resources →</button></article>
+<article class="choice"><div class="num">3</div><h3>I lead attendance work</h3><p>See team workflow, ownership, review checkpoints, and implementation tools.</p><button data-anchor="leadership">Open leadership tools →</button></article>
+<article class="choice"><div class="num">4</div><h3>I want to understand attendance</h3><p>Review the GRPS attendance framework, tiers, and root-cause pathways.</p><button data-anchor="reference">Open quick reference →</button></article>
+</div></section>
+
+<section class="section" id="matcher"><h2>Support a scholar</h2><p class="lead">Start with only three things: attendance level, why the scholar is missing school, and the specific need.</p><div class="focus-box builder">
+<div class="builder-grid"><div><label for="absencePct">Current absence percentage</label><input id="absencePct" type="number" min="0" max="100" step=".1" placeholder="e.g., 14.5"></div><div><label for="rootCause">Root-cause pathway</label><select id="rootCause"><option value="">Choose...</option><option>Barrier</option><option>Aversion</option><option>Disengagement</option><option>Misconception</option></select></div><div><label for="need">Specific need</label><select id="need"><option value="">Choose a root cause first</option></select></div><div><label for="schoolType">KSSN partner school?</label><select id="schoolType"><option value="No">No / Not sure</option><option value="Yes">Yes</option></select></div>
+<details class="wide"><summary style="cursor:pointer;font-weight:800;color:var(--blue)">Add optional planning details</summary><div class="builder-grid" style="margin-top:12px"><div><label for="identifier">Scholar / local identifier</label><input id="identifier" placeholder="Optional; stays in this browser only"></div><div><label for="goalField">Measurable goal</label><input id="goalField" placeholder="e.g., 90%+ attendance over next 20 school days"></div><div class="wide"><label for="voice">Scholar / family voice notes</label><textarea id="voice" rows="3" placeholder="What are the scholar and family telling us?"></textarea></div></div></details></div>
+<button class="btn orange" id="matchBtn">Show matched response</button><button class="btn secondary" id="clearBuilder">Clear</button><div class="output" id="matchOutput"><h3>Matched response will appear here</h3><p>Enter an absence percentage, root-cause pathway, and specific need.</p></div></div></section>
+
+<section class="section" id="reference"><h2>Quick reference</h2><p class="lead">Open only the information you need.</p><div class="disclosure">
+<details><summary>GRPS attendance workflow</summary><div class="detail-content"><div class="workflow-mini"><div><strong>1. Identify</strong>Who needs support?</div><div><strong>2. Understand</strong>Why are they absent?</div><div><strong>3. Match</strong>What addresses the reason?</div><div><strong>4. Act</strong>Who will implement?</div><div><strong>5. Review</strong>Is it working?</div></div></div></details>
+<details><summary>Attendance tiers and ownership</summary><div class="detail-content"><div class="tier-table"><table><thead><tr><th>Level</th><th>Absence</th><th>Primary ownership</th><th>Monitoring</th></tr></thead><tbody><tr><td><b>Tier 1</b></td><td>0–9%</td><td>All staff; Attendance Team monitors</td><td>Regular team review</td></tr><tr><td><b>Tier 2</b></td><td>10–19%</td><td>Building Attendance Team</td><td>Monthly + 10/20/30-day checkpoints for active plans</td></tr><tr><td><b>Tier 3</b></td><td>20%+</td><td>FSS + Attendance Team</td><td>Frequent review; active plans at least every 10 school days</td></tr></tbody></table></div></div></details>
+<details><summary>Root causes of absence</summary><div class="detail-content"><div class="root-grid"><article class="root"><h3>Barrier</h3><p>Something prevents the scholar from getting to school.</p><button data-root="Barrier">Use this pathway →</button></article><article class="root"><h3>Aversion</h3><p>Something about the school experience causes avoidance.</p><button data-root="Aversion">Use this pathway →</button></article><article class="root"><h3>Disengagement</h3><p>The scholar lacks connection, relevance, or motivation.</p><button data-root="Disengagement">Use this pathway →</button></article><article class="root"><h3>Misconception</h3><p>The scholar or family misunderstands attendance expectations or impact.</p><button data-root="Misconception">Use this pathway →</button></article></div></div></details>
+<details><summary>Action vs. intervention</summary><div class="detail-content"><p><b>Action:</b> something staff did—such as a call, letter, email, or referral.</p><p><b>Intervention:</b> something intentionally designed to remove a barrier, change a condition, strengthen a relationship, build a skill, or address the reason for absence.</p><div class="quick-links"><a href="tools/Action_vs_Intervention_Quick_Reference.md">Open quick reference</a></div></div></details>
+<details><summary>Content validation & system alignment</summary><div class="detail-content"><p><strong>Validated operating rules:</strong></p><ul><li>Strive for Less Than 5 is universal prevention messaging—not the MTSS intervention threshold.</li><li>Synergy is the official operational attendance source; contextual information and scholar/family voice help explain why.</li><li>Targeted plans name a primary root cause: Barrier, Aversion, Disengagement, or Misconception.</li><li>Root cause determines the intervention and owner; attendance pattern/severity informs intensity.</li><li>Active targeted plans review implementation fidelity, barrier reduction, and attendance response at 10/20/30 school days.</li><li>Low fidelity → repair implementation. Good fidelity + barrier unchanged → adjust. Barrier reduced + attendance improving → continue/fade. New/severe need → intensify/coordinate.</li><li>Legal/truancy escalation is not the organizing framework for attendance intervention.</li></ul></div></details></div></section>
+
+<section class="section" id="resources"><h2>Find a resource</h2><p class="lead">Search only when you need something specific. The library does not load as a wall of cards until you filter or search.</p><div class="searchpanel"><div class="controls"><input id="q" type="search" placeholder="Search: transportation, anxiety, FSS, CICO..." aria-label="Search"><select id="topic"><option value="">All topics</option></select><select id="role"><option value="">All roles</option></select><button id="reset">Reset</button></div><div class="meta" id="meta"></div><div class="resources" id="resourceGrid"></div></div></section>
+
+
+<section class="section" id="practice"><h2>Practice with a real-world example</h2><p class="lead">Use a short scenario to see how the GRPS process should work. Nothing opens until you choose a case.</p><div class="ai-library"><div class="eyebrow">ACTION → INTERVENTION PRACTICE</div><h3>Common documentation mistakes</h3><div class="ai-grid"><div><b>Action:</b> Sent an attendance letter.<br><b>Intervention:</b> After identifying a misconception, created an attendance goal/habit plan with progress feedback and review.</div><div><b>Action:</b> Called the caregiver about transportation.<br><b>Intervention:</b> Created a primary and backup transportation plan, completed a warm handoff, and monitored arrival.</div><div><b>Action:</b> Referred the scholar to FSS.<br><b>Intervention:</b> FSS identified the family-facing barrier, implemented the matched plan, coordinated resources, and monitored barrier reduction.</div><div><b>Action:</b> Shared a counseling resource.<br><b>Intervention:</b> Implemented a predictable re-entry/check-in plan while completing the behavioral-health connection and monitoring avoidance.</div><div><b>Action:</b> Held an attendance conference.<br><b>Intervention:</b> Used the conference findings to create a specific barrier-removal plan with an owner, dosage, goal, and review date.</div><div><b>Action:</b> Gave an incentive.<br><b>Intervention:</b> The barrier-matched support remains the intervention; any incentive is only a documented component when appropriate—not the intervention itself.</div></div></div><div class="scenario-strip">
+<article class="scenario-card"><span class="tag">Teacher / FSS</span><h3>Morning transportation breakdown</h3><p>A scholar has missed 12% of days. The family reports an unreliable ride after a work-schedule change.</p><button data-scenario="transport">Work through this case →</button></article>
+<article class="scenario-card"><span class="tag">Teacher / Counselor</span><h3>Specific-class avoidance</h3><p>A scholar is present most mornings but repeatedly misses first-hour math and now has 15% absence.</p><button data-scenario="academic">Work through this case →</button></article>
+<article class="scenario-card"><span class="tag">Attendance Team</span><h3>Support is not changing attendance</h3><p>A Tier 2 scholar has had a mentor for 20 school days, but attendance remains flat and the barrier is still unclear.</p><button data-scenario="nonresponse">Work through this case →</button></article>
+</div><div id="scenarioResult"></div></section>
+
+<section class="section" id="families"><div class="eyebrow">FAMILIES & CAREGIVERS</div><h2>Help your scholar build strong attendance</h2><p class="lead">Simple guidance and connections for families.</p><div class="family-grid"><article class="community-card"><div class="topline orange"></div><h3>Why every day matters</h3><p>Regular attendance helps scholars stay connected to learning, trusted adults, friends, activities, and support.</p></article><article class="community-card"><div class="topline blue"></div><h3>Something is getting in the way</h3><p>Tell the school what is making attendance difficult. Transportation, health, housing, anxiety, family routines, peer concerns, and other challenges can be addressed together.</p></article><article class="community-card"><div class="topline yellow"></div><h3>Find community support</h3><p>Search current food, housing, transportation, health, mental-health, childcare, and family resources.</p><div class="link-stack"><a href="https://www.findhelp.org/" target="_blank" rel="noopener">Search Findhelp ↗</a><a href="https://www.google.com/maps/d/u/0/viewer?hl=en&mid=1_QxiKRVJOvXj9kWZwxhQnMkDpKtVS5M&ll=42.949338122271186%2C-85.62441883329723&z=15" target="_blank" rel="noopener">Grand Rapids Area Resource Map ↗</a></div></article></div><div class="family-note"><strong>Need help?</strong> Contact your scholar's school and explain what is getting in the way of attendance. The goal is to understand the barrier and develop a plan with you.</div></section>
+<section class="section" id="community">
+  <div class="eyebrow">COMMUNITY RESOURCE CONNECTIONS</div>
+  <h2>Connect the barrier to the right support</h2>
+  <p class="lead">Use community partners to help carry out a matched attendance intervention. A referral or resource link is an <strong>action</strong>; the intervention is the intentional plan that removes or reduces the identified attendance barrier and is monitored for impact.</p>
+
+  <div class="action-intervention-grid">
+    <div class="definition-card action-def">
+      <div class="definition-label">ACTION</div>
+      <h3>Something staff did</h3>
+      <p>Examples: sent a letter, made a phone call, shared a resource, or made a referral.</p>
+      <strong>Important: an action is not, by itself, an intervention.</strong>
+    </div>
+    <div class="definition-card intervention-def">
+      <div class="definition-label">INTERVENTION</div>
+      <h3>A response designed to change the attendance condition</h3>
+      <p>It removes or reduces a barrier, changes a behavior or condition, or directly addresses the situation/root cause contributing to absence.</p>
+      <strong>Monitor whether attendance and the identified barrier actually improve.</strong>
+    </div>
+  </div>
+
+  <div class="community-callout">
+    <div>
+      <div class="eyebrow light">RESOURCE NAVIGATION</div>
+      <h3>Start broad, then make a warm handoff</h3>
+      <p>Use Findhelp or the Grand Rapids Area Resource Map to locate current community services. Then identify who will connect the family, what barrier the service is intended to address, and when the team will review progress.</p>
+    </div>
+    <div class="community-actions">
+      <a class="dash-btn orange-link" href="https://www.findhelp.org/" target="_blank" rel="noopener">Search Findhelp ↗</a>
+      <a class="dash-btn light-link" href="https://www.google.com/maps/d/u/0/viewer?hl=en&mid=1_QxiKRVJOvXj9kWZwxhQnMkDpKtVS5M&ll=42.949338122271186%2C-85.62441883329723&z=15" target="_blank" rel="noopener">Open GR Resource Map ↗</a>
+    </div>
+  </div>
+
+  <h3 class="subhead">Find support by barrier</h3>
+  <div class="resource-category-grid">
+    <article class="community-card"><div class="topline blue"></div><h3>Food & Basic Needs</h3><p>Use when food insecurity or unmet basic needs are disrupting routines, health, or school attendance.</p><a href="https://www.findhelp.org/" target="_blank" rel="noopener">Search current resources →</a></article>
+    <article class="community-card"><div class="topline orange"></div><h3>Housing & Utilities</h3><p>Use when housing instability, utility disruption, or displacement is contributing to absence.</p><a href="https://www.findhelp.org/" target="_blank" rel="noopener">Search current resources →</a></article>
+    <article class="community-card"><div class="topline yellow"></div><h3>Transportation</h3><p>Use when the scholar lacks a reliable way to get to school or needs a primary and backup arrival plan.</p><a href="https://www.findhelp.org/" target="_blank" rel="noopener">Search transportation supports →</a></article>
+    <article class="community-card"><div class="topline red"></div><h3>Health & Dental</h3><p>Consider pediatricians, local clinics, and school-based health centers when health needs are contributing to absence.</p><a href="https://cherryhealth.org/services/school-based/" target="_blank" rel="noopener">Explore Cherry Health school programs ↗</a></article>
+    <article class="community-card"><div class="topline blue"></div><h3>Mental Health & Wellness</h3><p>Use when anxiety, emotional health, trauma, or behavioral-health needs are connected to attendance.</p><a href="https://cherryhealth.org/services/behavioral-health/" target="_blank" rel="noopener">Explore behavioral health supports ↗</a></article>
+    <article class="community-card"><div class="topline orange"></div><h3>Belonging, Mentoring & Engagement</h3><p>Consider trusted adults, mentoring, after-school programs, recreation, and structured connection when disengagement is a root cause.</p><div class="link-stack"><a href="https://bgcgrandrapids.org/" target="_blank" rel="noopener">Boys & Girls Clubs of Grand Rapids ↗</a><a href="https://www.grandrapidsmi.gov/departments/parks-recreation/recreation/" target="_blank" rel="noopener">GR Parks & Recreation youth programs ↗</a></div></article>
+  </div>
+
+  <div class="partner-panel">
+    <h3>Potential partners</h3>
+    <p class="partner-intro">Partner selection should follow the identified root cause—not the attendance percentage alone.</p>
+    <div class="partner-chips">
+      <span>Parents / Caregivers</span><span>Local Pediatricians</span><span>Cherry Health</span><span>Behavioral Health Clinicians</span><span>School-Based Health Centers</span><span>Local Clinics</span><span>MENTOR / Mentoring Programs</span><span>Parks & Recreation</span><span>Boys & Girls Club</span><span>AmeriCorps Programs</span><span>City Government</span><span>FSS / KSSN</span>
+    </div>
+  </div>
+
+  <div class="partner-match"><h3>Match partners to the barrier</h3><p>Partners help deliver or coordinate an intervention. <strong>The partner is not the intervention.</strong></p><div class="match-table"><table><thead><tr><th>Need / Root Cause</th><th>Potential Partners</th><th>What the intervention might change</th></tr></thead><tbody><tr><td>Health / dental</td><td>School health staff, school-based health center, Cherry Health, local pediatrician/clinic</td><td>Access to care, appropriate health plan, timely return to school</td></tr><tr><td>Anxiety / behavioral health</td><td>Behavioral health clinicians, counselor/social worker, Cherry Health</td><td>Avoidance, coping/re-entry supports, access to treatment</td></tr><tr><td>Transportation / basic needs</td><td>FSS, KSSN where available, parents/caregivers, community resources, city government</td><td>Reliable transportation, stabilized basic need, backup plan</td></tr><tr><td>Belonging / disengagement</td><td>MENTOR/mentoring programs, Boys & Girls Club, Parks & Recreation, AmeriCorps programs, caring adults</td><td>Connection, engagement, trusted-adult relationship, meaningful participation</td></tr><tr><td>Academic / credit barriers</td><td>Teachers, counselors, academic supports, tutoring/extended learning</td><td>Access to learning, manageable recovery plan, course/credit progress</td></tr><tr><td>Family routines / caregiving</td><td>Parents/caregivers, FSS, KSSN where available, community supports</td><td>Morning/evening routines, backup caregiving, family problem-solving</td></tr></tbody></table></div></div>
+<div class="warm-handoff">
+    <div class="eyebrow">WARM HANDOFF CHECK</div>
+    <h3>Before calling it an intervention, answer five questions</h3>
+    <ol>
+      <li><strong>Barrier:</strong> What specific attendance barrier or condition are we addressing?</li>
+      <li><strong>Intervention:</strong> What will actually change or reduce that barrier?</li>
+      <li><strong>Partner:</strong> Who is helping deliver the intervention?</li>
+      <li><strong>Owner:</strong> Who at GRPS is responsible for follow-through?</li>
+      <li><strong>Review:</strong> What will we check at 10, 20, and 30 days to know whether it worked?</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="leadership"><h2>Attendance leadership tools</h2><p class="lead">For school leaders and attendance teams.</p><div class="qa-panel"><div class="eyebrow">END-USER SIMULATION</div><h3>Can each user get to the right next step?</h3><div class="qa-grid"><div><b>Principal / School Leader</b><span>Schoolwide conditions → team ownership → fidelity/system barriers</span></div><div><b>Teacher</b><span>Early pattern → positive outreach → classroom/academic response → escalation</span></div><div><b>FSS</b><span>Family voice → barrier → intervention → warm handoff → monitoring</span></div><div><b>KSSN Coordinator</b><span>Wraparound need → resource coordination → verify access → one shared plan</span></div><div><b>Secretary / Attendance Staff</b><span>Accurate data → unverified absence contact → route concern to team</span></div><div><b>Social Worker / Counselor</b><span>Aversion/mental health → matched school support → partner connection → review</span></div><div><b>District/Department Staff</b><span>Patterns/system barriers → aligned resource/system response</span></div><div><b>Other</b><span>Core framework → navigate by task rather than job title</span></div></div><p class="qa-rule"><strong>Usability standard:</strong> each user should reach the needed tool or next decision in 2–3 clicks.</p></div><div class="disclosure">
+<details><summary>Practice with staff scenarios</summary><div class="detail-content"><p>Use three short cases to practice root-cause analysis, intervention matching, and response-to-intervention decisions.</p><div class="quick-links"><a href="#practice">Open scenarios</a></div></div></details><details><summary>Choose your role</summary><div class="detail-content"><div class="role-grid" id="roleCards"></div></div></details>
+<details><summary>Download implementation tools</summary><div class="detail-content"><div class="download-grid"><article class="card download-card"><h3>Attendance Plan Template</h3><p>Document root cause, owner, goal, dosage, and review dates.</p><a href="tools/Attendance_Plan_Template.csv" download>Download</a></article><article class="card download-card"><h3>10/20/30-Day Review</h3><p>Review fidelity, barrier reduction, attendance trajectory, and next action.</p><a href="tools/10_20_30_Day_Review_Template.csv" download>Download</a></article><article class="card download-card"><h3>Attendance Team Agenda</h3><p>Run a focused attendance-team meeting.</p><a href="tools/Attendance_Team_Agenda.md" download>Download</a></article><article class="card download-card"><h3>Caring Conversation Guide</h3><p>Support relational, strengths-based outreach.</p><a href="tools/Caring_Conversation_Guide.md" download>Download</a></article></div></div></details>
+<details><summary>Source Playbook and companion tools</summary><div class="detail-content"><div class="quick-links"><a href="Strive_for_Less_Than_5_Playbook.pdf" target="_blank">Open Playbook</a><a href="tools/Root_Cause_Interview_Guide.md">Root Cause Interview Guide</a><a href="tools/Action_vs_Intervention_Quick_Reference.md">Action vs. Intervention</a></div></div></details>
+</div></section>
+<div class="maintenance-note"><strong>Resource stewardship:</strong> Community resource links should be reviewed periodically for availability and accuracy. <span>Last updated: August 29, 2026.</span></div></main>
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="panel"><div class="panel-head"><div><span class="tag" id="detailTopic"></span><h2 id="detailTitle" style="margin:4px 0 0"></h2></div><button class="close" id="closeDetail" aria-label="Close">×</button></div><div class="panel-body" id="detailBody"></div></div></div>
+<footer class="footer"><div class="footer-in"><p><b>GRPS Strive for Less Than 5</b> · Attendance Resource & Action Guide</p></div></footer>
+<script>
+const rolePathways=[
+ {role:'Principal / School Leader',desc:'Oversee all tiers, ensure the Attendance Team functions, remove implementation barriers, and monitor schoolwide conditions.',first:'Attendance Team Operating Guide'},
+ {role:'Teacher',desc:'Take accurate daily attendance, conduct positive outreach, strengthen belonging, and implement designed interventions.',first:'Universal Attendance Practices'},
+ {role:'Family Support Specialist',desc:'Lead family-facing barrier identification, caring conversations, home visits, resource navigation, and sustained engagement.',first:'Family Support Specialist Hub'},
+ {role:'KSSN Coordinator',desc:'In partner schools, support CSLT/team coordination and connect complex needs to wraparound/community resources.',first:'KSSN & Community Coordination'},
+ {role:'Secretary / Attendance Staff',desc:'Maintain accurate attendance records, contact families for unverified absences, and support reliable team workflow.',first:'Synergy Attendance Analytics'},
+ {role:'Social Worker / Counselor',desc:'Support mental health, school avoidance, relationships, safety, and targeted connection/skill-building interventions.',first:'Mental Health & Attendance'},
+ {role:'Attendance Team',desc:'Own Tier 2 root-cause analysis, intervention design, monitoring, and co-own Tier 3 with FSS.',first:'Attendance Team Operating Guide'},
+ {role:'District/Department Staff',desc:'Use districtwide attendance guidance, data, professional learning, and system resources to support schools and aligned departments.',first:'Understanding Chronic Absence'},
+ {role:'Other',desc:'Start with the core attendance framework, then navigate by what you need to accomplish rather than by job title.',first:'Understanding Chronic Absence'}
+];
+const resources=[
+ {title:'Understanding Chronic Absence',topic:'Understanding Attendance',roles:['All Staff','Principal / School Leader','Attendance Team'],tags:['chronic absence','10%','attendance bands'],summary:'Know what chronic absence means and why ADA or truancy alone can hide the problem.',when:'Use during onboarding, attendance-team calibration, family messaging, or when staff need a common definition.',steps:['Define chronic absence as missing 10% or more of school days, including excused, unexcused, and suspension days.','Use individual scholar data rather than relying only on average daily attendance.','Distinguish chronic absence from truancy.'],evidence:'Staff use consistent definitions and attendance bands in planning and communication.',downloads:[]},
+ {title:'Positive Conditions for Learning',topic:'Universal & Proactive',roles:['All Staff','Principal / School Leader','Teacher'],tags:['belonging','climate','relationships','engagement'],summary:'Strengthen the conditions that make scholars want and are able to attend.',when:'Use as the universal prevention lens before attendance becomes an individual intervention problem.',steps:['Examine physical/emotional health and safety.','Strengthen belonging, connection, and caring adult relationships.','Increase academic challenge, relevance, engagement, and responsive support.','Use scholar voice to identify conditions that need improvement.'],evidence:'Improved belonging/engagement indicators, positive climate evidence, attendance trends.',downloads:[]},
+ {title:'Universal Attendance Practices',topic:'Universal & Proactive',roles:['All Staff','Teacher','Principal / School Leader'],tags:['recognition','early outreach','monitor data','families'],summary:'Five universal practices: recognize improvement, engage families, monitor data, personalize outreach, and respond to barriers.',when:'Use schoolwide at Tier 1.',steps:['Recognize good and improved attendance—not just perfect attendance.','Build welcoming relationships and communicate that scholars are missed.','Monitor attendance patterns regularly.','Provide early personalized outreach.','Develop programmatic responses to recurring barriers.'],evidence:'Universal practices visible across classrooms/building; early concerns receive prompt support.',downloads:[]},
+ {title:'SEL, Restorative Practices & Attendance',topic:'Universal & Proactive',roles:['Teacher','Social Worker / Counselor','Principal / School Leader'],tags:['SEL','restorative','PBIS','school climate'],summary:'Use SEL, restorative practices, and PBIS+ to strengthen belonging, regulation, relationships, and re-entry.',when:'Use when attendance concerns connect to climate, relationships, behavior, isolation, or re-entry after absence/suspension.',steps:['Identify relationship or climate concern.','Select schoolwide or targeted SEL/restorative practice.','Coordinate with the attendance plan rather than creating a parallel plan.'],evidence:'Connection, climate, engagement, re-entry, and attendance indicators.',downloads:[]},
+ {title:'Health & Attendance',topic:'Health & Wellness',roles:['All Staff','Family Support Specialist','Attendance Team'],tags:['health','nurse','illness','wellness'],summary:'Address health-related attendance barriers and clarify when a scholar should stay home.',when:'Use when illness, chronic disease, dental access, or health misconceptions affect attendance.',steps:['Engage school nurse/health supports.','Clarify health guidance with families.','Identify access barriers to care.','Coordinate return-to-school supports when needed.'],evidence:'Health barrier reduced, service connection completed, attendance improves.',downloads:[]},
+ {title:'Mental Health & Attendance',topic:'Health & Wellness',roles:['Social Worker / Counselor','Attendance Team','Teacher'],tags:['mental health','anxiety','avoidance','counseling'],summary:'Connect attendance to emotional well-being, anxiety, coping, and school-based mental-health supports.',when:'Use when anxiety, worry, avoidance, emotional distress, or mental-health needs contribute to absence.',steps:['Gather scholar voice about triggers and avoidance.','Coordinate with counselor/social worker or mental-health support.','Pair clinical/support services with a practical attendance/re-entry plan.'],evidence:'Engagement with support, reduced avoidance/barrier severity, attendance trajectory.',downloads:[]},
+ {title:'FACE & Family Partnership',topic:'Family & Community Engagement',roles:['Family Support Specialist','Principal / School Leader','All Staff'],tags:['FACE','family partnership','two-way communication'],summary:'Build family capacity, two-way communication, shared decision-making, and equitable access to resources.',when:'Use across all tiers; increase intensity when family-facing complexity grows.',steps:['Lead with strengths and two-way communication.','Invite family voice into root-cause analysis and planning.','Share decision-making and clarify roles.','Connect families with relevant district/community resources.'],evidence:'Family engagement, completed next steps, barrier reduction.',downloads:['tools/Caring_Conversation_Guide.md']},
+ {title:'Synergy Attendance Analytics',topic:'Data & Analytics',roles:['Principal / School Leader','Attendance Team','Secretary / Attendance Staff','District/Department Staff'],tags:['Synergy','U-CHRON','ATD201','ATD401','ATP201','data'],summary:'Use official attendance data to identify scholars, patterns, subgroups, and trends.',when:'Use for universal scans, threshold crossing, individual attendance review, and progress monitoring.',steps:['Use U-CHRON 027 for chronic student detail by school.','Use U-CHRON 028 for cumulative chronic absenteeism status.','Use U-CHRON 031 for school/district tracking.','Use ATD/ATP reports for individual daily/period patterns.','Pair official data with scholar/family voice.'],evidence:'Accurate tier identification, clear patterns, documented baseline and response.',downloads:[]},
+ {title:'Panorama Context for Attendance',topic:'Data & Analytics',roles:['Attendance Team','Social Worker / Counselor','Principal / School Leader'],tags:['Panorama','SEL data','belonging'],summary:'Use SEL/context data to help explain attendance patterns without replacing official attendance data.',when:'Use when belonging, self-efficacy, feelings, or engagement may explain the pattern.',steps:['Review relevant contextual indicators.','Compare with attendance pattern.','Use scholar voice to test hypotheses.','Select support based on the actual barrier/function.'],evidence:'Better root-cause hypothesis and intervention fit.',downloads:[]},
+ {title:'Root Cause: Barrier',topic:'Root Cause & Intervention',roles:['Attendance Team','Family Support Specialist','KSSN Coordinator'],tags:['Barrier','transportation','housing','health','basic needs','caregiving'],summary:'Concrete conditions prevent a scholar from getting to or staying in school.',when:'Use when logistics, health, housing, basic needs, family responsibilities, or service access interfere with attendance.',steps:['Identify the concrete condition.','Determine whether it is episodic or persistent.','Match a barrier-removal intervention.','Assign family-facing/resource ownership.'],evidence:'Barrier is reduced or resolved and attendance improves.',downloads:['tools/Root_Cause_Interview_Guide.md']},
+ {title:'Root Cause: Aversion',topic:'Root Cause & Intervention',roles:['Attendance Team','Social Worker / Counselor','Teacher'],tags:['Aversion','anxiety','safety','peer conflict','academic avoidance'],summary:'The scholar is avoiding an experience connected to school.',when:'Use when anxiety, academic struggle, peer conflict, safety, discipline, disability needs, or climate contribute to absence.',steps:['Identify what is being avoided and when.','Gather scholar/staff/family information.','Address safety, academics, relationships, or anxiety directly.','Build a re-entry/connection plan when needed.'],evidence:'Reduced avoidance, improved participation and attendance.',downloads:['tools/Root_Cause_Interview_Guide.md']},
+ {title:'Root Cause: Disengagement',topic:'Root Cause & Intervention',roles:['Attendance Team','Teacher','Principal / School Leader'],tags:['Disengagement','relationships','boredom','credits','work'],summary:'Connection, relevance, challenge, or motivation is insufficient.',when:'Use when scholars report weak relationships, boredom, low relevance, credit failure, or work-school conflict.',steps:['Identify the disengagement function.','Strengthen meaningful adult connection.','Adjust academic/re-engagement supports.','Use mentoring, enrichment, tutoring, or credit solutions as appropriate.'],evidence:'Engagement, credit/course progress, attendance trajectory.',downloads:['tools/Root_Cause_Interview_Guide.md']},
+ {title:'Root Cause: Misconception',topic:'Root Cause & Intervention',roles:['Attendance Team','Family Support Specialist','Families & Caregivers'],tags:['Misconception','excused absence','2 days per month','illness'],summary:'The scholar or family underestimates the impact of absences or misunderstands expectations.',when:'Use when attendance barriers are primarily knowledge/belief based.',steps:['Share personalized cumulative attendance information.','Explain instructional loss in clear, nonjudgmental language.','Clarify illness and excused-absence misconceptions.','Follow with direct contact if the pattern does not improve.'],evidence:'Understanding improves and attendance pattern changes.',downloads:[]},
+ {title:'Action vs. Intervention',topic:'Root Cause & Intervention',roles:['All Staff','Attendance Team'],tags:['action','intervention','phone call','letter','referral'],summary:'Separate outreach/documentation from the support intended to change the attendance pattern.',when:'Use during plan review whenever a call, letter, referral, or conference is listed as “the intervention.”',steps:['Name the action completed.','Ask why the scholar is missing school.','Name the intervention that directly addresses that reason.','Track whether the intervention was delivered and whether it worked.'],evidence:'Plans contain barrier-matched interventions, not only communication actions.',downloads:['tools/Action_vs_Intervention_Quick_Reference.md']},
+ {title:'Attendance Team Operating Guide',topic:'Attendance Teams',roles:['Principal / School Leader','District/Department Staff','Attendance Team','Family Support Specialist'],tags:['team','agenda','roles','monitoring','10/20/30'],summary:'A decision-focused cycle for data, root cause, intervention fit, fidelity, ownership, and response.',when:'Use for every regular building Attendance Team meeting.',steps:['Recognize wins.','Scan attendance data and identify threshold crossings.','Review active plans at checkpoints.','Validate root cause and intervention fit.','Review fidelity.','Decide continue/change/intensify/step-down.','Assign owner and next review date.'],evidence:'Clear decisions, owners, review dates, and system-level actions.',downloads:['tools/Attendance_Team_Agenda.csv','tools/10_20_30_Day_Review_Template.csv']},
+ {title:'Family Support Specialist Hub',topic:'Roles & Ownership',roles:['Family Support Specialist','Attendance Team','Principal / School Leader'],tags:['FSS','home visits','caring conversations','resource navigation'],summary:'FSS is the core family-facing attendance resource as complexity and intensity increase.',when:'Use for preventative outreach, Tier 2 family engagement, home visits, attendance planning, warm handoffs, and Tier 3 co-ownership.',steps:['Gather family voice and strengths.','Identify family-facing barriers.','Conduct caring conversation/home visit as appropriate.','Support attendance improvement plan.','Coordinate resource navigation and follow-through.','Co-own Tier 3 with Attendance Team.'],evidence:'Family engagement, completed supports, barrier reduction, attendance response.',downloads:['tools/Caring_Conversation_Guide.md','tools/Attendance_Plan_Template.csv']},
+ {title:'KSSN & Community Coordination',topic:'Roles & Ownership',roles:['KSSN Coordinator','Family Support Specialist','Attendance Team'],tags:['KSSN','wraparound','community resources','partner schools'],summary:'In KSSN partner schools, connect complex multi-system barriers to coordinated community supports.',when:'Use only in KSSN partner schools; intensity increases for Tier 3 and complex cross-system needs.',steps:['Participate in team/CSLT coordination.','Connect appropriate community resources.','Provide wraparound coordination for complex barriers.','Align community supports with the attendance plan.'],evidence:'Successful connection, barrier stabilization, coordinated plan, attendance response.',downloads:[]},
+ {title:'Caring Conversations / Early Outreach',topic:'Intervention Menu',roles:['Teacher','Family Support Specialist','Attendance Team','All Staff'],tags:['Caring Conversation','early outreach','relationship'],summary:'Relational outreach to understand what is getting in the way and identify immediate supports.',when:'Tier 1/Tier 2: emerging concern, unclear barrier, or disconnection.',steps:['Connect relationally.','Share the pattern factually.','Ask what is getting in the way.','Listen for strengths and barriers.','Agree on a next step and review date.'],evidence:'Contact completed, barrier identified, next 10 school days attendance.',downloads:['tools/Caring_Conversation_Guide.md']},
+ {title:'Arrival Check-In',topic:'Intervention Menu',roles:['Teacher','Attendance Team','Social Worker / Counselor'],tags:['arrival','tardiness','check-in','morning'],summary:'Predictable adult greeting and brief problem-solving for late arrival or weak morning connection.',when:'Tier 1/Tier 2: tardiness, partial-day absence, or need for predictable connection.',steps:['Assign a consistent adult.','Greet by name and briefly check in.','Record arrival/on-time status.','Reinforce improvement and solve immediate barriers.'],evidence:'On-time arrival, tardies, check-in completion.',downloads:[]},
+ {title:'Success Mentor / CICO',topic:'Intervention Menu',roles:['Attendance Team','Teacher','Social Worker / Counselor'],tags:['CICO','mentor','belonging','motivation','avoidance'],summary:'Targeted Tier 2 caring-adult connection with goals, daily check-ins, and feedback.',when:'Tier 2: belonging, engagement, motivation, weak adult connection, or avoidance. Not a primary response to transportation/housing/basic needs.',steps:['Assign trained caring adult.','Set attendance/engagement goal.','Use brief daily check-ins and weekly problem-solving.','Review attendance with scholar/family.'],evidence:'Check-in fidelity, attendance trajectory, goal attainment.',downloads:[]},
+ {title:'Attendance Success Plan',topic:'Intervention Menu',roles:['Attendance Team','Family Support Specialist','Families & Caregivers'],tags:['Attendance Plan','contract','goal','10/20/30'],summary:'Collaborative plan with measurable goals, matched supports, responsible persons, and review dates.',when:'Tier 2/Tier 3 when explicit shared goals and coordinated ownership are needed.',steps:['Document root cause and baseline.','Select one primary intervention plus complementary supports.','Name owner, dosage, start date, and goal.','Review at 10/20/30 days.'],evidence:'Plan fidelity, barrier reduction, attendance goal progress.',downloads:['tools/Attendance_Plan_Template.csv','tools/10_20_30_Day_Review_Template.csv']},
+ {title:'Home / Guardian Visit',topic:'Intervention Menu',roles:['Family Support Specialist','Attendance Team'],tags:['home visit','guardian visit','family engagement'],summary:'Supportive, voluntary family engagement for deeper relationship-building and barrier problem-solving.',when:'Tier 2/Tier 3: repeated unsuccessful outreach, complex family-facing barriers, or need for deeper problem-solving.',steps:['Schedule a voluntary visit/home or neutral location.','Lead with family strengths and aspirations.','Listen for barriers and resources.','Agree on supports and next steps.','Follow through and review response.'],evidence:'Successful engagement, completed action steps, attendance response.',downloads:['tools/Caring_Conversation_Guide.md']},
+ {title:'Positive Recognition for Good & Improved Attendance',topic:'Intervention Menu',roles:['All Staff','Attendance Team','Teacher'],tags:['recognition','PBIS','improvement','celebration'],summary:'Reinforce progress and belonging without centering perfect attendance.',when:'Tier 1/Tier 2 as part of universal culture and targeted reinforcement.',steps:['Recognize good and improved attendance.','Use equitable, PBIS+-aligned recognition.','Avoid punishing scholars for barriers outside their control.'],evidence:'Improved attendance, participation, equity review of recognition.',downloads:[]},
+ {title:'Transportation Problem-Solving',topic:'Intervention Menu',roles:['Family Support Specialist','Attendance Team','KSSN Coordinator'],tags:['transportation','route','backup plan','bus'],summary:'Create a route/schedule/backup plan and coordinate district/community options when transportation blocks attendance.',when:'Tier 2/Tier 3 transportation barrier.',steps:['Identify the exact transportation failure point.','Create primary and backup arrival plan.','Coordinate district options and family problem-solving.','Use community connection where appropriate/available.'],evidence:'Transportation barrier resolved/reduced; arrival and attendance improve.',downloads:['tools/Attendance_Plan_Template.csv']},
+ {title:'Academic / Class Avoidance Response',topic:'Intervention Menu',roles:['Teacher','Attendance Team','District/Department Staff'],tags:['academic','tutoring','class avoidance','instruction'],summary:'Address academic struggle or specific class avoidance with matched instructional and re-engagement supports.',when:'Tier 2/Tier 3 when absence clusters around academic difficulty, course failure, or avoidance.',steps:['Identify class/time/task pattern.','Assess academic skill/support needs.','Match tutoring, intervention, course problem-solving, or individualized academic plan.','Coordinate with attendance and family plan.'],evidence:'Class participation, course progress, academic support fidelity, attendance pattern.',downloads:[]},
+ {title:'Safety / Peer Conflict Response',topic:'Intervention Menu',roles:['Principal / School Leader','Attendance Team','Social Worker / Counselor'],tags:['safety','peer conflict','bullying','re-entry'],summary:'Use a safety/problem-solving plan, adult check-in, restorative response, or multidisciplinary support.',when:'When fear, conflict, bullying, discipline, or safety concerns drive avoidance.',steps:['Clarify safety/peer concern.','Implement immediate safety response.','Assign caring adult/check-in.','Use restorative/re-entry supports where appropriate.','Monitor whether avoidance decreases.'],evidence:'Safety plan fidelity, scholar sense of safety, attendance response.',downloads:[]},
+ {title:'Basic Needs / Housing Support',topic:'Intervention Menu',roles:['Family Support Specialist','Attendance Team','KSSN Coordinator'],tags:['housing','basic needs','McKinney-Vento','food'],summary:'Use warm handoffs, resource coordination, and McKinney-Vento process when housing instability is identified or suspected.',when:'Tier 2/Tier 3 basic-needs or housing barrier.',steps:['Screen for housing/basic-needs barrier.','Engage FSS resource navigation.','Follow McKinney-Vento identification/referral process when appropriate.','Coordinate KSSN/community supports in partner schools.'],evidence:'Referral/support completion, barrier stabilization, transportation/basic-needs resolution, attendance.',downloads:[]},
+ {title:'10/20/30-Day Review',topic:'Monitoring & Review',roles:['Attendance Team','Family Support Specialist','District/Department Staff'],tags:['10/20/30','fidelity','response','checkpoint'],summary:'Operational checkpoints for active Tier 2/3 plans.',when:'Use for every active individual Tier 2/3 plan.',steps:['Day 0: document baseline, root cause, voice, owner, dosage, goal.','Day 10: review attendance since start, fidelity, family contact.','Day 20: review cumulative/recent attendance, barrier reduction, engagement.','Day 30: determine whether the intervention changed the pattern.'],evidence:'Continue, adjust, intensify, step down, or escalate based on response and fidelity.',downloads:['tools/10_20_30_Day_Review_Template.csv']},
+ {title:'Functional Assessment Pathway',topic:'Monitoring & Review',roles:['Attendance Team','Family Support Specialist','Social Worker / Counselor'],tags:['functional assessment','FBAAT','antecedent','function','complex cases'],summary:'Use selectively when the reason remains unclear or matched supports have not worked.',when:'Complex Tier 2 or Tier 3 cases with unclear function, persistent severity, or nonresponse.',steps:['Review existing data.','Gather scholar voice.','Gather family voice.','Gather teacher/staff information.','Observe/track patterns if needed.','Build/revise a function-based plan.'],evidence:'Clearer hypothesis, coherent primary intervention, improved fit and response.',downloads:['tools/Root_Cause_Interview_Guide.md']},
+ {title:'Intervention Selection Guardrails',topic:'Monitoring & Review',roles:['Attendance Team','Principal / School Leader','Family Support Specialist'],tags:['guardrails','fit','fidelity','KSSN','FSS'],summary:'Prevent common implementation errors when selecting and reviewing attendance supports.',when:'Use during intervention design and case review.',steps:['Start with root cause, not intervention name.','Recognize improvement rather than only perfect attendance.','Increase FSS involvement with family-facing complexity.','Use KSSN only in partner schools.','Use functional assessment selectively.','Document one coherent plan.','Keep escalation tied to the GRPS framework.'],evidence:'Higher intervention fit, clearer ownership, reduced parallel/uncoordinated services.',downloads:[]}
+];
+
+const matcherNeeds={
+ Barrier:['Transportation','Health / wellness','Basic needs / housing','Family routines / caregiving','Tardiness / partial-day'],
+ Aversion:['Anxiety / worry','Academic / class avoidance','Safety / peer conflict','School climate / discipline'],
+ Disengagement:['Weak adult connection','Low motivation / boredom','Credit / course failure','Work-school conflict'],
+ Misconception:['Excused absences misunderstood','Two days per month underestimated','Illness guidance confusion','Attendance importance misunderstood']
+};
+const interventionMap={
+ 'Transportation':[{name:'Primary + Backup Transportation Plan',owner:'FSS + Attendance Team',evidence:'Documented primary/backup route; on-time arrival; attendance trajectory'},{name:'Warm Handoff to Transportation Resource',owner:'FSS or designated staff',evidence:'Connection completed; barrier reduced; arrival improves'},{name:'Individualized Arrival Support',owner:'Designated school staff + Attendance Team',evidence:'Arrival routine implemented; tardies/absences decline'}],
+ 'Health / wellness':[{name:'School Health Assessment + Attendance Plan',owner:'Nurse/health staff + Attendance Team',evidence:'Health needs clarified; appropriate stay-home decisions; attendance'},{name:'Warm Handoff to Health Provider',owner:'Nurse/health staff or FSS',evidence:'Service connection completed; barrier reduction; attendance'},{name:'Chronic Health Attendance Support Plan',owner:'School health/support team',evidence:'Supports implemented; missed instructional time reduced'}],
+ 'Basic needs / housing':[{name:'Basic Needs Stabilization Plan',owner:'FSS + Attendance Team',evidence:'Priority need addressed; barrier reduction; attendance'},{name:'Housing Stability / McKinney-Vento Coordination',owner:'FSS + appropriate district liaison',evidence:'Supports resolved as applicable; school access stabilized'},{name:'Warm Handoff + Follow-Through Plan',owner:'FSS or KSSN where applicable',evidence:'Service connection completed; unmet need reduced; attendance response'}],
+ 'Family routines / caregiving':[{name:'Morning/Evening Routine Plan',owner:'FSS + family + Attendance Team',evidence:'Routine steps implemented; on-time arrival; attendance'},{name:'Caregiving Contingency Plan',owner:'FSS + family',evidence:'Backup caregiving plan used when needed; missed days decline'},{name:'Family Attendance Success Plan',owner:'FSS + Attendance Team',evidence:'Agreed supports implemented; barrier reduction; attendance'}],
+ 'Tardiness / partial-day':[{name:'Individualized Arrival Plan',owner:'Designated adult + Attendance Team',evidence:'On-time arrival; tardies decline; plan fidelity'},{name:'Morning Check-In / Entry Routine',owner:'Designated caring adult',evidence:'Check-ins occur; arrival improves'},{name:'Schedule/Transition Problem-Solving',owner:'School leader/counselor + Attendance Team',evidence:'School-controlled obstacle reduced; time in school increases'}],
+ 'Anxiety / worry':[{name:'Predictable Re-entry + Check-In Plan',owner:'Counselor/Social Worker + Attendance Team',evidence:'Check-ins completed; avoidance reduces; attendance improves'},{name:'Behavioral Health Connection + School Support Plan',owner:'Behavioral health clinician/support staff + Attendance Team',evidence:'Connection completed; supports implemented; attendance response'},{name:'Gradual Attendance / Re-entry Plan',owner:'Attendance Team + appropriate support staff',evidence:'Attendance milestones met; time in school increases'}],
+ 'Academic / class avoidance':[{name:'Targeted Academic Support + Re-entry Plan',owner:'Teacher + Attendance Team + instructional/support staff as needed',evidence:'Support delivered; class attendance; course progress'},{name:'Missed-Learning Recovery Plan',owner:'Teacher/counselor',evidence:'Manageable recovery steps completed; avoidance declines'},{name:'Class Connection / Schedule Problem-Solving',owner:'School leader/counselor + Attendance Team',evidence:'Identified class condition addressed; period attendance improves'}],
+ 'Safety / peer conflict':[{name:'Individualized Safety Plan',owner:'Principal/support staff + Attendance Team',evidence:'Safety actions implemented; scholar reports improved safety; attendance'},{name:'Restorative/Conflict Resolution Support',owner:'Trained restorative/support staff',evidence:'Agreements implemented; conflict reduced; attendance'},{name:'Safe Arrival/Transition Plan',owner:'Designated school staff',evidence:'Transitions supported; avoidance decreases'}],
+ 'School climate / discipline':[{name:'Welcoming Re-entry Plan',owner:'Principal/support staff + Attendance Team',evidence:'Re-entry steps completed; belonging feedback; attendance'},{name:'Restorative Repair Plan',owner:'Trained restorative staff + school leader',evidence:'Repair actions completed; relationship/climate improves'},{name:'School-Controlled Barrier Correction',owner:'Principal + responsible staff',evidence:'Practice/condition changed; scholar access and attendance improve'}],
+ 'Weak adult connection':[{name:'Success Mentor / Caring Adult',owner:'Attendance Team assigns trained adult',evidence:'Scheduled contacts; belonging; attendance trajectory'},{name:'Check-In / Check-Out',owner:'Trained school staff',evidence:'Daily fidelity; connection/goal progress; attendance'},{name:'Relationship Mapping + Intentional Connection',owner:'School team',evidence:'Named adult connection established; scholar feedback; attendance'}],
+ 'Low motivation / boredom':[{name:'Success Mentor / Caring Adult Connection',owner:'Attendance Team assigns trained adult',evidence:'Scheduled contacts occur; belonging/engagement improves; attendance'},{name:'Interest-Based Expanded Learning Connection',owner:'School/Extended Learning partner',evidence:'Participation; scholar feedback; attendance response'},{name:'Scholar Goal + Relevance Plan',owner:'Teacher/Counselor + Attendance Team',evidence:'Goal progress; engagement indicators; attendance'}],
+ 'Credit / course failure':[{name:'Academic Re-engagement Plan',owner:'Counselor/teacher + Attendance Team',evidence:'Course progress; attendance'},{name:'Credit Recovery / Pathway Plan',owner:'Counselor + academic staff',evidence:'Credits attempted/earned; attendance'},{name:'Tutoring / Targeted Academic Support',owner:'Academic staff/provider + Attendance Team',evidence:'Dosage delivered; skill/course progress; attendance'}],
+ 'Work-school conflict':[{name:'Work-School Schedule Problem-Solving',owner:'Counselor + scholar/family',evidence:'Schedule agreement implemented; attendance'},{name:'Individualized Re-engagement Plan',owner:'Counselor + Attendance Team + FSS',evidence:'Plan implementation; time in school increases'},{name:'Goal/Pathway Alignment Plan',owner:'Counselor + scholar',evidence:'Scholar sees pathway relevance; course participation; attendance'}],
+ 'Excused absences misunderstood':[{name:'Attendance Understanding + Goal Plan',owner:'School staff + scholar/family',evidence:'Misconception corrected; agreed attendance goal; attendance trajectory'},{name:'Personalized Attendance Feedback + Follow-Through',owner:'Attendance Team/FSS as needed',evidence:'Family can explain cumulative impact; plan actions occur; attendance'}],
+ 'Two days per month underestimated':[{name:'Cumulative Absence Awareness + Goal Plan',owner:'Teacher/FSS/Attendance Team',evidence:'Scholar/family understanding; measurable goal progress'},{name:'Attendance Habit Plan',owner:'Scholar/family + designated staff',evidence:'Routine/goal implemented; monthly absence pattern changes'}],
+ 'Illness guidance confusion':[{name:'Individualized Health Attendance Plan',owner:'School nurse/health staff + family',evidence:'Appropriate stay-home decisions; health supports used; attendance'},{name:'Health Guidance + Return-to-School Plan',owner:'School health staff',evidence:'Family understanding; timely return; attendance'}],
+ 'Attendance importance misunderstood':[{name:'Attendance Goal + Progress Feedback Plan',owner:'Teacher/FSS/Attendance Team',evidence:'Goal reviewed regularly; attendance improves'},{name:'Family/Scholar Attendance Habit Plan',owner:'Scholar/family + designated staff',evidence:'Agreed routines implemented; attendance pattern changes'}]
+};
+
+const communityLinks={
+ 'Transportation':[{label:'Search Findhelp for transportation',url:'https://www.findhelp.org/'},{label:'Open Grand Rapids Area Resource Map',url:'https://www.google.com/maps/d/u/0/viewer?hl=en&mid=1_QxiKRVJOvXj9kWZwxhQnMkDpKtVS5M&ll=42.949338122271186%2C-85.62441883329723&z=15'}],
+ 'Health / wellness':[{label:'Cherry Health school-based services',url:'https://cherryhealth.org/services/school-based/'},{label:'Search Findhelp for health resources',url:'https://www.findhelp.org/'}],
+ 'Basic needs / housing':[{label:'Search Findhelp for housing/basic needs',url:'https://www.findhelp.org/'},{label:'Open Grand Rapids Area Resource Map',url:'https://www.google.com/maps/d/u/0/viewer?hl=en&mid=1_QxiKRVJOvXj9kWZwxhQnMkDpKtVS5M&ll=42.949338122271186%2C-85.62441883329723&z=15'}],
+ 'Family routines / caregiving':[{label:'Search Findhelp for family supports',url:'https://www.findhelp.org/'}],
+ 'Anxiety / worry':[{label:'Cherry Health behavioral health',url:'https://cherryhealth.org/services/behavioral-health/'},{label:'Search Findhelp for mental health supports',url:'https://www.findhelp.org/'}],
+ 'Low motivation / boredom':[{label:'Boys & Girls Clubs of Grand Rapids',url:'https://bgcgrandrapids.org/'},{label:'Grand Rapids Parks & Recreation',url:'https://www.grandrapidsmi.gov/departments/parks-recreation/recreation/'}]
+};
+function tierFromPct(p){if(Number.isNaN(p)) return null; if(p<10) return {tier:'Tier 1',band:'0–9% absent',owner:'All staff; Attendance Team monitors',monitor:'Regular team review'}; if(p<20) return {tier:'Tier 2',band:'10–19% absent',owner:'Building Attendance Team',monitor:'Monthly team monitoring + 10/20/30-day checkpoints for active plans'}; return {tier:'Tier 3',band:'20%+ absent',owner:'FSS + Attendance Team',monitor:'Frequent monitoring; active plans at least every 10 school days'}}
+
+
+const scenarios={
+ transport:{title:'Morning transportation breakdown',tier:'Tier 2 — 12% absent',root:'Barrier → Transportation',decision:'The attendance percentage signals Tier 2 intensity; transportation tells the team what must be solved.',steps:['Confirm the exact failure point: ride availability, timing, route, backup option, or morning routine.','FSS + Attendance Team develop a primary and backup transportation plan; make a warm handoff to any needed resource.','Document owner, start date, and goal. Use Day 10/20/30 checkpoints for the active plan.'],avoid:'Do not respond primarily with letters, attendance education, or mentoring if transportation remains unresolved.',matcher:{pct:12,root:'Barrier',need:'Transportation'}},
+ academic:{title:'Specific-class avoidance',tier:'Tier 2 — 15% absent',root:'Aversion → Academic / class avoidance',decision:'The pattern is class-specific, so the team should investigate academic difficulty, instructional mismatch, or a relationship/climate issue before choosing support.',steps:['Review period attendance, course performance, task difficulty, and scholar voice.','Match academic intervention, tutoring/course problem-solving, and a re-entry/check-in support if indicated.','Coordinate the instructional support with the attendance plan and monitor both class participation and attendance.'],avoid:'Do not assume “motivation” is the problem before examining the specific class pattern and academic demands.',matcher:{pct:15,root:'Aversion',need:'Academic / class avoidance'}},
+ nonresponse:{title:'Support is not changing attendance',tier:'Tier 2 — active plan at Day 20',root:'Root cause remains unclear',decision:'Before adding more services, determine whether the mentor was implemented with fidelity and whether connection was actually the right hypothesis.',steps:['Check mentor/CICO dosage, completion, relationship quality, and attendance since the plan began.','Gather scholar, family, and teacher voice and review the functional assessment pathway.','Revise to one coherent primary intervention that addresses the best-supported function/barrier; intensify if severity warrants.'],avoid:'Do not stack additional interventions onto a plan without understanding why the current support is not working.',matcher:null}
+};
+function renderScenario(key){const x=scenarios[key]; const m=x.matcher?`<button class="btn orange" data-loadscenario="${key}">Load this case into the intervention guide</button>`:''; document.getElementById('scenarioResult').innerHTML=`<div class="scenario-result"><span class="tag">${x.tier}</span><h3>${x.title}</h3><p><b>Root-cause hypothesis:</b> ${x.root}</p><div class="callout"><b>Decision:</b> ${x.decision}</div><h4>Recommended process</h4>${x.steps.map((v,i)=>`<div class="next-step"><div class="stepnum">${i+1}</div><div>${v}</div></div>`).join('')}<div class="callout orange"><b>Avoid:</b> ${x.avoid}</div>${m}</div>`; document.querySelectorAll('[data-loadscenario]').forEach(b=>b.onclick=()=>loadScenario(b.dataset.loadscenario));}
+function loadScenario(key){const x=scenarios[key]; if(!x.matcher)return; document.getElementById('absencePct').value=x.matcher.pct; rootCause.value=x.matcher.root; rootCause.dispatchEvent(new Event('change')); need.value=x.matcher.need; document.getElementById('matcher').scrollIntoView();}
+document.querySelectorAll('[data-scenario]').forEach(b=>b.onclick=()=>renderScenario(b.dataset.scenario));
+
+const roleCards=document.getElementById('roleCards');
+roleCards.innerHTML=rolePathways.map(x=>`<article class="card role-card"><h3>${x.role}</h3><p>${x.desc}</p><button data-rolepick="${x.role}">View my pathway</button></article>`).join('');
+
+const topicSel=document.getElementById('topic'), roleSel=document.getElementById('role'), q=document.getElementById('q'), grid=document.getElementById('resourceGrid'), meta=document.getElementById('meta');
+[...new Set(resources.map(r=>r.topic))].sort().forEach(x=>topicSel.add(new Option(x,x)));
+[...new Set(resources.flatMap(r=>r.roles))].sort().forEach(x=>roleSel.add(new Option(x,x)));
+if(![...roleSel.options].some(o=>o.value==='District/Department Staff')) roleSel.add(new Option('District/Department Staff','District/Department Staff'));
+if(![...roleSel.options].some(o=>o.value==='Other')) roleSel.add(new Option('Other','Other'));
+
+
+const searchAliases={'anxiety':['anxiety','worry','school avoidance','mental health','does not want to come',"doesn't want to come",'afraid'],'transportation':['transportation','ride','bus','car','getting to school','no ride'],'tardy':['tardy','late','coming late','arrival','partial day'],'housing':['housing','homeless','moving','eviction','utilities','basic needs'],'health':['health','sick','illness','doctor','medical','dental'],'belonging':['belonging','lonely','connection','mentor','disengaged','bored'],'academic':['academic','class avoidance','failing','course','credit'],'peer':['peer','bullying','conflict','safety']};
+function expandSearchTerm(term){let terms=[term];Object.entries(searchAliases).forEach(([key,vals])=>{if(vals.some(v=>term.includes(v)))terms.push(key,...vals)});return [...new Set(terms)].filter(Boolean);}
+
+function renderResources(){
+ const term=q.value.toLowerCase().trim(), searchTerms=expandSearchTerm(term), topic=topicSel.value, role=(roleSel.value==='Other'?'All Staff':roleSel.value);
+ const out=resources.filter(r=>{const hay=[r.title,r.topic,r.summary,r.when,r.evidence,...r.roles,...r.tags,...r.steps].join(' ').toLowerCase(); return (!term||searchTerms.some(t=>hay.includes(t)))&&(!topic||r.topic===topic)&&(!role||r.roles.includes(role)||(role==='District/Department Staff'&&r.roles.includes('All Staff')));});
+ meta.textContent=`${out.length} resource${out.length===1?'':'s'} shown`;
+ grid.innerHTML=out.map(r=>`<article class="card resource"><div><span class="tag">${r.topic}</span><h3>${r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a broader search or reset the filters.</p></article>`;
+ document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDetail(decodeURIComponent(b.dataset.open)));
+}
+function openDetail(title){
+ const r=resources.find(x=>x.title===title); if(!r)return;
+ document.getElementById('detailTopic').textContent=r.topic; document.getElementById('detailTitle').textContent=r.title;
+ const downloads=(r.downloads||[]).map(d=>`<a class="btn secondary" href="${d}" download>${d.split('/').pop().replaceAll('_',' ')}</a>`).join('');
+ document.getElementById('detailBody').innerHTML=`
+  <div class="detail-section"><h3>Purpose</h3><p>${r.summary}</p></div>
+  <div class="detail-section"><h3>When to use</h3><p>${r.when}</p></div>
+  <div class="detail-section"><h3>Implementation</h3><ol>${r.steps.map(s=>`<li>${s}</li>`).join('')}</ol></div>
+  <div class="detail-section"><h3>Progress evidence</h3><p>${r.evidence}</p></div>
+  <div class="detail-section"><h3>What to do next</h3>${nextStepsFor(r).map((x,i)=>`<div class="next-step"><div class="stepnum">${i+1}</div><div>${x}</div></div>`).join('')}</div>
+  <div class="detail-section"><div class="callout orange"><b>Common mistake to avoid:</b> ${mistakeFor(r)}</div></div>
+  <div class="detail-section"><h3>Who may use this</h3><div class="related">${r.roles.map(x=>`<span class="pill">${x}</span>`).join('')}</div></div>
+  ${downloads?`<div class="detail-section"><h3>Related downloads</h3><div class="related">${downloads}</div></div>`:''}`;
+ document.getElementById('detail').classList.add('open'); location.hash='resource='+encodeURIComponent(title);
+}
+
+function nextStepsFor(r){
+ if(r.topic==='Monitoring & Review') return ['Confirm the active plan has a named owner, dosage/frequency, measurable goal, and review date.','Review fidelity before deciding the intervention itself failed.','Use attendance response, barrier reduction, and scholar/family voice to continue, adjust, intensify, or step down.'];
+ if(r.topic==='Intervention Menu') return ['Verify that the selected support directly addresses the identified root cause.','Name one primary intervention, its owner, frequency, start date, and measurable goal.','Set the appropriate review checkpoint and document what evidence will show progress.'];
+ if(r.topic==='Family & Community') return ['Lead with a caring, strengths-based conversation rather than compliance language.','Document the barrier and family voice, then make a warm connection to the support.','Follow up to verify the connection occurred and whether the barrier was reduced.'];
+ if(r.topic==='Data & Analytics') return ['Use official attendance data to identify the pattern and level of concern.','Pair the data with scholar/family voice before selecting an intervention.','Bring the pattern—not just a list of names—to the Attendance Team.'];
+ return ['Use this resource to clarify the attendance concern and the most likely root cause.','Translate the guidance into one concrete next action with a named owner.','Review whether the action changed the barrier or attendance pattern.'];
+}
+function mistakeFor(r){
+ const t=(r.title+' '+r.topic).toLowerCase();
+ if(t.includes('transport')) return 'Assigning a mentor or sending repeated attendance notices without fixing the transportation failure.';
+ if(t.includes('cico')||t.includes('mentor')) return 'Using a connection-based intervention when the primary barrier is transportation, housing, health, or another access issue.';
+ if(t.includes('10/20/30')||t.includes('monitor')) return 'Looking only at attendance percentage without checking intervention fidelity and whether the underlying barrier changed.';
+ if(t.includes('family')||t.includes('caring')||t.includes('home')) return 'Treating outreach itself as the intervention instead of using the conversation to identify and address the barrier.';
+ return 'Selecting a support because it is familiar or available rather than because it matches the reason for absence.';
+}
+function closeDetail(){document.getElementById('detail').classList.remove('open'); if(location.hash.startsWith('#resource=')) history.replaceState(null,'',location.pathname+location.search)}
+document.getElementById('closeDetail').onclick=closeDetail; document.getElementById('detail').onclick=e=>{if(e.target.id==='detail')closeDetail()}; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail()});
+[q,topicSel,roleSel].forEach(el=>el.addEventListener(el===q?'input':'change',renderResources)); document.getElementById('reset').onclick=()=>{q.value='';topicSel.value='';roleSel.value='';renderResources()};
+
+document.querySelectorAll('[data-rolepick]').forEach(b=>b.onclick=()=>{
+  const picked=b.dataset.rolepick;
+  q.value=''; topicSel.value='';
+  if(picked==='Other'){
+    roleSel.value='All Staff';
+  }else if([...roleSel.options].some(o=>o.value===picked)){
+    roleSel.value=picked;
+  }else{
+    roleSel.value='';
+  }
+  renderResources();
+  const target=document.getElementById('resources');
+  const top=target.getBoundingClientRect().top+window.scrollY-120;
+  window.scrollTo({top,behavior:'smooth'});
+});
+document.querySelectorAll('[data-root]').forEach(b=>b.onclick=()=>{rootCause.value=b.dataset.root; rootCause.dispatchEvent(new Event('change')); document.getElementById('matcher').scrollIntoView()});
+document.querySelectorAll('[data-search]').forEach(b=>b.onclick=()=>{q.value=b.dataset.search; topicSel.value=''; roleSel.value=''; renderResources(); document.getElementById('resources').scrollIntoView()});
+document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{q.value=b.dataset.jump; renderResources(); document.getElementById('resources').scrollIntoView()});
+document.querySelectorAll('[data-anchor]').forEach(b=>{
+  b.onclick=()=>{
+    const target=document.getElementById(b.dataset.anchor);
+    if(!target) return;
+    history.replaceState(null,'','#'+b.dataset.anchor);
+    const top=target.getBoundingClientRect().top+window.scrollY-120;
+    window.scrollTo({top,behavior:'smooth'});
+    target.setAttribute('tabindex','-1');
+    setTimeout(()=>target.focus({preventScroll:true}),450);
+  };
+});
+
+const rootCause=document.getElementById('rootCause'), need=document.getElementById('need');
+rootCause.addEventListener('change',()=>{need.innerHTML='<option value="">Choose...</option>'; (matcherNeeds[rootCause.value]||[]).forEach(x=>need.add(new Option(x,x)))});
+document.getElementById('clearBuilder').onclick=()=>{['absencePct','identifier','goalField','voice'].forEach(id=>document.getElementById(id).value='');rootCause.value='';need.innerHTML='<option value="">Choose a root cause first</option>';document.getElementById('schoolType').value='No';document.getElementById('matchOutput').innerHTML='<h3>Matched response will appear here</h3><p>Enter an absence percentage, root-cause pathway, and specific need.</p>'};
+
+document.getElementById('matchBtn').onclick=()=>{
+ const pct=parseFloat(document.getElementById('absencePct').value), root=rootCause.value, n=need.value, kssn=document.getElementById('schoolType').value, id=document.getElementById('identifier').value.trim(), goal=document.getElementById('goalField').value.trim(), voice=document.getElementById('voice').value.trim();
+ const t=tierFromPct(pct); if(!t||!root||!n){document.getElementById('matchOutput').innerHTML='<h3>More information needed</h3><p>Enter an absence percentage and choose both a root-cause pathway and a specific need.</p>';return}
+ let recs=interventionMap[n]||[];
+ if(kssn==='Yes' && (pct>=20 || ['Transportation','Basic needs / housing','Health / wellness'].includes(n))) recs=[...recs,{name:'KSSN Wraparound / Community Resource Coordination',owner:'KSSN + FSS + Attendance Team',evidence:'Successful resource connection; barrier stabilization; attendance response'}];
+ const review=pct<10?'Continue universal prevention and monitor for emerging patterns.':pct<20?'Use Day 0, 10, 20, and 30 checkpoints for an active plan. Escalate if the scholar crosses 20% or earlier if severity requires it.':'Review the active plan at least every 10 school days; use multidisciplinary review as needed and step down only after sustained improvement/barrier stabilization.';
+ const links=communityLinks[n]||[];
+ const resourceHtml=links.length?`<div class="matcher-resources"><h4>Potential partner/resource connections</h4><p><strong>Reminder:</strong> opening a link or making a referral is an action. The intervention is the barrier-matched plan you implement and monitor.</p>${links.map(x=>`<a href="${x.url}" target="_blank" rel="noopener">${x.label} ↗</a>`).join('')}</div>`:'';
+ const html=`<h3>${t.tier}: ${t.band}</h3><p><b>Primary ownership:</b> ${t.owner}</p><p><b>Root cause:</b> ${root} → ${n}</p>${voice?`<p><b>Voice/Context:</b> ${escapeHtml(voice)}</p>`:''}<div class="rec-list">${recs.map(r=>`<div class="rec"><h4>${r.name}</h4><small><b>Owner:</b> ${r.owner}<br><b>Evidence:</b> ${r.evidence}</small></div>`).join('')}</div>${resourceHtml}<p><b>Monitoring:</b> ${review}</p><p><b>Goal:</b> ${goal||'Set a measurable attendance/barrier-reduction goal before implementation.'}</p><button class="btn" id="downloadPlan">Download this plan</button><button class="btn secondary" onclick="window.print()">Print page</button>`;
+ document.getElementById('matchOutput').innerHTML=html;
+ document.getElementById('downloadPlan').onclick=()=>downloadPlan({id,pct,t,root,n,kssn,voice,goal,recs,review});
+}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function downloadPlan(p){
+ const text=`GRPS STRIVE FOR LESS THAN 5 — MATCHED ATTENDANCE RESPONSE
+Scholar/Local Identifier: ${p.id||'Not entered'}
+Current Absence: ${p.pct}%
+Tier: ${p.t.tier} (${p.t.band})
+Primary Ownership: ${p.t.owner}
+Root Cause: ${p.root}
+Specific Need: ${p.n}
+KSSN Partner School: ${p.kssn}
+Scholar/Family Voice: ${p.voice||'Not entered'}
+Measurable Goal: ${p.goal||'To be set'}
+
+MATCHED SUPPORTS
+${p.recs.map((r,i)=>`${i+1}. ${r.name}\n   Owner: ${r.owner}\n   Evidence: ${r.evidence}`).join('\n')}
+
+MONITORING
+${p.review}
+
+Required plan elements: baseline; pattern; root cause; scholar voice; family voice; selected intervention; owner; FSS/KSSN involvement; dosage; start date; measurable goal; reviews; fidelity; response; next action.`;
+ const blob=new Blob([text],{type:'text/plain'}), a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='GRPS_Attendance_Matched_Response.txt'; a.click(); URL.revokeObjectURL(a.href);
+}
+meta.textContent='Search by keyword or choose a filter to view resources.'; grid.innerHTML='<article class="card"><h3>Resource library</h3><p>Use search or filters above to display matching resources.</p></article>';
+if(location.hash.startsWith('#resource=')){const title=decodeURIComponent(location.hash.slice(10));setTimeout(()=>openDetail(title),0)}
+</script></body></html>
