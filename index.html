@@ -545,9 +545,8 @@ function detectSearchIntent(term){
  const factorMatches=matched.filter(x=>['transportation','tardy','anxiety','peer','housing','health','belonging','academic','work','misconception'].includes(x.intent.id));
  const distinctFamilies=new Set(factorMatches.map(x=>x.intent.id));
 
- // Percentage determines intensity, not root cause. When a percentage is supplied
- // without a supported root-cause signal—or when the user explicitly reports no
- // known barriers—surface the tier and keep the decision stage in inquiry.
+ // Percentage determines intensity, not root cause.
+ // Keep severity visible whether the root cause is unknown OR a separate factor is confirmed.
  if(pctTier && (factorMatches.length===0 || explicitNoBarrier)) {
   const familyStatement=explicitNoBarrier?' Family reports no known barriers; treat that as one source of information, not proof that no attendance factor exists.':'';
   return {
@@ -555,6 +554,31 @@ function detectSearchIntent(term){
    label:`${pctTier.tier} attendance concern — ${pct}% absent`,
    guidance:`Attendance percentage determines intensity; it does not determine the root cause. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}.${familyStatement} Review the attendance pattern, gather scholar voice and other relevant evidence, and identify the primary root cause before selecting an intervention.`,
    titles:['Attendance Pattern Review + Root-Cause Inquiry','Synergy Attendance Analytics','Caring Conversations / Early Outreach','Possible Root Causes to Explore']
+  };
+ }
+
+ // If severity and one supported factor are both present, show BOTH.
+ // Example: 23% absent + transportation problem = Tier 3 intensity + confirmed transportation barrier.
+ if(pctTier && factorMatches.length===1 && !explicitNoBarrier) {
+  const fm=factorMatches[0].intent;
+  const immediate=['transportation','peer','housing','health'].includes(fm.id);
+  const factorLabel=fm.id==='transportation'?'Confirmed transportation barrier':
+    fm.id==='housing'?'Confirmed housing/basic-needs barrier':
+    fm.id==='health'?'Confirmed health/wellness concern':
+    fm.id==='peer'?'Confirmed safety/peer concern':
+    fm.label;
+  const reviewText=pctTier.tier==='Tier 1'
+    ? 'Monitor the attendance response and adjust support if the pattern worsens.'
+    : 'Use a coordinated plan with 10/20/30-day checkpoints to review fidelity, barrier reduction, and attendance response.';
+  const titles=[...fm.titles];
+  if(pctTier.tier!=='Tier 1' && !titles.includes('Attendance Success Plan')) titles.push('Attendance Success Plan');
+  return {
+   id:`severity_${fm.id}`,
+   mode:'clear',
+   hasImmediate:immediate,
+   label:`${pctTier.tier} attendance concern — ${pct}% absent | ${factorLabel}`,
+   guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. The ${fm.label.toLowerCase()} is the supported factor driving intervention selection. ${reviewText}`,
+   titles
   };
  }
 
@@ -578,7 +602,9 @@ function detectSearchIntent(term){
   titles.push('Attendance Success Plan');
   const knownText=known.length?` Known factor${known.length>1?'s':''}: ${[...new Set(known)].join(', ')}.`:'';
   const exploreText=explore.length?` Factors to investigate: ${[...new Set(explore)].join(', ')}.`:'';
-  return {id:'multi_factor',mode:'possible',hasImmediate:ids.some(id=>['transportation','peer','housing','health'].includes(id)),label:'Multiple attendance factors identified',guidance:`More than one factor may be contributing.${knownText}${exploreText} Address any confirmed access or safety barrier promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.`,titles:[...new Set(titles)]};
+  const severityText=pctTier?` ${pctTier.tier} intensity applies because the scholar is ${pct}% absent (${pctTier.band}); primary ownership: ${pctTier.owner}.`:'';
+  const multiLabel=pctTier?`${pctTier.tier} attendance concern — ${pct}% absent | Multiple attendance factors identified`:'Multiple attendance factors identified';
+  return {id:'multi_factor',mode:'possible',hasImmediate:ids.some(id=>['transportation','peer','housing','health'].includes(id)),label:multiLabel,guidance:`More than one factor may be contributing.${severityText}${knownText}${exploreText} Attendance percentage determines intensity; root cause determines the intervention. Address any confirmed access or safety barrier promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.`,titles:[...new Set(titles)]};
  }
 
  let best=null, bestLen=0;
