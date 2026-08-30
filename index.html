@@ -122,6 +122,16 @@ main{max-width:1540px;padding:0 32px 72px;margin:0 auto;background:var(--pd-bg)}
 @media(max-width:1100px){.choice-grid{grid-template-columns:repeat(2,1fr)}.dash-hero-in{grid-template-columns:1fr}.dash-rule{max-width:720px}.dash-brandrow{padding-left:20px;padding-right:20px}.dash-tabs{padding-left:20px;padding-right:20px}.dash-hero-in,main{padding-left:20px;padding-right:20px}}
 @media(max-width:700px){.dash-brandrow{align-items:center;gap:15px}.dash-logo-block{width:130px;height:58px}.dash-logo-text{font-size:24px}.dash-title{font-size:26px}.dash-kicker{font-size:11px}.dash-subtitle{font-size:13px}.dash-tabs{padding-top:8px}.dash-tabs a{padding:10px 12px 12px;font-size:13px}.dash-hero-in{padding-top:34px;gap:25px}.dash-hero h1{font-size:38px;letter-spacing:-1.5px}.dash-hero p{font-size:17px}.choice-grid{grid-template-columns:1fr}.choice{min-height:0}.builder-grid,.controls,.resources,.role-grid,.download-grid,.scenario-strip{grid-template-columns:1fr}.workflow-mini{grid-template-columns:1fr}.root-grid{grid-template-columns:1fr}}
 
+
+/* Search decision hierarchy */
+.decision-path{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0 16px}
+.decision-step{border:1px solid var(--pd-line);background:#f8fafb;padding:10px 11px;border-radius:4px;min-height:64px}
+.decision-step strong{display:block;color:var(--pd-navy);font-size:13px;margin-bottom:3px}
+.decision-step span{display:block;color:var(--pd-muted);font-size:12px;line-height:1.35}
+.decision-step.active{border-top:4px solid var(--pd-orange);background:#fff8f3;padding-top:7px}
+.decision-step.review{border-top:4px solid var(--pd-blue);padding-top:7px}
+.stage-label{display:inline-block;margin:0 0 7px;padding:4px 8px;border-radius:999px;background:#eef3f6;color:#38566d;font-size:11px;font-weight:800}
+@media(max-width:800px){.decision-path{grid-template-columns:1fr}.decision-step{min-height:0}}
 </style>
 <style id="v10-card-readability-fix">
 /* v10: improve pathway-card readability while preserving Progress Dashboard design */
@@ -609,7 +619,23 @@ function renderResources(){
  } else {
   meta.textContent=`${out.length} resource${out.length===1?'':'s'} shown`;
  }
- grid.innerHTML=out.map(r=>`<article class="card resource"><div><span class="tag">${r.topic}</span><h3>${r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a different phrase, choose a topic, or reset the filters.</p></article>`;
+ const stageFor=(r)=>{
+  const t=r.title;
+  if(['Transportation Problem-Solving','Individualized Safety Plan','Housing Stability / McKinney-Vento Coordination','School Health Assessment + Attendance Plan'].includes(t)) return 'Address now';
+  if(['Caring Conversations / Early Outreach','Possible Root Causes to Explore','Attendance Pattern Review + Root-Cause Inquiry','Class-Specific Attendance Pattern Inquiry','Context-Linked Attendance Pattern Inquiry','Synergy Attendance Analytics'].includes(t) || t.startsWith('Root Cause:')) return 'Investigate';
+  if(t==='Attendance Success Plan') return 'Build plan';
+  if(r.topic==='Monitoring & Review' || t.includes('10/20/30')) return 'Review';
+  if(r.topic==='Intervention Menu') return 'Match intervention';
+  return 'Use as support';
+ };
+ const hierarchy=intent ? `<div class="decision-path" aria-label="Attendance decision sequence">
+   <div class="decision-step active"><strong>1. Address now</strong><span>Act promptly on any confirmed access or safety barrier.</span></div>
+   <div class="decision-step"><strong>2. Investigate</strong><span>Use the pattern, scholar/family voice, and evidence to understand why.</span></div>
+   <div class="decision-step"><strong>3. Match intervention</strong><span>Select one primary intervention that addresses the supported root cause.</span></div>
+   <div class="decision-step"><strong>4. Build plan</strong><span>Name the owner, frequency, measurable goal, and review date.</span></div>
+   <div class="decision-step review"><strong>5. Review</strong><span>Check fidelity, barrier reduction, and attendance response at 10/20/30 days.</span></div>
+  </div>` : '';
+ grid.innerHTML=hierarchy+(out.map(r=>`<article class="card resource"><div><span class="stage-label">${stageFor(r)}</span><br><span class="tag">${r.topic}</span><h3>${r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a different phrase, choose a topic, or reset the filters.</p></article>`);
  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDetail(decodeURIComponent(b.dataset.open)));
 }
 function openDetail(title){
