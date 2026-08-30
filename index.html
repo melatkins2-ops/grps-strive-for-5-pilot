@@ -562,14 +562,27 @@ function detectSearchIntent(term){
  if(pctTier && factorMatches.length===1 && !explicitNoBarrier) {
   const fm=factorMatches[0].intent;
   const immediate=['transportation','peer','housing','health'].includes(fm.id);
+  const exploratoryFactor=['anxiety','belonging','academic','work','tardy','misconception'].includes(fm.id);
   const factorLabel=fm.id==='transportation'?'Confirmed transportation barrier':
     fm.id==='housing'?'Confirmed housing/basic-needs barrier':
-    fm.id==='health'?'Confirmed health/wellness concern':
-    fm.id==='peer'?'Confirmed safety/peer concern':
+    fm.id==='health'?'Reported health/wellness concern — confirm attendance pathway':
+    fm.id==='peer'?'Reported safety/peer concern — confirm attendance pathway':
+    fm.id==='anxiety'?'Reported factor: anxiety / worry — explore possible aversion':
+    fm.id==='belonging'?'Reported factor: engagement / belonging concern — explore possible disengagement':
+    fm.id==='academic'?'Reported factor: academic difficulty — investigate attendance connection':
+    fm.id==='work'?'Reported factor: work-school conflict — investigate attendance connection':
+    fm.id==='tardy'?'Reported factor: tardiness / partial-day pattern — investigate why':
+    fm.id==='misconception'?'Reported factor: attendance misconception — confirm understanding':
     fm.label;
   const reviewText=pctTier.tier==='Tier 1'
-    ? 'Respond to the confirmed barrier now. Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.'
-    : 'Use a coordinated plan with 10/20/30-day checkpoints to review fidelity, barrier reduction, and attendance response.';
+    ? (fm.id==='anxiety'
+        ? 'Respond to the identified anxiety/worry concern while continuing to understand what is driving the avoidance. Monitor whether the matched support is implemented, the concern decreases, and attendance improves; escalate support if the pattern persists or worsens.'
+        : exploratoryFactor
+          ? 'Respond to the reported factor while continuing to investigate the primary root cause. Monitor whether support is implemented and attendance improves; escalate if the pattern persists or worsens.'
+          : 'Respond to the confirmed barrier now. Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.')
+    : (exploratoryFactor
+        ? 'Use a coordinated plan with 10/20/30-day checkpoints while continuing to confirm the primary root cause through scholar/family voice and other evidence.'
+        : 'Use a coordinated plan with 10/20/30-day checkpoints to review fidelity, barrier reduction, and attendance response.');
   const titles=[...fm.titles];
   if(pctTier.tier!=='Tier 1' && !titles.includes('Attendance Success Plan')) titles.push('Attendance Success Plan');
   return {
@@ -577,7 +590,7 @@ function detectSearchIntent(term){
    mode:'clear',
    hasImmediate:immediate,
    label:`${pctTier.tier} attendance concern — ${pct}% absent | ${factorLabel}`,
-   guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. The ${fm.label.toLowerCase()} is the supported factor driving intervention selection. ${reviewText}`,
+   guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. ${exploratoryFactor ? `The ${fm.label.toLowerCase()} is a reported factor to investigate; do not treat it as a confirmed root cause until supported by scholar/family voice and other evidence.` : `The ${fm.label.toLowerCase()} is the supported factor driving intervention selection.`} ${reviewText}`,
    titles
   };
  }
