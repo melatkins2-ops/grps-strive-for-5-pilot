@@ -610,6 +610,29 @@ function detectSearchIntent(term){
 
  if(distinctFamilies.size>=2){
   const ids=[...distinctFamilies];
+
+  // Evidence-priority rule: an explicit scholar report that bullying/peer safety is
+  // driving avoidance takes priority over a nonspecific caregiver report of illness.
+  // The health concern remains visible for investigation, but is not presented as an
+  // equally confirmed "address now" intervention unless separate health evidence exists.
+  const scholarPeerReport=ids.includes('peer') && /scholar\s+(?:says|reports|shares|states|tells|said|reported)[^.!?]*(?:bull(?:y|ied|ying)|peer conflict|unsafe|afraid|threat)/.test(t);
+  const caregiverHealthReport=ids.includes('health') && /(?:caregiver|parent|guardian|family)\s+(?:says|reports|shares|states|tells|said|reported)[^.!?]*(?:sick|ill|health|medical)/.test(t);
+  const prioritizePeerOverHealth=scholarPeerReport && caregiverHealthReport;
+
+  if(prioritizePeerOverHealth){
+   const titles=['Individualized Safety Plan','Caring Conversations / Early Outreach','Possible Root Causes to Explore','Attendance Success Plan'];
+   const severityText=pctTier?` ${pctTier.tier} intensity applies because the scholar is ${pct}% absent (${pctTier.band}); primary ownership: ${pctTier.owner}.`:'';
+   const multiLabel=pctTier?`${pctTier.tier} attendance concern — ${pct}% absent | Scholar-reported bullying/safety concern + caregiver-reported illness`:'Scholar-reported bullying/safety concern + caregiver-reported illness';
+   return {
+    id:'multi_factor_peer_priority',
+    mode:'possible',
+    hasImmediate:true,
+    label:multiLabel,
+    guidance:`More than one factor may be contributing.${severityText} Scholar-reported factor: bullying/safety concern linked to school avoidance — address promptly. Caregiver-reported factor: frequent illness — investigate whether it is an independent health barrier, related to the bullying/avoidance, or another contributing factor. Attendance percentage determines intensity; root cause determines the intervention. Prioritize immediate safety while continuing root-cause inquiry. Do not start a separate health attendance intervention unless health evidence supports it. Build one coordinated attendance plan with a primary intervention, complementary supports as needed, an owner, a measurable goal, and a review date.`,
+    titles
+   };
+  }
+
   const known=[]; const explore=[];
   for(const x of factorMatches){
    const name=x.intent.id==='transportation'?'transportation barrier':x.intent.id==='housing'?'housing/basic-needs barrier':x.intent.id==='health'?'health/wellness concern':x.intent.id==='academic'?'academic difficulty':x.intent.id==='belonging'?'engagement/belonging concern':x.intent.id==='anxiety'?'anxiety/aversion concern':x.intent.id==='peer'?'safety/peer concern':x.intent.id==='tardy'?'tardiness/partial-day pattern':x.intent.id==='work'?'work-school conflict':x.intent.id==='misconception'?'attendance misconception':x.intent.label;
@@ -620,7 +643,7 @@ function detectSearchIntent(term){
   if(ids.includes('academic')) titles.push('Academic Re-engagement + Targeted Support');
   if(ids.includes('belonging')) titles.push('Relationship Mapping + Intentional Connection');
   if(ids.includes('anxiety')) titles.push('Predictable Re-entry + Check-In Plan');
-  if(ids.includes('peer')) titles.push('Individualized Safety Plan');
+  if(ids.includes('peer')) titles.unshift('Individualized Safety Plan');
   if(ids.includes('housing')) titles.push('Housing Stability / McKinney-Vento Coordination');
   if(ids.includes('health')) titles.push('School Health Assessment + Attendance Plan');
   if(ids.includes('work')) titles.push('Work-School Schedule Problem-Solving');
