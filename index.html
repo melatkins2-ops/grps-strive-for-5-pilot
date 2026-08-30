@@ -568,7 +568,7 @@ function detectSearchIntent(term){
     fm.id==='peer'?'Confirmed safety/peer concern':
     fm.label;
   const reviewText=pctTier.tier==='Tier 1'
-    ? 'Monitor the attendance response and adjust support if the pattern worsens.'
+    ? 'Respond to the confirmed barrier now. Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.'
     : 'Use a coordinated plan with 10/20/30-day checkpoints to review fidelity, barrier reduction, and attendance response.';
   const titles=[...fm.titles];
   if(pctTier.tier!=='Tier 1' && !titles.includes('Attendance Success Plan')) titles.push('Attendance Success Plan');
@@ -692,7 +692,7 @@ function renderResources(){
    <div class="decision-step ${uncertain?'active':''}"><strong>2. Investigate</strong><span>Use the pattern, scholar/family voice, and evidence to understand why.</span></div>
    <div class="decision-step"><strong>3. Match intervention</strong><span>${uncertain?'Consider options only after the root cause is supported.':'Select one primary intervention that addresses the supported root cause.'}</span></div>
    <div class="decision-step"><strong>4. Build plan</strong><span>Name the owner, frequency, measurable goal, and review date.</span></div>
-   <div class="decision-step review"><strong>5. Review</strong><span>Check fidelity, barrier reduction, and attendance response at 10/20/30 days.</span></div>
+   <div class="decision-step review"><strong>5. Review</strong><span>${pathway && pathway.label && pathway.label.startsWith('Tier 1') ? 'Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.' : 'Check fidelity, barrier reduction, and attendance response at 10/20/30 days.'}</span></div>
   </div>` : '';
  grid.innerHTML=hierarchy+(out.map(r=>`<article class="card resource"><div><span class="stage-label">${stageFor(r)}</span><br><span class="tag">${r.topic}</span><h3>${r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a different phrase, choose a topic, or reset the filters.</p></article>`);
  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDetail(decodeURIComponent(b.dataset.open)));
