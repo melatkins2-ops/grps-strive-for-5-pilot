@@ -130,6 +130,7 @@ main{max-width:1540px;padding:0 32px 72px;margin:0 auto;background:var(--pd-bg)}
 .decision-step span{display:block;color:var(--pd-muted);font-size:12px;line-height:1.35}
 .decision-step.active{border-top:4px solid var(--pd-orange);background:#fff8f3;padding-top:7px}
 .decision-step.review{border-top:4px solid var(--pd-blue);padding-top:7px}
+.decision-step.muted{background:#f3f5f7;border-color:#d8e0e6;opacity:.72}.decision-step.muted strong,.decision-step.muted span{color:#6c7d8b}
 .stage-label{display:inline-block;margin:0 0 7px;padding:4px 8px;border-radius:999px;background:#eef3f6;color:#38566d;font-size:11px;font-weight:800}
 @media(max-width:800px){.decision-path{grid-template-columns:1fr}.decision-step{min-height:0}}
 </style>
@@ -553,7 +554,7 @@ function detectSearchIntent(term){
   titles.push('Attendance Success Plan');
   const knownText=known.length?` Known factor${known.length>1?'s':''}: ${[...new Set(known)].join(', ')}.`:'';
   const exploreText=explore.length?` Factors to investigate: ${[...new Set(explore)].join(', ')}.`:'';
-  return {id:'multi_factor',mode:'possible',label:'Multiple attendance factors identified',guidance:`More than one factor may be contributing.${knownText}${exploreText} Address any confirmed access or safety barrier promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.`,titles:[...new Set(titles)]};
+  return {id:'multi_factor',mode:'possible',hasImmediate:ids.some(id=>['transportation','peer','housing','health'].includes(id)),label:'Multiple attendance factors identified',guidance:`More than one factor may be contributing.${knownText}${exploreText} Address any confirmed access or safety barrier promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.`,titles:[...new Set(titles)]};
  }
 
  let best=null, bestLen=0;
@@ -619,19 +620,27 @@ function renderResources(){
  } else {
   meta.textContent=`${out.length} resource${out.length===1?'':'s'} shown`;
  }
+ const hasImmediate=!!(intent && (intent.hasImmediate || ['transportation','peer','housing','health'].includes(intent.id)));
+ const uncertain=!!(intent && (intent.mode==='possible' || intent.mode==='pattern'));
  const stageFor=(r)=>{
   const t=r.title;
-  if(['Transportation Problem-Solving','Individualized Safety Plan','Housing Stability / McKinney-Vento Coordination','School Health Assessment + Attendance Plan'].includes(t)) return 'Address now';
+  if(hasImmediate && ['Transportation Problem-Solving','Individualized Safety Plan','Housing Stability / McKinney-Vento Coordination','School Health Assessment + Attendance Plan'].includes(t)) return 'Address now';
   if(['Caring Conversations / Early Outreach','Possible Root Causes to Explore','Attendance Pattern Review + Root-Cause Inquiry','Class-Specific Attendance Pattern Inquiry','Context-Linked Attendance Pattern Inquiry','Synergy Attendance Analytics'].includes(t) || t.startsWith('Root Cause:')) return 'Investigate';
   if(t==='Attendance Success Plan') return 'Build plan';
   if(r.topic==='Monitoring & Review' || t.includes('10/20/30')) return 'Review';
-  if(r.topic==='Intervention Menu') return 'Match intervention';
+  if(r.topic==='Intervention Menu') return uncertain ? 'Consider if confirmed' : 'Match intervention';
   return 'Use as support';
  };
+ if(uncertain){
+  const order={'Address now':0,'Investigate':1,'Consider if confirmed':2,'Build plan':3,'Review':4,'Use as support':5};
+  out.sort((a,b)=>(order[stageFor(a)]??9)-(order[stageFor(b)]??9));
+ }
+ const addressClass=hasImmediate?'decision-step active':'decision-step muted';
+ const addressText=hasImmediate?'Act promptly on the confirmed access or safety barrier.':'No immediate access or safety barrier identified.';
  const hierarchy=intent ? `<div class="decision-path" aria-label="Attendance decision sequence">
-   <div class="decision-step active"><strong>1. Address now</strong><span>Act promptly on any confirmed access or safety barrier.</span></div>
-   <div class="decision-step"><strong>2. Investigate</strong><span>Use the pattern, scholar/family voice, and evidence to understand why.</span></div>
-   <div class="decision-step"><strong>3. Match intervention</strong><span>Select one primary intervention that addresses the supported root cause.</span></div>
+   <div class="${addressClass}"><strong>1. Address now</strong><span>${addressText}</span></div>
+   <div class="decision-step ${uncertain?'active':''}"><strong>2. Investigate</strong><span>Use the pattern, scholar/family voice, and evidence to understand why.</span></div>
+   <div class="decision-step"><strong>3. Match intervention</strong><span>${uncertain?'Consider options only after the root cause is supported.':'Select one primary intervention that addresses the supported root cause.'}</span></div>
    <div class="decision-step"><strong>4. Build plan</strong><span>Name the owner, frequency, measurable goal, and review date.</span></div>
    <div class="decision-step review"><strong>5. Review</strong><span>Check fidelity, barrier reduction, and attendance response at 10/20/30 days.</span></div>
   </div>` : '';
