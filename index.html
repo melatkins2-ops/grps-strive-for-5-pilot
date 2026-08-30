@@ -466,7 +466,13 @@ if(![...roleSel.options].some(o=>o.value==='Other')) roleSel.add(new Option('Oth
 
 
 const searchAliases={'anxiety':['anxiety','worry','school avoidance','mental health','does not want to come',"doesn't want to come",'afraid'],'transportation':['transportation','ride','bus','car','getting to school','no ride'],'tardy':['tardy','late','coming late','arrival','partial day'],'housing':['housing','homeless','moving','eviction','utilities','basic needs'],'health':['health','sick','illness','doctor','medical','dental'],'belonging':['belonging','lonely','connection','mentor','disengaged','bored'],'academic':['academic','class avoidance','failing','course','credit'],'peer':['peer','bullying','conflict','safety']};
-function expandSearchTerm(term){let terms=[term];Object.entries(searchAliases).forEach(([key,vals])=>{if(vals.some(v=>term.includes(v)))terms.push(key,...vals)});return [...new Set(terms)].filter(Boolean);}
+function expandSearchTerm(term){
+ let terms=[term];
+ Object.entries(searchAliases).forEach(([key,vals])=>{
+   if(term===key || vals.some(v=>term.includes(v))) terms.push(key);
+ });
+ return [...new Set(terms)].filter(Boolean);
+}
 
 function renderResources(){
  const term=q.value.toLowerCase().trim(), searchTerms=expandSearchTerm(term), topic=topicSel.value, role=(roleSel.value==='Other'?'All Staff':roleSel.value);
