@@ -465,20 +465,65 @@ if(![...roleSel.options].some(o=>o.value==='District/Department Staff')) roleSel
 if(![...roleSel.options].some(o=>o.value==='Other')) roleSel.add(new Option('Other','Other'));
 
 
-const searchAliases={'anxiety':['anxiety','worry','school avoidance','mental health','does not want to come',"doesn't want to come",'afraid'],'transportation':['transportation','ride','bus','car','getting to school','no ride'],'tardy':['tardy','late','coming late','arrival','partial day'],'housing':['housing','homeless','moving','eviction','utilities','basic needs'],'health':['health','sick','illness','doctor','medical','dental'],'belonging':['belonging','lonely','connection','mentor','disengaged','bored'],'academic':['academic','class avoidance','failing','course','credit'],'peer':['peer','bullying','conflict','safety']};
-function expandSearchTerm(term){
- let terms=[term];
- Object.entries(searchAliases).forEach(([key,vals])=>{
-   if(term===key || vals.some(v=>term.includes(v))) terms.push(key);
- });
- return [...new Set(terms)].filter(Boolean);
-}
+const searchIntents=[
+ {id:'transportation',label:'Transportation barrier',phrases:['no ride','need a ride','ride to school','rides to school','bus issue','bus problem','missed bus','transportation','getting to school','get to school','car broke','no car'],titles:['Transportation Problem-Solving','Root Cause: Barrier','Attendance Success Plan']},
+ {id:'tardy',label:'Tardiness / partial-day barrier',phrases:['keeps coming late','coming late','always late','tardy','tardies','late to school','late arrival','partial day','leaves early','early dismissal'],titles:['Root Cause: Barrier','Attendance Success Plan','10/20/30-Day Review']},
+ {id:'anxiety',label:'Aversion — anxiety / worry',phrases:['scared to come','scared to go','afraid to come','afraid to go','school anxiety','anxiety','anxious','worry','worried','school avoidance','does not want to come',"doesn't want to come"],titles:['Mental Health & Attendance','Root Cause: Aversion','Attendance Success Plan','Caring Conversations / Early Outreach']},
+ {id:'peer',label:'Aversion — safety / peer conflict',phrases:['being bullied','bullied','bullying','peer conflict','fight at school','afraid of someone','unsafe at school','not safe','safety concern'],titles:['Safety / Peer Conflict Response','Root Cause: Aversion','Attendance Success Plan','Caring Conversations / Early Outreach']},
+ {id:'housing',label:'Barrier — housing / basic needs',phrases:['family was evicted','evicted','eviction','homeless','housing','moving around','unstable housing','basic needs','no food','food insecurity','utilities shut off'],titles:['Basic Needs / Housing Support','Root Cause: Barrier','FACE & Family Partnership','Attendance Success Plan']},
+ {id:'health',label:'Barrier — health / wellness',phrases:['sick a lot','always sick','ill a lot','health issue','health problem','medical','doctor','dental','illness','chronic illness','sick'],titles:['Health & Attendance','Root Cause: Barrier','Attendance Success Plan']},
+ {id:'belonging',label:'Disengagement — belonging / adult connection',phrases:['does not feel connected',"doesn't feel connected",'no connection','does not belong',"doesn't belong",'lonely','no adult connection','needs a mentor','bored','does not care about school',"doesn't care about school"],titles:['Success Mentor / CICO','Root Cause: Disengagement','Positive Conditions for Learning','Attendance Success Plan']},
+ {id:'academic',label:'Academic / class avoidance',phrases:['failing classes','failing class','class avoidance','avoids class','skips class','academic struggle','course failure','failing','credit problem','behind in class'],titles:['Academic / Class Avoidance Response','Root Cause: Aversion','Root Cause: Disengagement','Attendance Success Plan']},
+ {id:'work',label:'Disengagement — work-school conflict',phrases:['works late','work late','working late','job conflict','work schedule','has to work','working instead of school'],titles:['Root Cause: Disengagement','Attendance Success Plan','10/20/30-Day Review']},
+ {id:'misconception',label:'Misconception about attendance',phrases:['excused days do not count',"excused days don't count",'excused absences do not count',"excused absences don't count",'two days a month','2 days a month','attendance does not matter',"attendance doesn't matter",'only unexcused count'],titles:['Root Cause: Misconception','Understanding Chronic Absence','Attendance Success Plan','Action vs. Intervention']}
+];
 
+function normalizedSearch(v){return v.toLowerCase().replace(/[’]/g,"'").replace(/\s+/g,' ').trim();}
+function detectSearchIntent(term){
+ const t=normalizedSearch(term);
+ if(!t) return null;
+ let best=null, bestLen=0;
+ for(const intent of searchIntents){
+  for(const phrase of intent.phrases){
+   const p=normalizedSearch(phrase);
+   if((t===p || t.includes(p) || p.includes(t) && t.length>=5) && p.length>bestLen){best=intent;bestLen=p.length;}
+  }
+ }
+ return best;
+}
+function genericSearchScore(r,term){
+ const t=normalizedSearch(term); if(!t) return 1;
+ const title=normalizedSearch(r.title), tags=(r.tags||[]).map(normalizedSearch), topic=normalizedSearch(r.topic), summary=normalizedSearch(r.summary);
+ let score=0;
+ if(title===t) score+=120; else if(title.includes(t)) score+=80;
+ if(tags.some(x=>x===t)) score+=70; else if(tags.some(x=>x.includes(t)||t.includes(x))) score+=45;
+ if(topic.includes(t)) score+=25;
+ if(summary.includes(t)) score+=12;
+ return score;
+}
 function renderResources(){
- const term=q.value.toLowerCase().trim(), searchTerms=expandSearchTerm(term), topic=topicSel.value, role=(roleSel.value==='Other'?'All Staff':roleSel.value);
- const out=resources.filter(r=>{const hay=[r.title,r.topic,r.summary,r.when,r.evidence,...r.roles,...r.tags,...r.steps].join(' ').toLowerCase(); return (!term||searchTerms.some(t=>hay.includes(t)))&&(!topic||r.topic===topic)&&(!role||r.roles.includes(role)||(role==='District/Department Staff'&&r.roles.includes('All Staff')));});
- meta.textContent=`${out.length} resource${out.length===1?'':'s'} shown`;
- grid.innerHTML=out.map(r=>`<article class="card resource"><div><span class="tag">${r.topic}</span><h3>${r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a broader search or reset the filters.</p></article>`;
+ const term=normalizedSearch(q.value), intent=detectSearchIntent(term), topic=topicSel.value, role=(roleSel.value==='Other'?'All Staff':roleSel.value);
+ let ranked=[];
+ for(const r of resources){
+  if(topic && r.topic!==topic) continue;
+  if(role && !(r.roles.includes(role)||(role==='District/Department Staff'&&r.roles.includes('All Staff')))) continue;
+  let score=1;
+  if(term){
+   if(intent){
+    const idx=intent.titles.indexOf(r.title);
+    if(idx<0) continue; // recognized attendance intent: show only intentionally matched resources
+    score=200-(idx*20);
+   } else {
+    score=genericSearchScore(r,term);
+    if(score<=0) continue;
+   }
+  }
+  ranked.push({r,score});
+ }
+ ranked.sort((a,b)=>b.score-a.score || a.r.title.localeCompare(b.r.title));
+ const out=ranked.map(x=>x.r);
+ meta.textContent=intent ? `Understood as: ${intent.label} • ${out.length} resource${out.length===1?'':'s'} shown` : `${out.length} resource${out.length===1?'':'s'} shown`;
+ grid.innerHTML=out.map(r=>`<article class="card resource"><div><span class="tag">${r.topic}</span><h3>${r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a different phrase, choose a topic, or reset the filters.</p></article>`;
  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDetail(decodeURIComponent(b.dataset.open)));
 }
 function openDetail(title){
