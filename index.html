@@ -507,6 +507,45 @@ function normalizedSearch(v){return v.toLowerCase().replace(/[’]/g,"'").replac
 function detectSearchIntent(term){
  const t=normalizedSearch(term);
  if(!t) return null;
+
+ // Detect multiple meaningful attendance factors before selecting a single pathway.
+ // This prevents one concrete keyword (for example, “no ride”) from masking
+ // academic, engagement, aversion, health, or other signals in the same statement.
+ const matched=[];
+ for(const intent of searchIntents){
+  if(['pattern','class_pattern','context_pattern','clarify_sick'].includes(intent.id)) continue;
+  let longest=0;
+  for(const phrase of intent.phrases){
+   const p=normalizedSearch(phrase);
+   if((t===p || t.includes(p)) && p.length>longest) longest=p.length;
+  }
+  if(longest) matched.push({intent,longest});
+ }
+ const factorMatches=matched.filter(x=>['transportation','tardy','anxiety','peer','housing','health','belonging','academic','work','misconception'].includes(x.intent.id));
+ const distinctFamilies=new Set(factorMatches.map(x=>x.intent.id));
+ if(distinctFamilies.size>=2){
+  const ids=[...distinctFamilies];
+  const known=[]; const explore=[];
+  for(const x of factorMatches){
+   const name=x.intent.id==='transportation'?'transportation barrier':x.intent.id==='housing'?'housing/basic-needs barrier':x.intent.id==='health'?'health/wellness concern':x.intent.id==='academic'?'academic difficulty':x.intent.id==='belonging'?'engagement/belonging concern':x.intent.id==='anxiety'?'anxiety/aversion concern':x.intent.id==='peer'?'safety/peer concern':x.intent.id==='tardy'?'tardiness/partial-day pattern':x.intent.id==='work'?'work-school conflict':x.intent.id==='misconception'?'attendance misconception':x.intent.label;
+   (x.intent.mode==='clear'?known:explore).push(name);
+  }
+  const titles=['Caring Conversations / Early Outreach','Possible Root Causes to Explore'];
+  if(ids.includes('transportation')) titles.unshift('Transportation Problem-Solving');
+  if(ids.includes('academic')) titles.push('Academic Re-engagement + Targeted Support');
+  if(ids.includes('belonging')) titles.push('Relationship Mapping + Intentional Connection');
+  if(ids.includes('anxiety')) titles.push('Predictable Re-entry + Check-In Plan');
+  if(ids.includes('peer')) titles.push('Individualized Safety Plan');
+  if(ids.includes('housing')) titles.push('Housing Stability / McKinney-Vento Coordination');
+  if(ids.includes('health')) titles.push('School Health Assessment + Attendance Plan');
+  if(ids.includes('work')) titles.push('Work-School Schedule Problem-Solving');
+  if(ids.includes('misconception')) titles.push('Attendance Understanding + Goal Plan');
+  titles.push('Attendance Success Plan');
+  const knownText=known.length?` Known factor${known.length>1?'s':''}: ${[...new Set(known)].join(', ')}.`:'';
+  const exploreText=explore.length?` Factors to investigate: ${[...new Set(explore)].join(', ')}.`:'';
+  return {id:'multi_factor',mode:'possible',label:'Multiple attendance factors identified',guidance:`More than one factor may be contributing.${knownText}${exploreText} Address any confirmed access or safety barrier promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.`,titles:[...new Set(titles)]};
+ }
+
  let best=null, bestLen=0;
  for(const intent of searchIntents){
   for(const phrase of intent.phrases){
