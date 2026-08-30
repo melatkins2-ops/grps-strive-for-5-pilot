@@ -511,7 +511,16 @@ const searchIntents=[
  {id:'belonging',mode:'possible',label:'Disengagement — explore belonging, relevance, and motivation',guidance:'This is an observation, not a confirmed root cause. Use scholar/family voice to determine whether belonging, relevance, academic frustration, work obligations, peer issues, anxiety, or another factor is contributing before selecting the intervention.',phrases:['does not feel connected',"doesn't feel connected",'no connection','does not belong',"doesn't belong",'lonely','no adult connection','needs a mentor','bored','school is boring','school feels boring','does not care about school',"doesn't care about school",'does not like school',"doesn't like school",'hates school','hate school','does not want to be here',"doesn't want to be here",'does not want to be at school',"doesn't want to be at school",'feels disconnected','nobody cares','no one cares','does not belong',"doesn't belong"],titles:['Relationship Mapping + Intentional Connection','Caring Conversations / Early Outreach','Success Mentor / CICO','Root Cause: Disengagement','Positive Conditions for Learning']},
  {id:'academic',mode:'possible',label:'Academic difficulty / class concern',guidance:'Determine whether academic difficulty is contributing to absences, class avoidance, disengagement, or missed learning before selecting an intervention.',phrases:['failing classes','failing class','class avoidance','avoids class','skips class','academic struggle','course failure','failing','credit problem','behind in class'],titles:['Academic Re-engagement + Targeted Support','Academic / Class Avoidance Response','Caring Conversations / Early Outreach','Root Cause: Aversion','Root Cause: Disengagement']},
  {id:'work',mode:'clear',label:'Disengagement — work-school conflict',phrases:['works late','work late','working late','job conflict','work schedule','has to work','working instead of school'],titles:['Work-School Schedule Problem-Solving','Root Cause: Disengagement']},
- {id:'misconception',mode:'clear',label:'Misconception about attendance',phrases:['excused days do not count',"excused days don't count",'excused absences do not count',"excused absences don't count",'two days a month','2 days a month','attendance does not matter',"attendance doesn't matter",'only unexcused count'],titles:['Attendance Understanding + Goal Plan','Root Cause: Misconception','Understanding Chronic Absence','Action vs. Intervention']}
+ {id:'misconception',mode:'possible',label:'Reported attendance misconception — confirm understanding',phrases:[
+'excused days do not count',"excused days don't count",
+'excused absences do not count',"excused absences don't count",
+'absences are excused so they do not count',"absences are excused so they don't count",
+'excused so they do not count',"excused so they don't count",
+'because they are excused they do not count',"because they are excused they don't count",
+'only unexcused count','only unexcused absences count',
+'two days a month','2 days a month',
+'attendance does not matter',"attendance doesn't matter"
+],titles:['Attendance Understanding + Goal Plan','Root Cause: Misconception','Understanding Chronic Absence','Action vs. Intervention']}
 ];
 
 function normalizedSearch(v){return v.toLowerCase().replace(/[’]/g,"'").replace(/\s+/g,' ').trim();}
@@ -572,17 +581,21 @@ function detectSearchIntent(term){
     fm.id==='academic'?'Reported factor: academic difficulty — investigate attendance connection':
     fm.id==='work'?'Reported factor: work-school conflict — investigate attendance connection':
     fm.id==='tardy'?'Reported factor: tardiness / partial-day pattern — investigate why':
-    fm.id==='misconception'?'Reported factor: attendance misconception — confirm understanding':
+    fm.id==='misconception'?'Reported factor: belief about excused absences / attendance — explore possible Misconception':
     fm.label;
   const reviewText=pctTier.tier==='Tier 1'
     ? (fm.id==='anxiety'
-        ? 'Respond to the identified anxiety/worry concern while continuing to understand what is driving the avoidance. Monitor whether the matched support is implemented, the concern decreases, and attendance improves; escalate support if the pattern persists or worsens.'
+        ? 'Respond to the identified anxiety/worry concern while continuing to understand what is driving the avoidance. Monitor whether the identified concern changes and whether attendance improves; once the root cause is supported and an intervention is selected, monitor implementation and effectiveness.'
+        : fm.id==='misconception'
+          ? 'Clarify the attendance belief and continue investigating what is driving the absences. The conversation, letter, or explanation is an action—not the intervention. If a misconception is supported as the primary root cause, use a specific attendance goal/habit plan and monitor whether attendance improves.'
+          : exploratoryFactor
+            ? 'Respond to the reported factor while continuing to investigate the primary root cause. Monitor whether the identified concern changes and whether attendance improves; once the root cause is supported and an intervention is selected, monitor implementation and effectiveness.'
+            : 'Respond to the confirmed barrier now. Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.')
+    : (fm.id==='misconception'
+        ? 'Clarify the attendance belief while continuing root-cause inquiry. The conversation, letter, or explanation is an action—not the intervention. If Misconception is supported as the primary root cause, build one coordinated attendance goal/habit plan and use 10/20/30-day checkpoints to review implementation and attendance response.'
         : exploratoryFactor
-          ? 'Respond to the reported factor while continuing to investigate the primary root cause. Monitor whether support is implemented and attendance improves; escalate if the pattern persists or worsens.'
-          : 'Respond to the confirmed barrier now. Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.')
-    : (exploratoryFactor
-        ? 'Use a coordinated plan with 10/20/30-day checkpoints while continuing to confirm the primary root cause through scholar/family voice and other evidence.'
-        : 'Use a coordinated plan with 10/20/30-day checkpoints to review fidelity, barrier reduction, and attendance response.');
+          ? 'Use a coordinated plan with 10/20/30-day checkpoints while continuing to confirm the primary root cause through scholar/family voice and other evidence.'
+          : 'Use a coordinated plan with 10/20/30-day checkpoints to review fidelity, barrier reduction, and attendance response.');
   const titles=[...fm.titles];
   if(pctTier.tier!=='Tier 1' && !titles.includes('Attendance Success Plan')) titles.push('Attendance Success Plan');
   return {
