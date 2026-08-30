@@ -684,7 +684,7 @@ function renderResources(){
   meta.textContent=`${out.length} resource${out.length===1?'':'s'} shown`;
  }
  const hasImmediate=!!(intent && (intent.hasImmediate || ['transportation','peer','housing','health'].includes(intent.id)));
- const uncertain=!!(intent && (intent.mode==='possible' || intent.mode==='pattern'));
+ const uncertain=!!(intent && (intent.mode==='possible' || intent.mode==='pattern' || (intent.label && (intent.label.includes('Reported factor:') || intent.label.includes('Reported health/wellness concern') || intent.label.includes('Reported safety/peer concern')))));
  const stageFor=(r)=>{
   const t=r.title;
   if(intent && (intent.mode==='possible' || (intent.label && intent.label.includes('Reported factor:'))) && t.startsWith('Root Cause:')) return 'Investigate';
@@ -704,7 +704,7 @@ function renderResources(){
  const hierarchy=intent ? `<div class="decision-path" aria-label="Attendance decision sequence">
    <div class="${addressClass}"><strong>1. Address now</strong><span>${addressText}</span></div>
    <div class="decision-step ${uncertain?'active':''}"><strong>2. Investigate</strong><span>Use the pattern, scholar/family voice, and evidence to understand why.</span></div>
-   <div class="decision-step"><strong>3. Match intervention</strong><span>${uncertain?'Consider options only after the root cause is supported.':'Select one primary intervention that addresses the supported root cause.'}</span></div>
+   <div class="decision-step"><strong>3. ${uncertain?'Consider options':'Match intervention'}</strong><span>${uncertain?'Consider options only after the root cause is supported.':'Select one primary intervention that addresses the supported root cause.'}</span></div>
    <div class="decision-step"><strong>4. Build plan</strong><span>Name the owner, frequency, measurable goal, and review date.</span></div>
    <div class="decision-step review"><strong>5. Review</strong><span>${intent && intent.label && intent.label.startsWith('Tier 1')
  ? (intent.label.includes('Confirmed transportation barrier') || intent.label.includes('Confirmed housing/basic-needs barrier')
