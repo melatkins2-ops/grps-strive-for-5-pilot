@@ -1,4 +1,5 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Strive for Less Than 5 | GRPS</title><style>
+<!doctype html><!-- BUILD: consolidated-regression-fixes-v6 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Strive for Less Than 5 | GRPS</title><style>
 :root{--blue:#005596;--orange:#f47b20;--orange-soft:#fff2e8;--yellow:#eeb211;--ink:#20313b;--muted:#66757d;--line:#dde5ea;--soft:#f6f8fa;--white:#fff;--shadow:0 10px 26px rgba(0,0,0,.07);--font:Arial,"Helvetica Neue",Helvetica,sans-serif;--display:"Helvetica Neue",Arial,sans-serif}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font);font-size:16px;color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:var(--blue)}button,input,select,textarea{font:inherit}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;padding:10px;z-index:999}
 header{border-bottom:1px solid var(--line);background:#fff;position:relative}header:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:4px;background:linear-gradient(90deg,var(--orange) 0 28%,var(--yellow) 28% 40%,transparent 40%)}.topbar{max-width:1100px;margin:auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:10px}.bar{width:7px;height:36px;border-radius:4px;background:var(--orange)}.brand strong{display:block;color:var(--blue);font-family:var(--display);font-size:.92rem;letter-spacing:.015em}.brand small{color:var(--muted);font-size:.82rem}.topbar a{text-decoration:none;font-weight:700;font-size:.9rem}
@@ -122,6 +123,17 @@ main{max-width:1540px;padding:0 32px 72px;margin:0 auto;background:var(--pd-bg)}
 @media(max-width:1100px){.choice-grid{grid-template-columns:repeat(2,1fr)}.dash-hero-in{grid-template-columns:1fr}.dash-rule{max-width:720px}.dash-brandrow{padding-left:20px;padding-right:20px}.dash-tabs{padding-left:20px;padding-right:20px}.dash-hero-in,main{padding-left:20px;padding-right:20px}}
 @media(max-width:700px){.dash-brandrow{align-items:center;gap:15px}.dash-logo-block{width:130px;height:58px}.dash-logo-text{font-size:24px}.dash-title{font-size:26px}.dash-kicker{font-size:11px}.dash-subtitle{font-size:13px}.dash-tabs{padding-top:8px}.dash-tabs a{padding:10px 12px 12px;font-size:13px}.dash-hero-in{padding-top:34px;gap:25px}.dash-hero h1{font-size:38px;letter-spacing:-1.5px}.dash-hero p{font-size:17px}.choice-grid{grid-template-columns:1fr}.choice{min-height:0}.builder-grid,.controls,.resources,.role-grid,.download-grid,.scenario-strip{grid-template-columns:1fr}.workflow-mini{grid-template-columns:1fr}.root-grid{grid-template-columns:1fr}}
 
+
+/* Search decision hierarchy */
+.decision-path{grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0 16px}
+.decision-step{border:1px solid var(--pd-line);background:#f8fafb;padding:10px 11px;border-radius:4px;min-height:64px}
+.decision-step strong{display:block;color:var(--pd-navy);font-size:13px;margin-bottom:3px}
+.decision-step span{display:block;color:var(--pd-muted);font-size:12px;line-height:1.35}
+.decision-step.active{border-top:4px solid var(--pd-orange);background:#fff8f3;padding-top:7px}
+.decision-step.review{border-top:4px solid var(--pd-blue);padding-top:7px}
+.decision-step.muted{background:#f3f5f7;border-color:#d8e0e6;opacity:.72}.decision-step.muted strong,.decision-step.muted span{color:#6c7d8b}
+.stage-label{display:inline-block;margin:0 0 7px;padding:4px 8px;border-radius:999px;background:#eef3f6;color:#38566d;font-size:11px;font-weight:800}
+@media(max-width:800px){.decision-path{grid-template-columns:1fr}.decision-step{min-height:0}}
 </style>
 <style id="v10-card-readability-fix">
 /* v10: improve pathway-card readability while preserving Progress Dashboard design */
@@ -483,34 +495,228 @@ resources.push(...intentInterventionResources);
 // Pattern-first guidance: attendance patterns identify WHEN/WHERE the issue occurs, not WHY.
 resources.push({title:'Attendance Pattern Review + Root-Cause Inquiry',topic:'Early Action & Discovery',roles:['Attendance Team','Principal / School Leader','School Secretary / Attendance Staff','Family Support Specialist'],tags:['pattern','monday','friday','first period','same day','repeated absence','attendance pattern'],summary:'Use the attendance pattern as evidence, then investigate the reason before selecting an intervention.',when:'Repeated day-of-week, period, arrival, dismissal, or clustered absence patterns are visible but the underlying reason is not yet known.',steps:['Review the pattern in Synergy: day, period, frequency, duration, and recent change.','Ask what is different about the affected day, period, transition, or routine.','Use scholar/family voice and a caring conversation to identify the likely root cause.','Only after the root cause is supported, match the intervention and owner.'],evidence:'Pattern documented; root-cause hypothesis supported by evidence and voice; matched intervention selected.',downloads:['tools/Root_Cause_Interview_Guide.md']});
 resources.push({title:'Class-Specific Attendance Pattern Inquiry',topic:'Early Action & Discovery',roles:['Attendance Team','Teacher','Principal / School Leader','Social Worker / Counselor'],tags:['class specific','skips class','misses class','period','math class','specific class'],summary:'Investigate a pattern tied to one class or period before deciding whether the cause is academic, relational, safety-related, motivational, or another factor.',when:'A scholar misses or skips a specific class or period while attending other parts of the school day.',steps:['Confirm the class/period pattern in Synergy.','Gather scholar voice about what is different in that class, time, task, or setting.','Check for academic difficulty, peer/safety concerns, adult relationship, schedule issues, or other contributing factors.','Select a root-cause pathway only after evidence supports it, then match the intervention.'],evidence:'Class-specific pattern documented; likely cause supported by evidence and scholar voice; matched response selected.',downloads:['tools/Root_Cause_Interview_Guide.md']});
-resources.push({title:'Context-Linked Attendance Pattern Inquiry',topic:'Early Action & Discovery',roles:['Attendance Team','Teacher','Principal / School Leader','Social Worker / Counselor'],tags:['test days','assessment','specific event','context linked','context pattern'],summary:'Investigate absences that cluster around a specific event, demand, or school context without assuming the reason.',when:'Absences repeatedly occur on test days, presentation days, certain activities, transitions, or other identifiable contexts.',steps:['Confirm the context-linked pattern in attendance and school records.','Ask the scholar what is different about that context or event.','Explore possible academic difficulty, anxiety, peer/safety concerns, disengagement, family factors, or other explanations.','Match an intervention only after the likely root cause is supported.'],evidence:'Context pattern documented; contributing factor supported by evidence and voice; matched intervention selected.',downloads:['tools/Root_Cause_Interview_Guide.md']});
+resources.push({title:'Context-Linked Attendance Pattern Inquiry',topic:'Early Action & Discovery',roles:['Attendance Team','Teacher','Principal / School Leader','Social Worker / Counselor'],tags:['test days','assessment','specific event','context linked','context pattern'],summary:'Investigate absences that cluster around a specific event, demand, or school context without assuming the reason.',when:'Absences repeatedly occur on test days, presentation days, certain activities, transitions, or other identifiable contexts.',steps:['Confirm the context-linked pattern in attendance and school records.','Gather scholar voice and, when appropriate, caregiver/family perspective about what is different about that context or event.','Develop and test possible explanations—including academic difficulty, anxiety/aversion, peer or safety concerns, disengagement, family barriers, health factors, or misconceptions. Treat these as hypotheses, not conclusions.','Identify the most likely root cause supported by attendance data, scholar/family voice, and other evidence. Then select a matched intervention with an owner, measurable goal, and review date.'],evidence:'Pattern confirmed; root cause supported by evidence and scholar/family voice; matched intervention selected; owner identified; review date established.',downloads:['tools/Root_Cause_Interview_Guide.md']});
 resources.push({title:'Possible Root Causes to Explore',topic:'Early Action & Discovery',roles:['All Staff','Attendance Team','Family Support Specialist','Teacher','Social Worker / Counselor'],tags:['root cause inquiry','barrier aversion disengagement misconception','explore'],summary:'Use the four GRPS root-cause pathways as hypotheses to investigate—not diagnoses to select from—when the reason for an attendance pattern is still unknown.',when:'A pattern is visible but the underlying reason has not yet been established.',steps:['Start with scholar/family voice and the observed attendance pattern.','Consider Barrier, Aversion, Disengagement, and Misconception as hypotheses.','Gather evidence that supports or rules out each pathway.','Select one primary root cause only when the evidence is strong enough to guide intervention matching.'],evidence:'One primary root-cause hypothesis is supported by attendance data, context, and scholar/family voice.',downloads:['tools/Root_Cause_Interview_Guide.md']});
 
 const searchIntents=[
  {id:'class_pattern',mode:'pattern',label:'Class-specific attendance pattern identified',guidance:'The scholar is missing a specific class or period while attending other parts of the day. Treat that pattern as evidence, gather scholar voice, and investigate what is different about that class before selecting a root cause or intervention.',phrases:['skips math class','skips class but attends','skips class','misses math class','misses english class','misses one class','attends the rest of the day','cuts class','cutting class','skipping period','misses one period'],titles:['Class-Specific Attendance Pattern Inquiry','Synergy Attendance Analytics','Caring Conversations / Early Outreach','Possible Root Causes to Explore','Academic / Class Avoidance Response']},
- {id:'context_pattern',mode:'pattern',label:'Context-linked attendance pattern identified',guidance:'The absences are linked to a specific context or event. Confirm the pattern and investigate what about that context is contributing before deciding whether the root cause is academic, anxiety-related, safety-related, disengagement, or something else.',phrases:['test days','on test days','only misses school on test days','assessment days','presentation days','on presentation days','specific event'],titles:['Context-Linked Attendance Pattern Inquiry','Synergy Attendance Analytics','Caring Conversations / Early Outreach','Possible Root Causes to Explore','Academic Re-engagement + Targeted Support']},
+ {id:'context_pattern',mode:'pattern',label:'Context-linked attendance pattern identified',guidance:'The absences are linked to a specific context or event. Confirm the pattern and investigate what about that context is contributing before deciding whether the root cause is academic, anxiety-related, safety-related, disengagement, or something else.',phrases:['test days','on test days','only misses school on test days','assessment days','presentation days','on presentation days','specific event','substitute teacher','there is a substitute','when there is a substitute','whenever there is a substitute'],titles:['Context-Linked Attendance Pattern Inquiry','Synergy Attendance Analytics','Caring Conversations / Early Outreach','Possible Root Causes to Explore','Academic Re-engagement + Targeted Support']},
  {id:'pattern',mode:'pattern',label:'Attendance pattern identified',guidance:'A pattern tells us when or where attendance is occurring, not why. Review the attendance pattern and use scholar/family voice to identify the root cause before selecting an intervention.',phrases:['every monday','every friday','every tuesday','every wednesday','every thursday','same day each week','after weekends','after the weekend','first period','misses first period','missing first period','several days in a row','three days in a row','absent a lot','misses school every','absent every','leaves school early every','leaves early every'],titles:['Attendance Pattern Review + Root-Cause Inquiry','Synergy Attendance Analytics','Caring Conversations / Early Outreach','Possible Root Causes to Explore']},
  {id:'clarify_sick',mode:'possible',label:'Reason needs clarification',guidance:'The reported reason and available information do not align. Use scholar/family voice and a caring conversation to determine whether the underlying issue is a misconception, aversion, family barrier, health concern, or another attendance factor before selecting an intervention.',phrases:['calling child in sick but child is not sick','calling scholar in sick but scholar is not sick','says child is sick but child is not sick','says scholar is sick but scholar is not sick','called in sick but not sick','sick but not sick'],titles:['Caring Conversations / Early Outreach','Action vs. Intervention','Root Cause: Misconception','Root Cause: Aversion','Root Cause: Barrier','Health & Attendance']},
- {id:'transportation',mode:'clear',label:'Barrier — transportation / family logistics',guidance:'The caregiver has identified a transportation or family-logistics condition that is interfering with attendance. Treat this as strong evidence of a Barrier → Transportation pathway while clarifying the exact failure point and building a reliable primary and backup plan. A caregiver work schedule is part of the transportation/family-logistics barrier; it is not evidence that the scholar has a work-school conflict.',phrases:['no ride','need a ride','ride to school','rides to school','bus issue','bus problem','missed bus','transportation','getting to school','get to school','car broke','car broke down','no car','caregiver work schedule',"caregiver\'s work schedule",'parent work schedule',"parent\'s work schedule"],titles:['Transportation Problem-Solving','Community Resource Connection + Follow-Through Plan','Root Cause: Barrier','Attendance Success Plan']},
+ {id:'transportation',mode:'clear',label:'Barrier — transportation / family logistics',guidance:'A transportation or family-logistics condition is interfering with attendance. Clarify the exact failure point and build a reliable primary and backup plan. A caregiver work schedule that affects transportation is part of the family-logistics barrier; it is not evidence that the scholar has a work-school conflict.',phrases:['no ride','need a ride','ride to school','rides to school','bus issue','bus problem','missed bus','transportation','getting to school','get to school','car broke','car broke down','no car','caregiver work schedule',"caregiver's work schedule",'parent work schedule',"parent's work schedule",'guardian work schedule',"guardian's work schedule"],titles:['Transportation Problem-Solving','Community Resource Connection + Follow-Through Plan','Root Cause: Barrier','Attendance Success Plan']},
  {id:'tardy',mode:'clear',label:'Tardiness / partial-day barrier',phrases:['keeps coming late','coming late','always late','tardy','tardies','late to school','late arrival','partial day','leaves early','early dismissal'],titles:['Individualized Arrival Plan','Arrival Check-In','Root Cause: Barrier']},
  {id:'anxiety',mode:'clear',label:'Aversion — anxiety / worry',phrases:['scared to come','scared to go','afraid to come','afraid to go','school anxiety','anxiety','anxious','worry','worried','school avoidance','does not want to come',"doesn't want to come"],titles:['Predictable Re-entry + Check-In Plan','Behavioral Health Connection + School Support Plan','Mental Health & Attendance','Root Cause: Aversion','Caring Conversations / Early Outreach']},
  {id:'peer',mode:'clear',label:'Aversion — safety / peer conflict',phrases:['being bullied','bullied','bullying','peer conflict','fight at school','afraid of someone','unsafe at school','not safe','safety concern'],titles:['Individualized Safety Plan','Safety / Peer Conflict Response','Root Cause: Aversion','Caring Conversations / Early Outreach']},
  {id:'housing',mode:'clear',label:'Barrier — housing / basic needs',phrases:['family was evicted','evicted','eviction','homeless','housing','moving around','unstable housing','basic needs','no food','food insecurity','utilities shut off'],titles:['Housing Stability / McKinney-Vento Coordination','Basic Needs / Housing Support','Community Resource Connection + Follow-Through Plan','Root Cause: Barrier']},
  {id:'health',mode:'clear',label:'Barrier — health / wellness',phrases:['sick a lot','always sick','ill a lot','health issue','health problem','medical','doctor','dental','illness','chronic illness','sick'],titles:['School Health Assessment + Attendance Plan','Health & Attendance','Root Cause: Barrier']},
- {id:'belonging',mode:'possible',label:'Disengagement — explore belonging, relevance, and motivation',guidance:'This is an observation, not a confirmed root cause. Use scholar/family voice to determine whether belonging, relevance, academic frustration, work obligations, peer issues, anxiety, or another factor is contributing before selecting the intervention.',phrases:['does not feel connected',"doesn't feel connected",'no connection','does not belong',"doesn't belong",'lonely','no adult connection','needs a mentor','bored','does not care about school',"doesn't care about school"],titles:['Relationship Mapping + Intentional Connection','Caring Conversations / Early Outreach','Success Mentor / CICO','Root Cause: Disengagement','Positive Conditions for Learning']},
+ {id:'belonging',mode:'possible',label:'Disengagement — explore belonging, relevance, and motivation',guidance:'This is an observation, not a confirmed root cause. Use scholar/family voice to determine whether belonging, relevance, academic frustration, work obligations, peer issues, anxiety, or another factor is contributing before selecting the intervention.',phrases:['does not feel connected',"doesn't feel connected",'no connection','does not belong',"doesn't belong",'lonely','no adult connection','needs a mentor','bored','school is boring','school feels boring','does not care about school',"doesn't care about school",'does not like school',"doesn't like school",'hates school','hate school','does not want to be here',"doesn't want to be here",'does not want to be at school',"doesn't want to be at school",'feels disconnected','nobody cares','no one cares','does not belong',"doesn't belong"],titles:['Relationship Mapping + Intentional Connection','Caring Conversations / Early Outreach','Success Mentor / CICO','Root Cause: Disengagement','Positive Conditions for Learning']},
  {id:'academic',mode:'possible',label:'Academic difficulty / class concern',guidance:'Determine whether academic difficulty is contributing to absences, class avoidance, disengagement, or missed learning before selecting an intervention.',phrases:['failing classes','failing class','class avoidance','avoids class','skips class','academic struggle','course failure','failing','credit problem','behind in class'],titles:['Academic Re-engagement + Targeted Support','Academic / Class Avoidance Response','Caring Conversations / Early Outreach','Root Cause: Aversion','Root Cause: Disengagement']},
  {id:'work',mode:'clear',label:'Disengagement — scholar work-school conflict',phrases:['scholar works late','scholar is working late','scholar work schedule','scholar job conflict','scholar has to work','scholar working instead of school','student works late','student work schedule','student has to work','i work late','my job conflicts with school'],titles:['Work-School Schedule Problem-Solving','Root Cause: Disengagement']},
- {id:'misconception',mode:'clear',label:'Misconception about attendance',phrases:['excused days do not count',"excused days don't count",'excused absences do not count',"excused absences don't count",'two days a month','2 days a month','attendance does not matter',"attendance doesn't matter",'only unexcused count'],titles:['Attendance Understanding + Goal Plan','Root Cause: Misconception','Understanding Chronic Absence','Action vs. Intervention']}
+ {id:'misconception',mode:'possible',label:'Reported attendance misconception — confirm understanding',phrases:[
+'excused days do not count',"excused days don't count",
+'excused absences do not count',"excused absences don't count",
+'absences are excused so they do not count',"absences are excused so they don't count",
+'excused so they do not count',"excused so they don't count",
+'because they are excused they do not count',"because they are excused they don't count",
+'only unexcused count','only unexcused absences count',
+'two days a month','2 days a month',
+'attendance does not matter',"attendance doesn't matter"
+],titles:['Attendance Understanding + Goal Plan','Root Cause: Misconception','Understanding Chronic Absence','Action vs. Intervention']}
 ];
 
 function normalizedSearch(v){return v.toLowerCase().replace(/[’]/g,"'").replace(/\s+/g,' ').trim();}
+function absenceTierFromPercent(p){
+ if(!Number.isFinite(p)||p<0||p>100) return null;
+ if(p<10) return {tier:'Tier 1',band:'0–9% absent',owner:'All staff; Attendance Team monitors'};
+ if(p<20) return {tier:'Tier 2',band:'10–19% absent',owner:'Building Attendance Team'};
+ return {tier:'Tier 3',band:'20%+ absent',owner:'FSS + Attendance Team'};
+}
 function detectSearchIntent(term){
  const t=normalizedSearch(term);
  if(!t) return null;
- // Subject-aware rule: caregiver/parent work schedules that affect getting to school are family-logistics/transportation barriers, not scholar employment conflicts.
- const caregiverWork=/(caregiver|parent|guardian|mom|mother|dad|father).{0,45}(work schedule|works|working|job)|(?:work schedule|works|working|job).{0,45}(caregiver|parent|guardian|mom|mother|dad|father)/.test(t);
- const transportContext=/(transport|ride|bus|car|getting to school|get to school|arrival)/.test(t);
- if(caregiverWork && transportContext) return searchIntents.find(x=>x.id==='transportation');
+ const pctMatch=t.match(/(?:^|\s)(\d{1,3}(?:\.\d+)?)\s*%/);
+ const pct=pctMatch?Number(pctMatch[1]):null;
+ const pctTier=pct!==null?absenceTierFromPercent(pct):null;
+ const caregiverWorkSchedule=/(?:caregiver|parent|guardian|mom|mother|dad|father)[^.!?]{0,70}(?:work schedule|works|working|job)|(?:work schedule|works|working|job)[^.!?]{0,70}(?:caregiver|parent|guardian|mom|mother|dad|father)/.test(t);
+ const transportationContext=/(?:transport|ride|bus|car|getting to school|get to school|arrival)/.test(t);
+
+
+ // Explicit scholar-reported causal evidence must be evaluated before generic factor logic.
+ const scholarReport=(
+   /\b(?:but\s+)?(?:the\s+)?scholar\s+(?:says|reports|shares|states|tells|said|reported)\b/.test(t)
+   ||
+   /\b(?:the\s+)?scholar\b[^.!?]{0,90}\b(?:says|reports|shares|states|tells|said|reported)\b/.test(t)
+ );
+ const attendanceBehavior=/\b(?:stay(?:s|ing)?\s+home|avoid(?:s|ing)?\s+(?:school|class)|miss(?:es|ing)?\s+(?:school|class)|skip(?:s|ping)?\s+(?:school|class)|doesn['’]t\s+come|does\s+not\s+come)\b/.test(t);
+ const academicReason=/\b(?:fail(?:ing|ed)?|failing\s+classes?|behind\s+in\s+class|academic(?:ally)?|class(?:es)?|math|credit|course|embarrass(?:ed|ment)?|ashamed|humiliat(?:ed|ion))\b/.test(t);
+
+ // Strong causal evidence means the scholar explicitly links attendance behavior
+ // to the academic reason. Match either order:
+ //   "stay home because I am failing"
+ //   "I am failing, so I stay home"
+ const directAcademicCausal =
+   /\b(?:stay(?:s|ing)?\s+home|avoid(?:s|ing)?\s+(?:school|class)|miss(?:es|ing)?\s+(?:school|class)|skip(?:s|ping)?\s+(?:school|class)|doesn['’]t\s+come|does\s+not\s+come)\b[^.!?]{0,80}\b(?:because|due to|since)\b[^.!?]{0,120}\b(?:fail(?:ing|ed)?|behind|class|classes|math|academic|embarrass(?:ed|ment)?|ashamed|humiliat(?:ed|ion))\b/.test(t)
+   ||
+   /\b(?:fail(?:ing|ed)?|behind|class|classes|math|academic|embarrass(?:ed|ment)?|ashamed|humiliat(?:ed|ion))\b[^.!?]{0,120}\b(?:so|therefore|because)\b[^.!?]{0,80}\b(?:stay(?:s|ing)?\s+home|avoid(?:s|ing)?\s+(?:school|class)|miss(?:es|ing)?\s+(?:school|class)|skip(?:s|ping)?\s+(?:school|class)|doesn['’]t\s+come|does\s+not\s+come)\b/.test(t);
+
+ const scholarAcademicCausal=scholarReport && attendanceBehavior && academicReason && directAcademicCausal;
+
+ const independentDisengagementEvidence=/\b(?:school\s+is\s+boring|boring|doesn['’]t\s+care|does\s+not\s+care|unmotivated|no\s+motivation|disconnected|doesn['’]t\s+belong|does\s+not\s+belong|nobody\s+cares|no\s+trusted\s+adult|weak\s+connection|hates?\s+school)\b/.test(t);
+
+ if(pctTier && scholarAcademicCausal){
+  const titles=[
+    'Caring Conversations / Early Outreach',
+    'Root Cause: Aversion',
+    'Academic Re-engagement + Targeted Support',
+    'Academic / Class Avoidance Response',
+    ...(independentDisengagementEvidence ? ['Root Cause: Disengagement'] : []),
+    'Attendance Success Plan'
+  ];
+  return {
+    id:'severity_academic_causal',
+    mode:'clear',
+    hasImmediate:false,
+    label:`${pctTier.tier} attendance concern — ${pct}% absent | Scholar-reported reason: academic failure/embarrassment is contributing to school or class avoidance`,
+    guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. The scholar directly connected staying home or avoiding school to academic difficulty and embarrassment about returning. Treat this as strong causal evidence for an academic/class-avoidance pathway while continuing to clarify the specific academic conditions that are driving avoidance. Prioritize Aversion / Academic-Class Avoidance and matched academic re-engagement supports.${independentDisengagementEvidence?' Separate disengagement evidence is also present, so explore it as a secondary factor.':' Disengagement is not shown because no independent evidence of boredom, low motivation, weak belonging, or disconnection was identified.'} ${pctTier.tier==='Tier 1'?'Monitor whether the identified concern changes and attendance improves; escalate if the pattern persists or worsens.':'Use one coordinated plan with 10/20/30-day checkpoints to review implementation, academic barrier reduction, and attendance response.'}`,
+    titles
+  };
+ }
+
+
+ 
+ const directDisengagement=/\b(?:school\s+(?:is|feels)\s+boring|boring|doesn['’]t\s+care\s+about\s+school|does\s+not\s+care\s+about\s+school|hates?\s+school|feels?\s+disconnected|doesn['’]t\s+belong|does\s+not\s+belong)\b/.test(t);
+ if(!pctTier && directDisengagement){
+  return {
+   id:'direct_disengagement',mode:'possible',hasImmediate:false,
+   label:'Disengagement — explore belonging, relevance, and motivation',
+   guidance:'The statement suggests a possible disengagement pattern. Use scholar/family voice to clarify whether belonging, relevance, motivation, academic frustration, or another factor is contributing before confirming the root cause.',
+   titles:['Relationship Mapping + Intentional Connection','Success Mentor / CICO','Caring Conversations / Early Outreach','Root Cause: Disengagement','Positive Conditions for Learning']
+  };
+ }
+
+const explicitNoBarrier=/\b(?:no|without)\s+(?:known\s+)?barriers?\b|\bthere (?:are|is) no (?:known )?barriers?\b|\bno barriers? (?:identified|reported|known)\b/.test(t);
+
+ // Detect multiple meaningful attendance factors before selecting a single pathway.
+ // This prevents one concrete keyword (for example, “no ride”) from masking
+ // academic, engagement, aversion, health, or other signals in the same statement.
+ const matched=[];
+ for(const intent of searchIntents){
+  if(['pattern','class_pattern','context_pattern','clarify_sick'].includes(intent.id)) continue;
+  let longest=0;
+  for(const phrase of intent.phrases){
+   const p=normalizedSearch(phrase);
+   if((t===p || t.includes(p)) && p.length>longest) longest=p.length;
+  }
+  if(longest) matched.push({intent,longest});
+ }
+ const factorMatches=matched.filter(x=>['transportation','tardy','anxiety','peer','housing','health','belonging','academic','work','misconception'].includes(x.intent.id) && !(x.intent.id==='work' && caregiverWorkSchedule && transportationContext));
+ const distinctFamilies=new Set(factorMatches.map(x=>x.intent.id));
+
+ // Percentage determines intensity, not root cause.
+ // Keep severity visible whether the root cause is unknown OR a separate factor is confirmed.
+ if(pctTier && (factorMatches.length===0 || explicitNoBarrier)) {
+  const familyStatement=explicitNoBarrier?' Family reports no known barriers; treat that as one source of information, not proof that no attendance factor exists.':'';
+  return {
+   id:'severity_unknown',mode:'possible',hasImmediate:false,
+   label:`${pctTier.tier} attendance concern — ${pct}% absent`,
+   guidance:`Attendance percentage determines intensity; it does not determine the root cause. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}.${familyStatement} Review the attendance pattern, gather scholar voice and other relevant evidence, and identify the primary root cause before selecting an intervention.${pctTier.tier==='Tier 1'?' Monitor the attendance response and intensify support if the pattern persists or worsens.':' Use one coordinated plan with 10/20/30-day checkpoints; review implementation fidelity, barrier/root-cause evidence, and attendance response.'}`,
+   titles:['Attendance Pattern Review + Root-Cause Inquiry','Synergy Attendance Analytics','Caring Conversations / Early Outreach','Possible Root Causes to Explore',...(pctTier.tier!=='Tier 1'?['Attendance Success Plan']:[])]
+  };
+ }
+
+// Evidence-priority rule: when the scholar explicitly connects academic difficulty
+ // to staying home/avoiding school, treat that as stronger causal evidence than a
+ // generic academic keyword match. Explore possible academic/class avoidance (Aversion)
+ // and do not elevate Disengagement unless separate motivation/belonging evidence exists.
+ if(pctTier && factorMatches.length===1 && !explicitNoBarrier) {
+  const fm=factorMatches[0].intent;
+  const immediate=['transportation','peer','housing','health'].includes(fm.id);
+  const exploratoryFactor=['anxiety','belonging','academic','work','tardy','misconception'].includes(fm.id);
+  const factorLabel=fm.id==='transportation'?'Confirmed transportation barrier':
+    fm.id==='housing'?'Confirmed housing/basic-needs barrier':
+    fm.id==='health'?'Reported health/wellness concern — confirm attendance pathway':
+    fm.id==='peer'?'Reported safety/peer concern — confirm attendance pathway':
+    fm.id==='anxiety'?'Reported factor: anxiety / worry — explore possible aversion':
+    fm.id==='belonging'?'Reported factor: engagement / belonging concern — explore possible disengagement':
+    fm.id==='academic'?'Reported factor: academic difficulty — investigate attendance connection':
+    fm.id==='work'?'Reported factor: work-school conflict — investigate attendance connection':
+    fm.id==='tardy'?'Reported factor: tardiness / partial-day pattern — investigate why':
+    fm.id==='misconception'?'Reported factor: belief about excused absences / attendance — explore possible Misconception':
+    fm.label;
+  const reviewText=pctTier.tier==='Tier 1'
+    ? (fm.id==='anxiety'
+        ? 'Respond to the identified anxiety/worry concern while continuing to understand what is driving the avoidance. Monitor whether the identified concern changes and whether attendance improves; once the root cause is supported and an intervention is selected, monitor implementation and effectiveness.'
+        : fm.id==='misconception'
+          ? 'Clarify the attendance belief and continue investigating what is driving the absences. The conversation, letter, or explanation is an action—not the intervention. If a misconception is supported as the primary root cause, use a specific attendance goal/habit plan and monitor whether attendance improves.'
+          : exploratoryFactor
+            ? 'Respond to the reported factor while continuing to investigate the primary root cause. Monitor whether the identified concern changes and whether attendance improves; once the root cause is supported and an intervention is selected, monitor implementation and effectiveness.'
+            : 'Respond to the confirmed barrier now. Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.')
+    : (fm.id==='misconception'
+        ? 'Clarify the attendance belief while continuing root-cause inquiry. The conversation, letter, or explanation is an action—not the intervention. If Misconception is supported as the primary root cause, build one coordinated attendance goal/habit plan and use 10/20/30-day checkpoints to review implementation and attendance response.'
+        : exploratoryFactor
+          ? 'Use a coordinated plan with 10/20/30-day checkpoints while continuing to confirm the primary root cause through scholar/family voice and other evidence.'
+          : 'Use a coordinated plan with 10/20/30-day checkpoints to review fidelity, barrier reduction, and attendance response.');
+  const titles=[...fm.titles];
+  if(pctTier.tier!=='Tier 1' && !titles.includes('Attendance Success Plan')) titles.push('Attendance Success Plan');
+  return {
+   id:`severity_${fm.id}`,
+   mode:'clear',
+   hasImmediate:immediate,
+   label:`${pctTier.tier} attendance concern — ${pct}% absent | ${factorLabel}`,
+   guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. ${exploratoryFactor ? `The ${fm.label.toLowerCase()} is a reported factor to investigate; do not treat it as a confirmed root cause until supported by scholar/family voice and other evidence.` : `The ${fm.label.toLowerCase()} is the supported factor driving intervention selection.`} ${reviewText}`,
+   titles
+  };
+ }
+
+ 
+ if(distinctFamilies.size>=2){
+  const ids=[...distinctFamilies];
+
+  // Evidence-priority rule: an explicit scholar report that bullying/peer safety is
+  // driving avoidance takes priority over a nonspecific caregiver report of illness.
+  // The health concern remains visible for investigation, but is not presented as an
+  // equally confirmed "address now" intervention unless separate health evidence exists.
+  const scholarPeerReport=ids.includes('peer') && /scholar\s+(?:says|reports|shares|states|tells|said|reported)[^.!?]*(?:bull(?:y|ied|ying)|peer conflict|unsafe|afraid|threat)/.test(t);
+  const caregiverHealthReport=ids.includes('health') && /(?:caregiver|parent|guardian|family)\s+(?:says|reports|shares|states|tells|said|reported)[^.!?]*(?:sick|ill|health|medical)/.test(t);
+  const prioritizePeerOverHealth=scholarPeerReport && caregiverHealthReport;
+
+  if(prioritizePeerOverHealth){
+   const titles=['Individualized Safety Plan','Caring Conversations / Early Outreach','Possible Root Causes to Explore','Attendance Success Plan'];
+   const severityText=pctTier?` ${pctTier.tier} intensity applies because the scholar is ${pct}% absent (${pctTier.band}); primary ownership: ${pctTier.owner}.`:'';
+   const multiLabel=pctTier?`${pctTier.tier} attendance concern — ${pct}% absent | Scholar-reported bullying/safety concern + caregiver-reported illness`:'Scholar-reported bullying/safety concern + caregiver-reported illness';
+   return {
+    id:'multi_factor_peer_priority',
+    mode:'possible',
+    hasImmediate:true,
+    label:multiLabel,
+    guidance:`More than one factor may be contributing.${severityText} Scholar-reported factor: bullying/safety concern linked to school avoidance — address promptly. Caregiver-reported factor: frequent illness — investigate whether it is an independent health barrier, related to the bullying/avoidance, or another contributing factor. Attendance percentage determines intensity; root cause determines the intervention. Prioritize immediate safety while continuing root-cause inquiry. Do not start a separate health attendance intervention unless health evidence supports it. Build one coordinated attendance plan with a primary intervention, complementary supports as needed, an owner, a measurable goal, and a review date.${pctTier && pctTier.tier!=='Tier 1'?' Use 10/20/30-day checkpoints to review implementation, safety/barrier reduction, and attendance response.':''}`,
+    titles
+   };
+  }
+
+  const known=[]; const explore=[];
+  for(const x of factorMatches){
+   const name=x.intent.id==='transportation'?'transportation barrier':x.intent.id==='housing'?'housing/basic-needs barrier':x.intent.id==='health'?'health/wellness concern':x.intent.id==='academic'?'academic difficulty':x.intent.id==='belonging'?'engagement/belonging concern':x.intent.id==='anxiety'?'anxiety/aversion concern':x.intent.id==='peer'?'safety/peer concern':x.intent.id==='tardy'?'tardiness/partial-day pattern':x.intent.id==='work'?'work-school conflict':x.intent.id==='misconception'?'attendance misconception':x.intent.label;
+   (x.intent.mode==='clear'?known:explore).push(name);
+  }
+  const titles=['Caring Conversations / Early Outreach','Possible Root Causes to Explore'];
+  if(ids.includes('transportation')) titles.unshift('Transportation Problem-Solving');
+  if(ids.includes('academic')) { titles.push('Academic Re-engagement + Targeted Support'); titles.push('Academic / Class Avoidance Response'); }
+  if(ids.includes('belonging')) titles.push('Relationship Mapping + Intentional Connection');
+  if(ids.includes('anxiety')) titles.push('Predictable Re-entry + Check-In Plan');
+  if(ids.includes('peer')) titles.unshift('Individualized Safety Plan');
+  if(ids.includes('housing')) titles.push('Housing Stability / McKinney-Vento Coordination');
+  if(ids.includes('health')) titles.push('School Health Assessment + Attendance Plan');
+  if(ids.includes('work')) titles.push('Work-School Schedule Problem-Solving');
+  if(ids.includes('misconception')) titles.push('Attendance Understanding + Goal Plan');
+  titles.push('Attendance Success Plan');
+  const knownText=known.length?` Known factor${known.length>1?'s':''}: ${[...new Set(known)].join(', ')}.`:'';
+  const exploreText=explore.length?` Factors to investigate: ${[...new Set(explore)].join(', ')}.`:'';
+  const severityText=pctTier?` ${pctTier.tier} intensity applies because the scholar is ${pct}% absent (${pctTier.band}); primary ownership: ${pctTier.owner}.`:'';
+  const multiLabel=pctTier?`${pctTier.tier} attendance concern — ${pct}% absent | Multiple attendance factors identified`:'Multiple attendance factors identified';
+  return {id:'multi_factor',mode:'possible',hasImmediate:ids.some(id=>['transportation','peer','housing','health'].includes(id)),label:multiLabel,guidance:`More than one factor may be contributing.${severityText}${knownText}${exploreText} Attendance percentage determines intensity; root cause determines the intervention. Address any identified access or safety concern promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.${pctTier && pctTier.tier!=='Tier 1'?' Use 10/20/30-day checkpoints to review fidelity, barrier/root-cause reduction, and attendance response.':''}`,titles:[...new Set(titles)]};
+ }
+
  let best=null, bestLen=0;
  for(const intent of searchIntents){
   for(const phrase of intent.phrases){
@@ -518,7 +724,21 @@ function detectSearchIntent(term){
    if((t===p || t.includes(p) || p.includes(t) && t.length>=5) && p.length>bestLen){best=intent;bestLen=p.length;}
   }
  }
- return best;
+ if(best) return best;
+
+ // Generic context/conditional pattern recognition. This intentionally identifies
+ // a pattern without inferring the root cause from an unfamiliar school context.
+ const attendanceSignal=/(absent|absence|miss(?:es|ing)?|skip(?:s|ping)?|late|tard(?:y|ies)|leave(?:s)? early|leaving early|does not attend|doesn't attend|not attend)/.test(t);
+ const conditionalSignal=/(whenever|every time|each time|only when|when there is|when there's|when a|when the|on days when|days when|any time|anytime|if there is|if there's|during|around|after|before)/.test(t);
+ const recurringSignal=/(always|repeatedly|regularly|consistently|often)/.test(t);
+ if(attendanceSignal && (conditionalSignal || recurringSignal)){
+  return {
+   id:'generic_context_pattern',mode:'pattern',label:'Context-linked attendance pattern identified',
+   guidance:'The attendance concern appears linked to a recurring context or condition. Confirm the pattern and use scholar/family voice to understand what is different about that context before selecting a root cause or intervention.',
+   titles:['Context-Linked Attendance Pattern Inquiry','Synergy Attendance Analytics','Caring Conversations / Early Outreach','Possible Root Causes to Explore']
+  };
+ }
+ return null;
 }
 function genericSearchScore(r,term){
  const t=normalizedSearch(term); if(!t) return 1;
@@ -560,7 +780,38 @@ function renderResources(){
  } else {
   meta.textContent=`${out.length} resource${out.length===1?'':'s'} shown`;
  }
- grid.innerHTML=out.map(r=>`<article class="card resource"><div><span class="tag">${r.topic}</span><h3>${r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a different phrase, choose a topic, or reset the filters.</p></article>`;
+ const hasImmediate=!!(intent && (intent.hasImmediate || ['transportation','peer','housing','health'].includes(intent.id)));
+ const uncertain=!!(intent && (intent.mode==='possible' || intent.mode==='pattern' || (intent.label && (intent.label.includes('Reported factor:') || intent.label.includes('Reported health/wellness concern') || intent.label.includes('Reported safety/peer concern')))));
+ const stageFor=(r)=>{
+  const t=r.title;
+  if(intent && (intent.mode==='possible' || (intent.label && intent.label.includes('Reported factor:'))) && t.startsWith('Root Cause:')) return 'Investigate';
+  if(hasImmediate && ['Transportation Problem-Solving','Individualized Safety Plan','Housing Stability / McKinney-Vento Coordination','School Health Assessment + Attendance Plan'].includes(t)) return 'Address now';
+  if(['Caring Conversations / Early Outreach','Possible Root Causes to Explore','Attendance Pattern Review + Root-Cause Inquiry','Class-Specific Attendance Pattern Inquiry','Context-Linked Attendance Pattern Inquiry','Synergy Attendance Analytics'].includes(t) || t.startsWith('Root Cause:')) return 'Investigate';
+  if(t==='Attendance Success Plan') return 'Build plan';
+  if(r.topic==='Monitoring & Review' || t.includes('10/20/30')) return 'Review';
+  if(r.topic==='Intervention Menu') return uncertain ? 'Consider if confirmed' : 'Match intervention';
+  return 'Use as support';
+ };
+ if(uncertain){
+  const order={'Address now':0,'Investigate':1,'Consider if confirmed':2,'Build plan':3,'Review':4,'Use as support':5};
+  out.sort((a,b)=>(order[stageFor(a)]??9)-(order[stageFor(b)]??9));
+ }
+ const addressClass=hasImmediate?'decision-step active':'decision-step muted';
+ const addressText=hasImmediate?'Act promptly on the identified access or safety concern.':'No immediate access or safety concern identified from the information provided.';
+ const hierarchy=intent ? `<div class="decision-path" aria-label="Attendance decision sequence">
+   <div class="${addressClass}"><strong>1. Address now</strong><span>${addressText}</span></div>
+   <div class="decision-step ${uncertain?'active':''}"><strong>2. Investigate</strong><span>Use the pattern, scholar/family voice, and evidence to understand why.</span></div>
+   <div class="decision-step"><strong>3. ${uncertain?'Consider options':'Match intervention'}</strong><span>${uncertain?'Consider options only after the root cause is supported.':'Select one primary intervention that addresses the supported root cause.'}</span></div>
+   <div class="decision-step"><strong>4. Build plan</strong><span>Name the owner, frequency, measurable goal, and review date.</span></div>
+   <div class="decision-step review"><strong>5. Review</strong><span>${intent && intent.label && intent.label.startsWith('Tier 1')
+ ? (intent.label.includes('Confirmed transportation barrier') || intent.label.includes('Confirmed housing/basic-needs barrier')
+    ? 'Monitor whether the barrier is resolved and attendance improves; escalate if the pattern persists or worsens.'
+    : intent.label.includes('Reported factor:') || intent.label.includes('Reported health/wellness concern') || intent.label.includes('Reported safety/peer concern')
+      ? 'Monitor whether the identified concern decreases and attendance improves; escalate support if the pattern persists or worsens.'
+      : 'Monitor attendance response and adjust support if the pattern persists or worsens.')
+ : 'Check fidelity, barrier reduction, and attendance response at 10/20/30 days.'}</span></div>
+  </div>` : '';
+ grid.innerHTML=hierarchy+(out.map(r=>`<article class="card resource"><div><span class="stage-label">${stageFor(r)}</span><br><span class="tag">${r.topic}</span><h3>${(intent && (intent.mode==='possible' || (intent.label && intent.label.includes('Reported factor:'))) && r.title.startsWith('Root Cause:')) ? r.title.replace('Root Cause:','Possible Root Cause:') : r.title}</h3><p>${r.summary}</p></div><footer><div>${r.roles.slice(0,2).map(x=>`<span class="pill">${x}</span>`).join('')}</div><button data-open="${encodeURIComponent(r.title)}">Open details</button></footer></article>`).join('') || `<article class="card"><h3>No matching resources</h3><p>Try a different phrase, choose a topic, or reset the filters.</p></article>`);
  document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDetail(decodeURIComponent(b.dataset.open)));
 }
 function openDetail(title){
