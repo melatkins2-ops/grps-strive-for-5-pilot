@@ -1,4 +1,4 @@
-<!doctype html><!-- BUILD: academic-causal-priority-v4 -->
+<!doctype html><!-- BUILD: academic-causal-scholar-report-v5 -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Strive for Less Than 5 | GRPS</title><style>
 :root{--blue:#005596;--orange:#f47b20;--orange-soft:#fff2e8;--yellow:#eeb211;--ink:#20313b;--muted:#66757d;--line:#dde5ea;--soft:#f6f8fa;--white:#fff;--shadow:0 10px 26px rgba(0,0,0,.07);--font:Arial,"Helvetica Neue",Helvetica,sans-serif;--display:"Helvetica Neue",Arial,sans-serif}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font);font-size:16px;color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:var(--blue)}button,input,select,textarea{font:inherit}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;padding:10px;z-index:999}
@@ -539,7 +539,11 @@ function detectSearchIntent(term){
  const pctTier=pct!==null?absenceTierFromPercent(pct):null;
 
  // Explicit scholar-reported causal evidence must be evaluated before generic factor logic.
- const scholarReport=/\b(?:but\s+)?(?:the\s+)?scholar\s+(?:says|reports|shares|states|tells|said|reported)\b/.test(t);
+ const scholarReport=(
+   /\b(?:but\s+)?(?:the\s+)?scholar\s+(?:says|reports|shares|states|tells|said|reported)\b/.test(t)
+   ||
+   /\b(?:the\s+)?scholar\b[^.!?]{0,90}\b(?:says|reports|shares|states|tells|said|reported)\b/.test(t)
+ );
  const attendanceBehavior=/\b(?:stay(?:s|ing)?\s+home|avoid(?:s|ing)?\s+(?:school|class)|miss(?:es|ing)?\s+(?:school|class)|skip(?:s|ping)?\s+(?:school|class)|doesn['’]t\s+come|does\s+not\s+come)\b/.test(t);
  const academicReason=/\b(?:fail(?:ing|ed)?|failing\s+classes?|behind\s+in\s+class|academic(?:ally)?|class(?:es)?|math|credit|course|embarrass(?:ed|ment)?|ashamed|humiliat(?:ed|ion))\b/.test(t);
 
