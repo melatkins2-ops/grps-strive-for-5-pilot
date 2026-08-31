@@ -608,7 +608,35 @@ function detectSearchIntent(term){
   };
  }
 
- if(distinctFamilies.size>=2){
+ 
+ // Evidence-priority rule: when the scholar explicitly connects academic difficulty
+ // to staying home/avoiding school, treat that as stronger causal evidence than a
+ // generic academic keyword match. Explore possible academic/class avoidance (Aversion)
+ // and do not elevate Disengagement unless separate motivation/belonging evidence exists.
+ const scholarAcademicCausal =
+   /scholar\s+(?:says|reports|shares|states|tells|said|reported)[^.!?]*(?:stay(?:s)? home|avoid(?:s|ing)? school|miss(?:es|ing)? school|skip(?:s|ping)? school)[^.!?]*(?:because|due to|since)[^.!?]*(?:fail(?:ing|ed)?|behind|class|classes|math|academic|embarrass(?:ed|ment)?)/.test(t)
+   ||
+   /scholar\s+(?:says|reports|shares|states|tells|said|reported)[^.!?]*(?:fail(?:ing|ed)?|behind|class|classes|math|academic|embarrass(?:ed|ment)?)[^.!?]*(?:so|therefore|because)[^.!?]*(?:stay(?:s)? home|avoid(?:s|ing)?|miss(?:es|ing)?|skip(?:s|ping)?)/.test(t);
+
+ if(pctTier && scholarAcademicCausal){
+  const titles=[
+    'Caring Conversations / Early Outreach',
+    'Root Cause: Aversion',
+    'Academic Re-engagement + Targeted Support',
+    'Academic / Class Avoidance Response',
+    'Attendance Success Plan'
+  ];
+  return {
+    id:'severity_academic_causal',
+    mode:'possible',
+    hasImmediate:false,
+    label:`${pctTier.tier} attendance concern — ${pct}% absent | Scholar-reported factor: academic difficulty + embarrassment about returning — explore possible academic/class avoidance`,
+    guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. The scholar explicitly connected academic difficulty/embarrassment to staying home or avoiding school. Treat this as stronger causal evidence than a generic academic concern, but continue inquiry before confirming Aversion as the primary root cause. Prioritize academic/class-avoidance inquiry and matched academic re-engagement supports if confirmed. Do not elevate Disengagement unless there is separate evidence of weak belonging, low motivation, boredom, or disconnection. ${pctTier.tier==='Tier 1'?'Monitor whether the identified concern changes and attendance improves; escalate if the pattern persists or worsens.':'Use a coordinated plan with 10/20/30-day checkpoints once the root cause is supported and an intervention is selected.'}`,
+    titles
+  };
+ }
+
+if(distinctFamilies.size>=2){
   const ids=[...distinctFamilies];
 
   // Evidence-priority rule: an explicit scholar report that bullying/peer safety is
