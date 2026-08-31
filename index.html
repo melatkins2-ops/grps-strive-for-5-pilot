@@ -572,9 +572,18 @@ function detectSearchIntent(term){
  // and do not elevate Disengagement unless separate motivation/belonging evidence exists.
  const scholarReport=/\b(?:but\s+)?(?:the\s+)?scholar\s+(?:says|reports|shares|states|tells|said|reported)\b/.test(t);
  const attendanceBehavior=/\b(?:stay(?:s|ing)?\s+home|avoid(?:s|ing)?\s+(?:school|class)|miss(?:es|ing)?\s+(?:school|class)|skip(?:s|ping)?\s+(?:school|class)|doesn['’]t\s+come|does\s+not\s+come)\b/.test(t);
- const causalConnector=/\b(?:because|due to|since|so that|so|therefore)\b/.test(t);
  const academicReason=/\b(?:fail(?:ing|ed)?|failing\s+classes?|behind\s+in\s+class|academic(?:ally)?|class(?:es)?|math|credit|course|embarrass(?:ed|ment)?|ashamed|humiliat(?:ed|ion))\b/.test(t);
- const scholarAcademicCausal=scholarReport && attendanceBehavior && causalConnector && academicReason;
+
+ // Strong causal evidence means the scholar explicitly links attendance behavior
+ // to the academic reason. Match either order:
+ //   "stay home because I am failing"
+ //   "I am failing, so I stay home"
+ const directAcademicCausal =
+   /\b(?:stay(?:s|ing)?\s+home|avoid(?:s|ing)?\s+(?:school|class)|miss(?:es|ing)?\s+(?:school|class)|skip(?:s|ping)?\s+(?:school|class)|doesn['’]t\s+come|does\s+not\s+come)\b[^.!?]{0,80}\b(?:because|due to|since)\b[^.!?]{0,120}\b(?:fail(?:ing|ed)?|behind|class|classes|math|academic|embarrass(?:ed|ment)?|ashamed|humiliat(?:ed|ion))\b/.test(t)
+   ||
+   /\b(?:fail(?:ing|ed)?|behind|class|classes|math|academic|embarrass(?:ed|ment)?|ashamed|humiliat(?:ed|ion))\b[^.!?]{0,120}\b(?:so|therefore|because)\b[^.!?]{0,80}\b(?:stay(?:s|ing)?\s+home|avoid(?:s|ing)?\s+(?:school|class)|miss(?:es|ing)?\s+(?:school|class)|skip(?:s|ping)?\s+(?:school|class)|doesn['’]t\s+come|does\s+not\s+come)\b/.test(t);
+
+ const scholarAcademicCausal=scholarReport && attendanceBehavior && academicReason && directAcademicCausal;
 
  const independentDisengagementEvidence=/\b(?:school\s+is\s+boring|boring|doesn['’]t\s+care|does\s+not\s+care|unmotivated|no\s+motivation|disconnected|doesn['’]t\s+belong|does\s+not\s+belong|nobody\s+cares|no\s+trusted\s+adult|weak\s+connection|hates?\s+school)\b/.test(t);
 
@@ -589,18 +598,15 @@ function detectSearchIntent(term){
   ];
   return {
     id:'severity_academic_causal',
-    mode:'possible',
+    mode:'clear',
     hasImmediate:false,
-    label:`${pctTier.tier} attendance concern — ${pct}% absent | Scholar-reported attendance factor: academic difficulty and embarrassment are contributing to school avoidance — explore possible Aversion / Academic-Class Avoidance`,
-    guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. The scholar explicitly connected staying home/avoiding school to academic difficulty and embarrassment about returning. Treat this as stronger causal evidence than a generic academic concern, while continuing inquiry before confirming Aversion as the primary root cause. Prioritize academic/class-avoidance inquiry and matched academic re-engagement supports if confirmed.${independentDisengagementEvidence?' Separate disengagement evidence is also present, so explore that as a secondary hypothesis.':' Disengagement is not shown because no independent evidence of boredom, low motivation, weak belonging, or disconnection was identified.'} ${pctTier.tier==='Tier 1'?'Monitor whether the identified concern changes and attendance improves; escalate if the pattern persists or worsens.':'Use a coordinated plan with 10/20/30-day checkpoints once the root cause is supported and an intervention is selected.'}`,
+    label:`${pctTier.tier} attendance concern — ${pct}% absent | Scholar-reported reason: academic failure/embarrassment is contributing to school or class avoidance`,
+    guidance:`Attendance percentage determines intensity; root cause determines the intervention. ${pctTier.tier} falls in the ${pctTier.band} range, with primary ownership: ${pctTier.owner}. The scholar directly connected staying home or avoiding school to academic difficulty and embarrassment about returning. Treat this as strong causal evidence for an academic/class-avoidance pathway while continuing to clarify the specific academic conditions that are driving avoidance. Prioritize Aversion / Academic-Class Avoidance and matched academic re-engagement supports.${independentDisengagementEvidence?' Separate disengagement evidence is also present, so explore it as a secondary factor.':' Disengagement is not shown because no independent evidence of boredom, low motivation, weak belonging, or disconnection was identified.'} ${pctTier.tier==='Tier 1'?'Monitor whether the identified concern changes and attendance improves; escalate if the pattern persists or worsens.':'Use one coordinated plan with 10/20/30-day checkpoints to review implementation, academic barrier reduction, and attendance response.'}`,
     titles
   };
  }
 
-
- // If severity and one supported factor are both present, show BOTH.
- // Example: 23% absent + transportation problem = Tier 3 intensity + confirmed transportation barrier.
- if(pctTier && factorMatches.length===1 && !explicitNoBarrier) {
+if(pctTier && factorMatches.length===1 && !explicitNoBarrier) {
   const fm=factorMatches[0].intent;
   const immediate=['transportation','peer','housing','health'].includes(fm.id);
   const exploratoryFactor=['anxiety','belonging','academic','work','tardy','misconception'].includes(fm.id);
