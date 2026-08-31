@@ -1,4 +1,4 @@
-<!doctype html><!-- BUILD: consolidated-regression-fixes-v6 -->
+<!doctype html><!-- BUILD: coordinated-multifactor-v7 -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Strive for Less Than 5 | GRPS</title><style>
 :root{--blue:#005596;--orange:#f47b20;--orange-soft:#fff2e8;--yellow:#eeb211;--ink:#20313b;--muted:#66757d;--line:#dde5ea;--soft:#f6f8fa;--white:#fff;--shadow:0 10px 26px rgba(0,0,0,.07);--font:Arial,"Helvetica Neue",Helvetica,sans-serif;--display:"Helvetica Neue",Arial,sans-serif}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font);font-size:16px;color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:var(--blue)}button,input,select,textarea{font:inherit}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;padding:10px;z-index:999}
@@ -585,7 +585,8 @@ function detectSearchIntent(term){
 
  
  const directDisengagement=/\b(?:school\s+(?:is|feels)\s+boring|boring|doesn['’]t\s+care\s+about\s+school|does\s+not\s+care\s+about\s+school|hates?\s+school|feels?\s+disconnected|doesn['’]t\s+belong|does\s+not\s+belong)\b/.test(t);
- if(!pctTier && directDisengagement){
+ const concreteCoFactor=/\b(?:no\s+ride|transportation|bus|car\s+broke|failing|failed|math|academic|class\s+avoidance|bullied|bullying|unsafe|health|sick|evicted|housing|tardy|late\s+to\s+school)\b/.test(t);
+ if(!pctTier && directDisengagement && !concreteCoFactor){
   return {
    id:'direct_disengagement',mode:'possible',hasImmediate:false,
    label:'Disengagement — explore belonging, relevance, and motivation',
