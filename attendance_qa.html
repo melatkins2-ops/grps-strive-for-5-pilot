@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Strive for Less Than 5 — QA Regression Runner</title>
+<style>
+  body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f4f6f8;color:#173f61}
+  header{background:#fff;border-bottom:1px solid #d4dde5;padding:22px 28px}
+  h1{margin:0 0 8px;font-size:28px}
+  p{margin:6px 0;color:#536d82}
+  main{padding:24px 28px;max-width:1500px;margin:auto}
+  .controls{display:flex;gap:12px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+  button{background:#005ea8;color:white;border:0;border-radius:8px;padding:11px 16px;font-weight:700;cursor:pointer}
+  .summary{display:grid;grid-template-columns:repeat(4,minmax(150px,1fr));gap:12px;margin:18px 0}
+  .kpi{background:white;border:1px solid #d4dde5;border-top:4px solid #005ea8;border-radius:8px;padding:14px}
+  .kpi strong{display:block;font-size:26px}
+  table{width:100%;border-collapse:collapse;background:white;border:1px solid #d4dde5}
+  th,td{padding:10px 12px;border-bottom:1px solid #e3e9ee;text-align:left;vertical-align:top;font-size:14px}
+  th{background:#f8fafb;position:sticky;top:0}
+  .pass{color:#147a4b;font-weight:700}
+  .fail{color:#b42318;font-weight:700}
+  .pending{color:#667085}
+  code{white-space:pre-wrap;font-size:12px}
+  iframe{width:1px;height:1px;border:0;position:absolute;left:-9999px;top:-9999px}
+  .note{background:#fff7ed;border-left:4px solid #f47721;padding:12px 14px;margin:12px 0 20px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Strive for Less Than 5 — Automated QA Regression Runner</h1>
+  <p>Runs the attendance search engine against a fixed regression suite and flags unexpected changes before pilot updates are published.</p>
+</header>
+<main>
+  <div class="note"><strong>Use:</strong> open this page from the same GitHub Pages site as <code>index.html</code>, then click <strong>Run all tests</strong>. A failure means the search result no longer meets an expected tier, pathway, ownership, resource, or exclusion rule.</div>
+  <div class="controls">
+    <button id="run">Run all tests</button>
+    <button id="copy">Copy failure report</button>
+    <span id="status" class="pending">Waiting to run.</span>
+  </div>
+  <div class="summary">
+    <div class="kpi"><span>Total</span><strong id="total">0</strong></div>
+    <div class="kpi"><span>Passed</span><strong id="passed">0</strong></div>
+    <div class="kpi"><span>Failed</span><strong id="failed">0</strong></div>
+    <div class="kpi"><span>Pass rate</span><strong id="rate">—</strong></div>
+  </div>
+  <table>
+    <thead><tr><th>#</th><th>Scenario</th><th>Expected</th><th>Status</th><th>Observed / Failure</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <iframe id="app" src="index.html"></iframe>
+</main>
+<script>
+const tests = [
+  {q:"scholar has missed 6% of school and caregiver reports transportation problems",
+   must:["Tier 1","6% absent","transportation"], resources:["Transportation Problem-Solving"], forbid:["Tier 2","Tier 3"]},
+  {q:"scholar has missed 9% of school and says they are anxious about coming to school",
+   must:["Tier 1","9% absent","anxiety"], resources:["Predictable Re-entry + Check-In Plan","Behavioral Health Connection + School Support Plan"], forbid:["Root Cause: Disengagement"]},
+  {q:"scholar has missed 11% of school and caregiver says the absences are excused so they do not count",
+   must:["Tier 2","11% absent","Misconception"], resources:["Attendance Understanding + Goal Plan"], forbid:["Tier 3"]},
+  {q:"scholar has missed 16% of school, caregiver says they are sick a lot, but scholar says they avoid school because they are being bullied",
+   must:["Tier 2","16% absent","bullying"], resources:["Individualized Safety Plan"], forbid:["School Health Assessment + Attendance Plan"]},
+  {q:"scholar has missed 18% of school and says they stay home because they are failing classes and feel embarrassed to return",
+   must:["Tier 2","18% absent","academic","avoidance"], resources:["Academic Re-engagement + Targeted Support","Academic / Class Avoidance Response"], forbid:["Root Cause: Disengagement"]},
+  {q:"scholar has missed 23% of school and caregiver reports transportation problems",
+   must:["Tier 3","23% absent","transportation"], resources:["Transportation Problem-Solving","Attendance Success Plan"], forbid:["Tier 1","Tier 2"]},
+  {q:"scholar has missed 24% of school and no one knows why",
+   must:["Tier 3","24% absent"], resources:["Attendance Pattern Review + Root-Cause Inquiry","Caring Conversations / Early Outreach"], forbid:["Transportation Problem-Solving"]},
+  {q:"scholar misses school every Monday",
+   must:["pattern"], resources:["Attendance Pattern Review + Root-Cause Inquiry","Synergy Attendance Analytics"], forbid:[]},
+  {q:"scholar misses first period several times a week",
+   must:["pattern"], resources:["Attendance Pattern Review + Root-Cause Inquiry"], forbid:[]},
+  {q:"scholar leaves school early every Friday",
+   must:["pattern"], resources:["Attendance Pattern Review + Root-Cause Inquiry"], forbid:[]},
+  {q:"scholar skips math class but attends the rest of the day",
+   must:["Class-specific"], resources:["Class-Specific Attendance Pattern Inquiry"], forbid:[]},
+  {q:"scholar only misses school on test days",
+   must:["Context-linked"], resources:["Context-Linked Attendance Pattern Inquiry"], forbid:[]},
+  {q:"scholar is absent whenever there is a substitute teacher",
+   must:["Context-linked"], resources:["Context-Linked Attendance Pattern Inquiry"], forbid:[]},
+  {q:"scholar is absent after weekends with dad",
+   must:["pattern"], resources:["Attendance Pattern Review + Root-Cause Inquiry"], forbid:[]},
+  {q:"scholar says school is boring and misses 2 or 3 days every month",
+   must:["Disengagement"], resources:["Relationship Mapping + Intentional Connection","Success Mentor / CICO"], forbid:[]},
+  {q:"scholar has no transportation to school three days a week",
+   must:["Transportation"], resources:["Transportation Problem-Solving"], forbid:["Work-School Schedule Problem-Solving"]},
+  {q:"scholar has missed 14% of school. The caregiver says they are having trouble getting the scholar to school because their car broke down and the bus route does not work with the caregiver's work schedule.",
+   must:["Tier 2","14% absent","transportation"], resources:["Transportation Problem-Solving","Attendance Success Plan"], forbid:["Work-School Schedule Problem-Solving"]},
+  {q:"family was evicted",
+   must:["Barrier"], resources:["Housing Stability / McKinney-Vento Coordination","Basic Needs / Housing Support"], forbid:[]},
+  {q:"scholar is sick a lot",
+   must:["health"], resources:["School Health Assessment + Attendance Plan","Health & Attendance"], forbid:[]},
+  {q:"scholar keeps coming late",
+   must:["Tardiness"], resources:["Individualized Arrival Plan","Arrival Check-In"], forbid:[]},
+  {q:"scholar does not care about school",
+   must:["Disengagement"], resources:["Relationship Mapping + Intentional Connection","Success Mentor / CICO"], forbid:[]},
+  {q:"scholar is failing classes",
+   must:["Academic"], resources:["Academic Re-engagement + Targeted Support"], forbid:[]},
+  {q:"mom says excused absences don't count",
+   must:["Misconception"], resources:["Attendance Understanding + Goal Plan"], forbid:[]},
+  {q:"parent keeps calling child in sick but child is not sick",
+   must:["clarification"], resources:["Caring Conversations / Early Outreach"], forbid:[]},
+  {q:"scholar says they hate school, is failing math, and has no ride two days a week",
+   must:["Multiple attendance factors"], resources:["Transportation Problem-Solving","Academic Re-engagement + Targeted Support","Attendance Success Plan"], forbid:[]}
+];
+
+const iframe = document.getElementById('app');
+let ready = false;
+iframe.addEventListener('load',()=>{ready=true; document.getElementById('status').textContent='Ready.';});
+
+function bodyText(win){ return (win.document.body.innerText || '').replace(/\s+/g,' ').trim(); }
+function visibleCards(win){
+  const cards=[...win.document.querySelectorAll('.resource-card, .card')];
+  return cards.filter(el=>{
+    const s=win.getComputedStyle(el);
+    return s.display!=='none' && s.visibility!=='hidden' && el.offsetParent!==null;
+  }).map(el=>(el.innerText||'').replace(/\s+/g,' ').trim());
+}
+function runQuery(win,q){
+  const input=win.document.getElementById('q') || win.document.querySelector('input[type="search"], input');
+  if(!input) throw new Error('Search input not found');
+  input.value=q;
+  input.dispatchEvent(new win.Event('input',{bubbles:true}));
+  if(typeof win.renderResources==='function') win.renderResources();
+  else input.dispatchEvent(new win.Event('change',{bubbles:true}));
+  return {text:bodyText(win), cards:visibleCards(win)};
+}
+function expectedText(t){
+  return [...(t.must||[]).map(x=>'must contain: '+x), ...(t.resources||[]).map(x=>'resource: '+x), ...(t.forbid||[]).map(x=>'must NOT contain: '+x)].join('\n');
+}
+function evaluate(result,t){
+  const hay=result.text.toLowerCase();
+  const missing=[];
+  const forbidden=[];
+  for(const x of [...(t.must||[]), ...(t.resources||[])]) if(!hay.includes(x.toLowerCase())) missing.push(x);
+  for(const x of (t.forbid||[])) if(hay.includes(x.toLowerCase())) forbidden.push(x);
+  return {pass:missing.length===0 && forbidden.length===0, missing, forbidden};
+}
+
+async function runAll(){
+  if(!ready){document.getElementById('status').textContent='Waiting for index.html to load…'; return;}
+  const win=iframe.contentWindow;
+  const tbody=document.getElementById('rows'); tbody.innerHTML='';
+  let pass=0, fail=0;
+  window.failureReport=[];
+  tests.forEach((t,i)=>{
+    let result, ev, err='';
+    try{ result=runQuery(win,t.q); ev=evaluate(result,t); }
+    catch(e){ ev={pass:false,missing:[],forbidden:[]}; err=e.message; result={text:''}; }
+    if(ev.pass) pass++; else {fail++; window.failureReport.push({scenario:t.q,missing:ev.missing,forbidden:ev.forbidden,error:err});}
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i+1}</td><td>${t.q}</td><td><code>${expectedText(t)}</code></td><td class="${ev.pass?'pass':'fail'}">${ev.pass?'PASS':'FAIL'}</td><td>${ev.pass?'—':`Missing: ${ev.missing.join(', ')||'—'}<br>Forbidden present: ${ev.forbidden.join(', ')||'—'}${err?'<br>Error: '+err:''}`}</td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('total').textContent=tests.length;
+  document.getElementById('passed').textContent=pass;
+  document.getElementById('failed').textContent=fail;
+  document.getElementById('rate').textContent=Math.round(pass/tests.length*100)+'%';
+  document.getElementById('status').textContent=fail?`${fail} regression test(s) failed.`:'All regression tests passed.';
+  document.getElementById('status').className=fail?'fail':'pass';
+}
+document.getElementById('run').onclick=runAll;
+document.getElementById('copy').onclick=async()=>{
+  const txt=(window.failureReport||[]).length ? JSON.stringify(window.failureReport,null,2) : 'No failures recorded.';
+  await navigator.clipboard.writeText(txt);
+  document.getElementById('status').textContent='Failure report copied.';
+};
+</script>
+</body>
+</html>
