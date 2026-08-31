@@ -653,7 +653,7 @@ function detectSearchIntent(term){
   const exploreText=explore.length?` Factors to investigate: ${[...new Set(explore)].join(', ')}.`:'';
   const severityText=pctTier?` ${pctTier.tier} intensity applies because the scholar is ${pct}% absent (${pctTier.band}); primary ownership: ${pctTier.owner}.`:'';
   const multiLabel=pctTier?`${pctTier.tier} attendance concern — ${pct}% absent | Multiple attendance factors identified`:'Multiple attendance factors identified';
-  return {id:'multi_factor',mode:'possible',hasImmediate:ids.some(id=>['transportation','peer','housing','health'].includes(id)),label:multiLabel,guidance:`More than one factor may be contributing.${severityText}${knownText}${exploreText} Attendance percentage determines intensity; root cause determines the intervention. Address any confirmed access or safety barrier promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.`,titles:[...new Set(titles)]};
+  return {id:'multi_factor',mode:'possible',hasImmediate:ids.some(id=>['transportation','peer','housing','health'].includes(id)),label:multiLabel,guidance:`More than one factor may be contributing.${severityText}${knownText}${exploreText} Attendance percentage determines intensity; root cause determines the intervention. Address any identified access or safety concern promptly while using scholar/family voice and other evidence to identify the primary root cause. Build one coordinated attendance plan with a primary intervention, complementary supports, an owner, a measurable goal, and a review date.`,titles:[...new Set(titles)]};
  }
 
  let best=null, bestLen=0;
@@ -736,7 +736,7 @@ function renderResources(){
   out.sort((a,b)=>(order[stageFor(a)]??9)-(order[stageFor(b)]??9));
  }
  const addressClass=hasImmediate?'decision-step active':'decision-step muted';
- const addressText=hasImmediate?'Act promptly on the confirmed access or safety barrier.':'No immediate access or safety barrier identified.';
+ const addressText=hasImmediate?'Act promptly on the identified access or safety concern.':'No immediate access or safety concern identified from the information provided.';
  const hierarchy=intent ? `<div class="decision-path" aria-label="Attendance decision sequence">
    <div class="${addressClass}"><strong>1. Address now</strong><span>${addressText}</span></div>
    <div class="decision-step ${uncertain?'active':''}"><strong>2. Investigate</strong><span>Use the pattern, scholar/family voice, and evidence to understand why.</span></div>
