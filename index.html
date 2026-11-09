@@ -1,4 +1,4 @@
-<!doctype html><!-- BUILD: resource-library-ux-v10; decision-engine unchanged -->
+<!doctype html><!-- BUILD: homepage-choice-layout-v11; decision-engine unchanged -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Strive for Less Than 5 | GRPS</title><style>
 :root{--blue:#005596;--orange:#f47b20;--orange-soft:#fff2e8;--yellow:#eeb211;--ink:#20313b;--muted:#66757d;--line:#dde5ea;--soft:#f6f8fa;--white:#fff;--shadow:0 10px 26px rgba(0,0,0,.07);--font:Arial,"Helvetica Neue",Helvetica,sans-serif;--display:"Helvetica Neue",Arial,sans-serif}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font);font-size:16px;color:var(--ink);background:#fff;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:var(--blue)}button,input,select,textarea{font:inherit}.skip{position:absolute;left:-9999px}.skip:focus{left:12px;top:12px;background:#fff;padding:10px;z-index:999}
@@ -957,4 +957,16 @@ if(location.hash.startsWith('#resource=')){const title=decodeURIComponent(locati
  }
  document.querySelectorAll('#resources [data-resource-query]').forEach(b=>b.addEventListener('click',()=>{const q=document.getElementById('q'),topic=document.getElementById('topic'),role=document.getElementById('role');if(!q)return;q.value=b.dataset.resourceQuery;if(topic)topic.value='';if(role)role.value='';q.dispatchEvent(new Event('input',{bubbles:true}));q.focus({preventScroll:true})}));
 })();
-</script></body></html>
+</script><style id="homepage-choice-layout-v11">
+/* Consistent, compact pathway layout. Overrides legacy four-column rules. */
+#start .choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:stretch}
+#start .choice{display:flex;flex-direction:column;min-height:0;padding:22px 24px 24px;background:#fff!important;border-radius:8px}
+#start .choice h3{font-size:21px;line-height:1.3;margin:12px 0 8px;color:#173f61}
+#start .choice p{font-size:16px;line-height:1.5;margin:0 0 18px;max-width:54ch}
+#start .choice button{margin-top:auto;align-self:flex-start;min-height:44px;padding:10px 17px;font-size:15px;background:#0067a6;color:white;border-radius:8px}
+#start .choice .num{flex-shrink:0}
+#start .choice:nth-child(1){border-top-color:#f47721!important}
+#start .choice:nth-child(2){border-top-color:#d4dde5!important}
+#start .choice:nth-child(3),#start .choice:nth-child(4){border-top-color:#123f63!important}
+@media(max-width:700px){#start .choice-grid{grid-template-columns:1fr;gap:12px}#start .choice{padding:18px 20px}#start .choice h3{font-size:19px}#start .choice p{font-size:15px}}
+</style></body></html>
