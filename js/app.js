@@ -72,39 +72,10 @@
   function setRole(role) { store.set('s5_role', role); renderChrome(); renderHome(); toast('Showing next steps for ' + role); }
 
   function renderChrome() {
-    const role = getRole();
-    $('#roleChip').textContent = role ? role : 'Choose role';
     const due = dueCases().length;
     const b = $('#dueBadge'); b.hidden = !due; b.textContent = due;
   }
-
-  function renderHome() {
-    const role = getRole();
-    const showSetup = !role || S5._forceRole;
-    $('#roleSetup').hidden = !showSetup; $('#roleHome').hidden = showSetup;
-    if (showSetup) { renderRoleGrid(); return; }
-    const rp = rolePathways.find((r) => r.role === role) || rolePathways[rolePathways.length - 1];
-    $('#homeRole').textContent = 'Set up for ' + role;
-    $('#homeLead').textContent = rp.desc;
-    const order = (ROLE_ACTIONS[role] || ROLE_ACTIONS.Other).filter((k) => k !== 'support');
-    const dueN = dueCases().length, activeN = allCases().filter((c) => c.status === 'active').length;
-    const QUICK = {
-      cases: ['My plans', activeN ? `${activeN} active · ${dueN ? dueN + ' review' + (dueN === 1 ? '' : 's') + ' due soon' : 'nothing due this week'}` : 'Save a plan to track Day 10, 20 and 30 reviews'],
-      data: ['School data', 'See tiers and who needs follow-up'],
-      library: ['Find a resource', 'Describe the situation in your words'],
-      practice: ['Practice a case', 'Make the call, then compare with the team'],
-      team: ['Attendance Team tools', 'Workflow, tiers, decisions and downloads']
-    };
-    $('#homeActions').innerHTML = order.slice(0, 3).map((k) => `<a href="${ACTIONS[k].href}"><b>${QUICK[k][0]}</b><span>${esc(QUICK[k][1])}</span></a>`).join('') +
-      `<p class="also">Also: ${order.slice(3).map((k) => `<a href="${ACTIONS[k].href}">${QUICK[k][0]}</a>`).join(' · ')}</p>`;
-    $('#homeFirstWhy').textContent = `A good first read for ${role.replace(/^Other$/, 'any staff member')}:`;
-    $('#homeFirstBtn').textContent = rp.first + ' →';
-    $('#homeFirstBtn').onclick = () => openDetail(rp.first);
-    $('#homeChips').innerHTML = COMMON_NEEDS.slice(0, 5).map((n) => `<button class="chip" type="button" data-q="${esc(n)}">${esc(n)}</button>`).join('');
-    const upcoming = upcomingReviews().slice(0, 5);
-    $('#homeDue').innerHTML = upcoming.length ? `<ul class="due-list">${upcoming.map((u) => `<li><span><a href="#case/${u.c.id}"><strong>${esc(u.c.localId || 'Case')}</strong></a> <span class="muted small">· ${esc(u.c.need)} · Day ${u.r.day}</span></span><span class="status ${u.st}">${statusText(u.st, u.r.due)}</span></li>`).join('')}</ul>`
-      : '<p class="muted">No reviews scheduled. When you save a plan as a case, its Day 10, 20 and 30 checkpoints appear here.</p>';
-  }
+  function renderHome() { if (window.PB) PB.render('home'); }
 
   /* ---------- guided support flow ---------- */
   const STEPS = ['Attendance', 'Why', 'Need', 'Details', 'Plan'];
@@ -181,11 +152,11 @@
         <p><b>Monitoring:</b> ${esc(reviewText(p))}</p>
         <p><b>Goal:</b> ${esc(flow.goal || 'Set a measurable attendance/barrier-reduction goal before implementation.')}</p>
         ${p < 10 ? '<div class="callout green">Tier 1: universal prevention and early outreach usually come first. Save a case if you want to track an individual plan anyway.</div>' : ''}
-        <div class="flow-nav no-print"><button class="btn secondary" type="button" data-go="3">← Back</button><div class="row"><button class="btn secondary" type="button" id="dlPlan">Download plan</button><button class="btn secondary" type="button" onclick="window.print()">Print</button><button class="btn orange" type="button" id="savePlan">Save as a case</button></div></div>
+        <div class="flow-nav no-print"><button class="btn secondary" type="button" data-go="3">← Back</button><div class="row"><button class="btn secondary" type="button" id="dlPlan">Download plan</button><button class="btn secondary" type="button" onclick="window.print()">Print</button><button class="btn orange" type="button" id="savePlan">Save as a plan</button></div></div>
         <p class="hint">Saving creates review checkpoints at Day 10, 20 and 30 (school days) from ${esc(nice(flow.start))}.</p>`;
       $$('#recList input').forEach((cb) => cb.addEventListener('change', () => { flow.picks = $$('#recList input:checked').map((x) => x.value); $$('#recList .rec').forEach((l) => l.classList.toggle('picked', l.querySelector('input').checked)); }));
       $('#dlPlan').onclick = () => downloadPlan({ id: flow.localId, pct: p, t: tierFromPct(p), root: flow.root, n: flow.need, kssn: flow.kssn, voice: flow.voice, goal: flow.goal, recs: recs.filter((r) => flow.picks.includes(r.name)).length ? recs.filter((r) => flow.picks.includes(r.name)) : recs, review: reviewText(p) });
-      $('#savePlan').onclick = () => { const c = createCaseFromFlow(recs); flow = freshFlow(); location.hash = '#case/' + c.id; toast('Case saved. Day 10 review: ' + nice(c.reviews[0].due)); };
+      $('#savePlan').onclick = () => { const c = createCaseFromFlow(recs); flow = freshFlow(); location.hash = '#case/' + c.id; toast('Plan saved. Day 10 review: ' + nice(c.reviews[0].due)); };
     }
   }
   function unsureHtml() {
@@ -371,7 +342,7 @@
     }).filter((s) => !Number.isNaN(s.pct));
     if (!scholars.length) { renderMap(true); toast('Could not find attendance numbers. Check the column choices.'); return; }
     if (!dashState.group) dashState.group = m.grade >= 0 ? 'grade' : m.school >= 0 ? 'school' : '';
-    $('#dataDash').hidden = false; renderDash();
+    $('#dataDash').hidden = false; renderDash(); if (window.PB) PB.challenge(scholars);
     $('#dataDash').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   function renderDash() {
@@ -403,7 +374,7 @@
       <div class="card section"><div class="spread"><h2>Who needs follow-up</h2><div class="row"><button class="btn secondary small" type="button" id="dashExport">Export Tier 2–3 list</button></div></div>
         <div class="row" style="margin:6px 0 12px"><select class="input" id="dashTier" style="max-width:220px" aria-label="Filter tier">${[['all', 'All scholars'], ['t3', 'Tier 3 (20%+)'], ['t2', 'Tier 2 (10–19%)'], ['near', 'Near the line (8–9.9%)'], ['t1', 'Tier 1 (under 10%)']].map(([k, l]) => `<option value="${k}" ${dashState.tier === k ? 'selected' : ''}>${l}</option>`).join('')}</select><input class="input" id="dashQ" style="max-width:240px" placeholder="Search ID or grade" value="${esc(dashState.q)}" aria-label="Search scholars"></div>
         <div class="table-wrap"><table class="data"><thead><tr>${[['label', 'Scholar'], ['grade', 'Grade'], ['school', 'School'], ['pct', 'Absence'], ['daysAbs', 'Days absent']].filter(([k]) => k === 'label' || k === 'pct' || scholars.some((s) => k === 'daysAbs' ? !Number.isNaN(s.daysAbs) : s[k])).map(([k, l]) => `<th data-sort="${k}" aria-sort="${dashState.sort === k ? (dashState.dir > 0 ? 'ascending' : 'descending') : 'none'}">${l}${dashState.sort === k ? (dashState.dir > 0 ? ' ▲' : ' ▼') : ''}</th>`).join('')}<th>Next step</th></tr></thead>
-        <tbody>${rows.slice(0, 400).map((s) => `<tr><td>${esc(s.label)}</td>${scholars.some((x) => x.grade) ? `<td>${esc(s.grade)}</td>` : ''}${scholars.some((x) => x.school) ? `<td>${esc(s.school)}</td>` : ''}<td>${tierPill(s.pct)}</td>${scholars.some((x) => !Number.isNaN(x.daysAbs)) ? `<td>${Number.isNaN(s.daysAbs) ? '' : s.daysAbs}</td>` : ''}<td>${caseIds.has(String(s.label).trim()) ? '<span class="status done">Has a case</span>' : s.pct >= 10 ? `<button class="btn small secondary" type="button" data-start="${esc(s.label)}" data-pct="${s.pct}" data-school="${esc(s.school)}">Start a case</button>` : '<span class="muted small">Universal supports</span>'}</td></tr>`).join('')}</tbody></table></div>
+        <tbody>${rows.slice(0, 400).map((s) => `<tr><td>${esc(s.label)}</td>${scholars.some((x) => x.grade) ? `<td>${esc(s.grade)}</td>` : ''}${scholars.some((x) => x.school) ? `<td>${esc(s.school)}</td>` : ''}<td>${tierPill(s.pct)}</td>${scholars.some((x) => !Number.isNaN(x.daysAbs)) ? `<td>${Number.isNaN(s.daysAbs) ? '' : s.daysAbs}</td>` : ''}<td>${caseIds.has(String(s.label).trim()) ? '<span class="status done">Has a plan</span>' : s.pct >= 10 ? `<button class="btn small secondary" type="button" data-start="${esc(s.label)}" data-pct="${s.pct}" data-school="${esc(s.school)}">Start a plan</button>` : '<span class="muted small">Universal supports</span>'}</td></tr>`).join('')}</tbody></table></div>
         ${rows.length > 400 ? `<p class="hint">Showing the first 400 of ${rows.length}. Filter or search to narrow.</p>` : `<p class="hint">${rows.length} shown.</p>`}</div>`;
     $('#dashGroup').onchange = (e) => { dashState.group = e.target.value; renderDash(); };
     $('#dashTier').onchange = (e) => { dashState.tier = e.target.value; renderDash(); };
@@ -438,8 +409,8 @@
   function renderPractice() {
     const role = getRole();
     const list = SCEN.slice().sort((a, b) => roleMatch(b.role, role) - roleMatch(a.role, role));
-    $('#scenarioCards').innerHTML = list.map((s) => `<article class="card scenario-card ${roleMatch(s.role, role) ? 'mine' : ''}"><span class="tag">${esc(s.role)}${roleMatch(s.role, role) ? ' · your role' : ''}</span><h3>${esc(s.title)}</h3><p class="muted small" style="margin:0 0 8px">${esc(s.desc)}</p><button class="btn secondary small" type="button" data-scen="${s.key}" style="margin-top:auto">Work through this case →</button></article>`).join('');
-    $('#actionPairs').innerHTML = `<table class="ref"><thead><tr><th>Action</th><th>Intervention</th></tr></thead><tbody>${[
+    $('#scenarioCards').innerHTML = list.map((s) => `<article class="scen ${roleMatch(s.role, role) ? 'mine' : ''}"><span class="tag">${esc(s.role)}</span><h3>${esc(s.title)}</h3><p>${esc(s.desc)}</p><button class="btn secondary small" type="button" data-scen="${s.key}">Work through it →</button></article>`).join('');
+    $('#actionPairs').innerHTML = `<table class="big-table"><thead><tr><th>Action</th><th>Intervention</th></tr></thead><tbody>${[
       ['Sent an attendance letter.', 'After identifying a misconception, created an attendance goal/habit plan with progress feedback and review.'],
       ['Called the caregiver about transportation.', 'Created a primary and backup transportation plan, completed a warm handoff, and monitored arrival.'],
       ['Referred the scholar to FSS.', 'FSS identified the family-facing barrier, implemented the matched plan, coordinated resources, and monitored barrier reduction.'],
@@ -449,42 +420,41 @@
     ].map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</tbody></table>`;
   }
 
-  /* ---------- team reference ---------- */
-  function renderTeam() {
-    $('#rootRef').innerHTML = Object.entries(ROOTS).map(([k, v]) => `<div class="card"><h3>${k}</h3><p class="muted">${esc(v[0])}</p><button class="btn secondary small" type="button" data-pathway="${k}">Use this pathway →</button></div>`).join('');
-    $('#decisionRef').innerHTML = Object.values(DECISIONS).map(([h, p], i) => `<div class="card"><span class="tag">${i + 1}</span><h3 style="margin-top:6px">${h}</h3><p class="muted small">${p}</p></div>`).join('');
-  }
+  /* ---------- team room ---------- */
+  function renderTeam() { if (window.PB) { PB.render('team'); PB.challenge(scholars); } }
 
   /* ---------- router ---------- */
-  const VIEWS = ['home', 'support', 'cases', 'data', 'library', 'practice', 'team'];
+  const VIEWS = ['home', 'ch', 'support', 'cases', 'library', 'practice', 'team', 'families'];
   function route() {
     const h = location.hash.replace(/^#/, '');
     if (h.startsWith('resource=')) { if (!$('.view.active')) showView('library'); return; } // detail modal opens over the current view
-    let view = h.split('/')[0] || 'home';
-    if (!VIEWS.includes(view) && view !== 'case') view = 'home';
-    if (view === 'case') { showView('cases'); $('#casesList').hidden = true; $('#caseDetail').hidden = false; renderCaseDetail(h.split('/')[1]); return; }
-    showView(view);
+    const parts = h.split('/');
+    let view = parts[0] || 'home';
+    if (view === 'data') view = 'team';
+    if (view === 'case') { showView('cases'); $('#casesList').hidden = true; $('#caseDetail').hidden = false; renderCaseDetail(parts[1]); return; }
+    if (!VIEWS.includes(view)) view = 'home';
+    showView(view, parts.slice(1));
   }
-  function showView(v) {
+  function showView(v, arg) {
     $$('.view').forEach((el) => el.classList.toggle('active', el.id === 'view-' + v));
-    $$('.tabs a').forEach((a) => { if (a.dataset.tab === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    const tab = { cases: 'support', practice: 'support' }[v] || v;
+    $$('.tabs a').forEach((a) => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     if (v === 'home') renderHome();
     if (v === 'support') renderFlow();
     if (v === 'cases') { $('#casesList').hidden = false; $('#caseDetail').hidden = true; renderCases(); }
     if (v === 'practice') renderPractice();
     if (v === 'team') renderTeam();
-    const titles = { home: 'Strive for Less Than 5', support: 'Support a scholar', cases: 'Plans', data: 'School data', library: 'Library', practice: 'Practice', team: 'Attendance Team' };
-    document.title = (titles[v] || 'Strive for Less Than 5') + ' | GRPS';
-    if (!S5._noScroll) window.scrollTo(0, 0);
+    if (v === 'ch' || v === 'families') PB.render(v, arg);
+    const titles = { home: 'GRPS Attendance Playbook', ch: 'Playbook', support: 'Support a scholar', cases: 'My plans', library: 'Search', practice: 'Practice cases', team: 'Team Room', families: 'Families' };
+    document.title = (titles[v] || 'GRPS Attendance Playbook') + ' | Strive for Less Than 5';
+    if (!(v === 'ch' && arg && arg[1])) window.scrollTo(0, 0);
     renderChrome();
   }
 
   /* ---------- global events ---------- */
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-role],[data-go],[data-step],[data-root],[data-need],[data-q],[data-scen],[data-start],[data-pathway],[data-open-res],[data-review],#roleChip,#fDescribeGo');
+    const t = e.target.closest('[data-role],[data-go],[data-step],[data-root],[data-need],[data-q],[data-scen],[data-start],[data-pathway],[data-open-res],[data-review],#fDescribeGo');
     if (!t) return;
-    if (t.id === 'roleChip') { S5._forceRole = true; location.hash = '#home'; renderHome(); S5._forceRole = false; $('#roleSetup').hidden = false; $('#roleHome').hidden = true; renderRoleGrid(); return; }
-    if (t.dataset.role !== undefined && t.classList.contains('role-opt')) { setRole(t.dataset.role); return; }
     if (t.dataset.go !== undefined) { goStep(Number(t.dataset.go)); return; }
     if (t.dataset.step !== undefined) { goStep(Number(t.dataset.step)); return; }
     if (t.dataset.root !== undefined && t.classList.contains('choice')) { if (t.dataset.root) { if (flow.root !== t.dataset.root) { flow.need = ''; flow.picks = null; } flow.root = t.dataset.root; flow.unsure = false; goStep(2); } else { flow.unsure = true; flow.root = ''; renderFlow(); } return; }
@@ -497,7 +467,7 @@
     if (t.dataset.openRes !== undefined) { openDetail(t.dataset.openRes); return; }
     if (t.dataset.review !== undefined) { const el = $('#reviewCard'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
-  function searchLibrary(text) { location.hash = '#library'; const qi = document.getElementById('q'); qi.value = text; renderResources(); qi.focus(); }
+  function searchLibrary(text) { location.hash = '#library'; const qi = document.getElementById('q'); qi.value = text; renderResources(); pbHits(); qi.focus(); }
 
   window.S5 = {
     startSupport(o) {
@@ -508,8 +478,11 @@
       flow.step = flow.need && flow.pct !== '' ? 3 : flow.root && flow.pct !== '' ? 2 : flow.pct !== '' ? 1 : 0;
       if (location.hash !== '#support') location.hash = '#support'; else renderFlow();
     },
-    loadScenario(key) { const x = scenarios[key]; if (!x || !x.matcher) return; S5.startSupport({ pct: x.matcher.pct, root: x.matcher.root, need: x.matcher.need }); toast('Case loaded into Support a scholar'); },
-    _forceRole: false
+    loadScenario(key) { const x = scenarios[key]; if (!x || !x.matcher) return; S5.startSupport({ pct: x.matcher.pct, root: x.matcher.root, need: x.matcher.need }); toast('Practice case loaded into Support a scholar'); },
+    toast,
+    dueCount: () => dueCases().length,
+    activeCount: () => allCases().filter((c) => c.status === 'active').length,
+    dueList: () => dueCases().map((u) => Object.assign({ when: statusText(u.st, u.r.due) }, u))
   };
 
   /* intake events */
@@ -526,6 +499,15 @@
   $('#exportCsv').onclick = () => download('Strive5_Cases_' + iso(today()) + '.csv', ['Local ID,School,Status,Start,Baseline %,Current %,Tier,Root cause,Need,Primary intervention,Owner,Next review,Next due'].concat(allCases().map((c) => { const r = nextReview(c); return [c.localId, c.school, c.status, c.start, c.baselinePct, c.currentPct, c.tier, c.root, c.need, (c.interventions[0] || {}).name, c.owner, r ? 'Day ' + r.day : '', r ? r.due : ''].map(csvCell).join(','); })).join('\n'), 'text/csv');
   $('#importJson').addEventListener('change', (e) => { const f = e.target.files[0]; if (!f) return; f.text().then((t) => { try { const d = JSON.parse(t); const inc = Array.isArray(d) ? d : d.cases; if (!Array.isArray(inc)) throw 0; const l = allCases(); let added = 0; inc.forEach((c) => { if (c && c.id && c.reviews && !l.some((x) => x.id === c.id)) { l.push(c); added++; } }); saveCases(l); renderChrome(); renderCases(); toast(added + ' case' + (added === 1 ? '' : 's') + ' imported'); } catch (err) { toast('That file is not a Strive for 5 case export.'); } }); e.target.value = ''; });
   $('#libChips').innerHTML = COMMON_NEEDS.map((n) => `<button class="chip" type="button" data-q="${esc(n)}">${esc(n)}</button>`).join('');
+
+  /* search: also show matching Playbook sections and links */
+  function pbHits() {
+    const q = document.getElementById('q').value; const host = $('#pbHits'); if (!window.PB) return;
+    const secs = PB.searchChapters(q), lk = PB.searchLinks(q);
+    host.innerHTML = secs.length || lk.length ? `<div class="callout"><b>In the Playbook:</b> ${secs.map((x) => `<a href="#ch/${x.c.n}/${x.s.id}">${esc(x.s.t)}</a> <span class="small muted">(ch. ${x.c.n})</span>`).join(' · ')}${lk.length ? `<div class="readmore">${lk.map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}</div>` : ''}</div>` : '';
+  }
+  document.getElementById('q').addEventListener('input', pbHits);
+  document.getElementById('reset').addEventListener('click', () => { $('#pbHits').innerHTML = ''; });
 
   window.addEventListener('hashchange', route);
   route();

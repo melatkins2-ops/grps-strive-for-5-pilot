@@ -3,31 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Strive for Less Than 5 | GRPS</title>
-<meta name="description" content="GRPS Strive for Less Than 5 attendance guide: match support to the reason a scholar is missing school, track 10/20/30-day reviews, and see school attendance patterns.">
+<title>GRPS Attendance Playbook | Strive for Less Than 5</title>
+<meta name="description" content="The GRPS Attendance Playbook, made interactive: learn it chapter by chapter, support a scholar with a matched plan and Day 10/20/30 reviews, run your Attendance Team, and help families.">
 <link rel="icon" href="favicon.png">
+<link rel="preload" href="fonts/oswald-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="pilot no-print" role="note"><strong>PILOT</strong><span>Rebuilt for user validation. Report content corrections, usability problems, and broken links.</span><a href="tools/Pilot_Feedback_Form.csv">Feedback form</a><a href="tools/Pilot_Testing_Guide.md">Testing guide</a></div>
+<div class="pilot no-print" role="note"><strong>PILOT</strong><span>The interactive GRPS Attendance Playbook. Tell us about corrections, confusing spots, or broken links.</span><a href="tools/Pilot_Feedback_Form.csv">Feedback form</a><a href="tools/Pilot_Testing_Guide.md">Testing guide</a></div>
 
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#home" aria-label="Strive for Less Than 5 home">
-      <span class="brand-mark">GRPS<small>my choice.</small></span>
-      <span class="brand-name">Strive for Less Than 5<span>Attendance Guide</span></span>
-    </a>
+    <a class="brand" href="#home" aria-label="GRPS Attendance Playbook home"><span class="brand-mark">GRPS<small>MY CHOICE.</small></span><span class="brand-name">Attendance Playbook</span></a>
     <nav class="tabs" aria-label="Main">
       <a href="#home" data-tab="home"><span class="ico" aria-hidden="true">⌂</span>Home</a>
-      <a href="#support" data-tab="support"><span class="ico" aria-hidden="true">✚</span>Support</a>
-      <a href="#cases" data-tab="cases"><span class="ico" aria-hidden="true">☰</span>Plans <span class="badge" id="dueBadge" hidden></span></a>
-      <a href="#data" data-tab="data"><span class="ico" aria-hidden="true">▤</span>School data</a>
-      <a href="#library" data-tab="library"><span class="ico" aria-hidden="true">⌕</span>Library</a>
-      <a href="#practice" data-tab="practice" class="desk-only"><span class="ico" aria-hidden="true">◎</span>Practice</a>
-      <a href="#team" data-tab="team" class="desk-only"><span class="ico" aria-hidden="true">✦</span>Team</a>
+      <a href="#ch/1" data-tab="ch"><span class="ico" aria-hidden="true">▤</span>Playbook</a>
+      <a href="#support" data-tab="support"><span class="ico" aria-hidden="true">✚</span>Support <span class="badge" id="dueBadge" hidden></span></a>
+      <a href="#team" data-tab="team"><span class="ico" aria-hidden="true">✦</span>Team Room</a>
+      <a href="#families" data-tab="families"><span class="ico" aria-hidden="true">♥</span>Families</a>
     </nav>
-    <button class="role-chip" id="roleChip" type="button" aria-label="Change your role">Choose role</button>
+    <a class="icon-btn" href="#library" aria-label="Search the Playbook" title="Search">⌕</a>
   </div>
 </header>
 
@@ -35,95 +31,142 @@
 
 <!-- HOME -->
 <section class="view" id="view-home" aria-labelledby="homeTitle">
-  <div id="roleSetup" hidden>
-    <div class="page-head"><p class="eyebrow">Welcome</p>
-    <h1 id="homeTitle">What is your role?</h1>
-    <p class="lead">Pick once. The guide puts your most common next steps first. You can change it anytime.</p></div>
-    <div class="role-grid" id="roleGrid"></div>
-  </div>
-  <div id="roleHome" hidden>
-    <div class="hero page-head">
-      <div class="hero-in">
-        <div>
-          <p class="eyebrow">Every day counts</p>
-          <h1 id="homeHeadline">Help every scholar miss <em>fewer than 5</em> days.</h1>
-          <p class="lead">Find the reason a scholar is missing school, match the right support, and check that it's working.</p>
-          <div class="row"><a class="btn orange big" href="#support">Support a scholar →</a><span class="muted small" id="homeRole"></span></div>
-        </div>
-        <div class="goal-dots" aria-label="Goal: fewer than five absences">
-          <p>The goal this year</p>
-          <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="o"></i></div>
-          <small>Fewer than five absences. The reason decides the support; the percentage decides how much.</small>
-        </div>
+  <div class="hero">
+    <div class="st1 stripes"></div><div class="st2 stripes"></div>
+    <div class="wrap">
+      <div>
+        <h1 id="homeTitle"><small>Strive for less than</small>5 days <em>absent</em></h1>
+        <p class="lead">The GRPS Attendance Playbook, made interactive. Learn it, use it with a scholar, and run your Attendance Team from it.</p>
+      </div>
+      <div class="counter" id="counter">
+        <h2>How many days has a scholar missed?</h2>
+        <div class="ctl"><button class="step" type="button" data-cstep="-1" aria-label="One fewer day">−</button><div class="num" aria-live="polite"><b id="cNum">7</b><span id="cUnit">days missed</span></div><button class="step" type="button" data-cstep="1" aria-label="One more day">+</button></div>
+        <input type="range" id="cRange" min="0" max="45" value="7" aria-label="Days missed">
+        <div class="track" id="cTrack" aria-hidden="true"></div>
+        <div class="track-lab" id="cLab"></div>
+        <div class="res" id="cRes" aria-live="polite"></div>
+        <details><summary>Partway through the year?</summary><div class="enr"><label for="cEnr">School days so far</label><input class="input" id="cEnr" type="number" min="1" max="200" value="180"></div><p class="hint">Use the days the scholar has been enrolled. 180 = a full school year.</p></details>
       </div>
     </div>
-    <div class="quick" id="homeActions"></div>
-    <div class="home-more">
-      <div><h2>Reviews coming up</h2><div id="homeDue"></div></div>
-      <div><h2>For your role</h2><p class="muted" id="homeLead"></p><p class="muted small" id="homeFirstWhy"></p><button class="btn secondary" id="homeFirstBtn" type="button"></button>
-        <h3 style="margin-top:20px">Common needs</h3><div class="chips" id="homeChips"></div></div>
-    </div>
+  </div>
+  <div class="wrap" style="padding:0"><div class="doors">
+    <a class="door" href="#support"><b>Support a scholar</b><span>Find the root cause, match an intervention, track Day 10/20/30.</span><span class="cnt" id="doorPlans"></span></a>
+    <a class="door" href="#team"><b>Lead my team</b><span>Meeting agenda, grade-level challenge, who's on the cusp, and who owns what.</span></a>
+    <a class="door" href="#families"><b>Families</b><span>Stay home or go? Tips, help, and why every day counts. English &amp; Español.</span></a>
+  </div></div>
+  <div class="wrap home-ch">
+    <p class="eyebrow">The Playbook</p>
+    <h2>Chapter by chapter</h2>
+    <p class="muted">Each chapter is a short read with something to try. Chapters you've opened are marked.</p>
+    <div class="spine" id="spine"></div>
+  </div>
+  <div class="home-strip"><div class="wrap">
+    <div><b>10%</b><span>of school days missed, excused or not, is chronic absence.</span></div>
+    <div><b>2 a month</b><span>adds up to about 18 days a year: chronic absence.</span></div>
+    <div><b>&lt; 5</b><span>days absent is the GRPS goal for every scholar.</span></div>
+  </div></div>
+</section>
+
+<!-- CHAPTER -->
+<section class="view" id="view-ch" aria-label="Playbook chapter">
+  <div class="band" id="chBand"></div>
+  <div class="wrap"><nav class="ch-nav" id="chNav" aria-label="Chapters"></nav>
+    <div class="ch-layout"><nav class="toc" id="chToc" aria-label="In this chapter"></nav><div id="chBody"></div></div>
   </div>
 </section>
 
 <!-- SUPPORT: guided flow -->
 <section class="view" id="view-support" aria-labelledby="supportTitle">
-  <div class="page-head"><p class="eyebrow">Support a scholar</p>
-  <h1 id="supportTitle">Match the support to the reason</h1>
-  <p class="lead">One question at a time. You'll end with a matched plan you can save as a case with 10/20/30-day reviews.</p></div>
-  <div class="stepper" id="stepper" role="list"></div>
-  <div class="flow">
-    <div class="card step-card" id="stepHost" tabindex="-1"></div>
-    <aside class="card summary-card" aria-label="Plan so far"><h3>So far</h3><dl id="flowSummary"></dl>
-      <p class="hint" style="margin-top:14px">Use a local ID or initials. Do not enter scholar names or other identifying details.</p></aside>
+  <div class="band"><div class="stripes"></div><div class="wrap"><p class="eyebrow">Support a scholar</p><h1 id="supportTitle">Match the support to the reason</h1><p class="lead">One step at a time, ending in a matched plan you can save with Day 10/20/30 reviews.</p></div></div>
+  <div class="wrap page">
+    <nav class="sub-tabs"><a href="#support" aria-current="page">Guided support</a><a href="#cases">My plans</a><a href="#practice">Practice cases</a></nav>
+    <div class="stepper" id="stepper" role="list"></div>
+    <div class="flow">
+      <div class="step-card" id="stepHost" tabindex="-1"></div>
+      <aside class="summary-card" aria-label="Plan so far"><h3>So far</h3><dl id="flowSummary"></dl><p class="hint" style="margin-top:14px">Use a local ID or initials. Never enter scholar names.</p></aside>
+    </div>
   </div>
 </section>
 
-<!-- CASES -->
+<!-- PLANS (cases) -->
 <section class="view" id="view-cases" aria-labelledby="casesTitle">
-  <div id="casesList">
-    <div class="spread page-head"><div><p class="eyebrow">Case tracker</p><h1 id="casesTitle">Active plans and reviews</h1>
-      <p class="lead">Every active plan, its owner, and its next 10/20/30-day checkpoint. Review delivery, the barrier, and attendance before deciding what's next.</p></div>
-      <div class="row no-print"><a class="btn orange" href="#support">+ New case</a></div></div>
-    <div class="row no-print" style="margin:4px 0 14px">
-      <select class="input" id="caseFilter" style="max-width:220px" aria-label="Show cases"><option value="active">Active cases</option><option value="due">Due or overdue</option><option value="closed">Closed cases</option><option value="all">All cases</option></select>
-      <input class="input" id="caseSearch" style="max-width:260px" placeholder="Search ID, need, owner" aria-label="Search cases">
+  <div class="band"><div class="stripes"></div><div class="wrap"><p class="eyebrow">Support a scholar</p><h1 id="casesTitle">My plans &amp; reviews</h1><p class="lead">Every active plan and its next Day 10/20/30 checkpoint. Saved on this device only.</p></div></div>
+  <div class="wrap page">
+    <nav class="sub-tabs"><a href="#support">Guided support</a><a href="#cases" aria-current="page">My plans</a><a href="#practice">Practice cases</a></nav>
+    <div id="casesList">
+      <div class="row no-print" style="margin:0 0 14px">
+        <select class="input" id="caseFilter" style="max-width:220px" aria-label="Show plans"><option value="active">Active plans</option><option value="due">Due or overdue</option><option value="closed">Closed plans</option><option value="all">All plans</option></select>
+        <input class="input" id="caseSearch" style="max-width:260px" placeholder="Search ID, need, owner" aria-label="Search plans">
+        <a class="btn orange" href="#support" style="margin-left:auto">+ New plan</a>
+      </div>
+      <div id="caseRows"></div>
+      <details class="drawer no-print" style="margin-top:22px"><summary>Move plans to another device</summary><div>
+        <p class="muted small">Plans are saved only in this browser. Export a file and import it on another device. Exports contain only what you entered (local IDs, not names).</p>
+        <div class="row"><button class="btn secondary small" id="exportJson" type="button">Export plans (file)</button><button class="btn secondary small" id="exportCsv" type="button">Export spreadsheet (CSV)</button>
+        <label class="btn secondary small" for="importJson">Import plans</label><input id="importJson" type="file" accept=".json,application/json" class="sr"></div>
+      </div></details>
     </div>
-    <div class="grid" id="caseRows"></div>
-    <details class="drawer no-print" style="margin-top:22px"><summary>Move cases to another device</summary><div>
-      <p class="muted small">Cases are saved only in this browser on this device. To move them, export a file and import it on the other device. Exports contain only what you entered (local IDs, not names).</p>
-      <div class="row"><button class="btn secondary small" id="exportJson" type="button">Export cases (file)</button><button class="btn secondary small" id="exportCsv" type="button">Export spreadsheet (CSV)</button>
-      <label class="btn secondary small" for="importJson">Import cases</label><input id="importJson" type="file" accept=".json,application/json" class="sr"></div>
-    </div></details>
+    <div id="caseDetail" hidden></div>
   </div>
-  <div id="caseDetail" hidden></div>
 </section>
 
-<!-- SCHOOL DATA -->
-<section class="view" id="view-data" aria-labelledby="dataTitle">
-  <div class="page-head"><p class="eyebrow">School data</p>
-  <h1 id="dataTitle">See your school's attendance picture</h1>
-  <p class="lead">Upload or paste an attendance export, such as Synergy U-CHRON 027. The file is read only in this browser. Nothing is uploaded or saved.</p></div>
-  <div id="dataIntake">
-    <div class="drop" id="dropZone">
-      <p style="margin:0 0 10px"><strong>Drop a CSV file here</strong> or</p>
-      <div class="row" style="justify-content:center"><label class="btn" for="csvFile">Choose a file</label><input id="csvFile" type="file" accept=".csv,text/csv,.txt" class="sr">
-      <button class="btn secondary" id="pasteToggle" type="button">Paste data</button><button class="btn ghost" id="sampleData" type="button">Try with sample data</button></div>
-      <p class="hint">Needs one row per scholar with either an absence %, an attendance %, or days absent and days enrolled. A local ID and grade are helpful.</p>
-    </div>
-    <div id="pasteBox" hidden style="margin-top:12px"><label class="field" for="pasteArea">Paste rows (with a header row)</label><textarea class="input" id="pasteArea" rows="6" placeholder="ID,Grade,Days Absent,Days Enrolled"></textarea><button class="btn" id="pasteGo" type="button" style="margin-top:8px">Use pasted data</button></div>
+<!-- PRACTICE -->
+<section class="view" id="view-practice" aria-labelledby="pracTitle">
+  <div class="band"><div class="stripes"></div><div class="wrap"><p class="eyebrow">Support a scholar</p><h1 id="pracTitle">Practice cases</h1><p class="lead">Make the call, then compare with the suggested team response.</p></div></div>
+  <div class="wrap page">
+    <nav class="sub-tabs"><a href="#support">Guided support</a><a href="#cases">My plans</a><a href="#practice" aria-current="page">Practice cases</a></nav>
+    <div id="scenarioCards" style="border-top:2px solid var(--line)"></div>
+    <div id="scenarioResult" tabindex="-1"></div>
+    <div class="section"><h2>Action or intervention?</h2><p class="muted">An <b>action</b> is something staff did, like a call, letter or referral. An <b>intervention</b> is designed to change the reason for absence, and it is monitored.</p><div class="tbl" id="actionPairs"></div></div>
   </div>
-  <div id="dataMap" hidden></div>
-  <div id="dataDash" hidden></div>
 </section>
 
-<!-- LIBRARY (engine-driven search; IDs required by js/engine.js and the QA runner) -->
+<!-- TEAM ROOM -->
+<section class="view" id="view-team" aria-labelledby="teamTitle">
+  <div class="room"><div class="wrap">
+    <div>
+      <p class="eyebrow">Attendance Team meeting</p><h1 id="teamTitle" style="font-size:38px">Team Room</h1>
+      <div class="timer" id="agTime" aria-live="off"></div>
+      <div class="row" style="margin-top:12px"><button class="btn orange small" id="agGo" type="button">Start</button><button class="btn secondary small" id="agNext" type="button">Next item</button><button class="btn secondary small" id="agReset" type="button">Reset</button></div>
+      <div class="agenda" id="agList"></div>
+      <p class="hint" style="margin-top:10px">Agenda from the Strive for 5 Attendance Toolkit (Attendance Works). <a href="https://docs.google.com/document/d/1Lj5PQn7NOtlNpvXPDNYD_FQ0jGoF0FGdbzVRx7MP4pA/edit" target="_blank" rel="noopener" style="color:#fff">Blank agenda ↗</a></p>
+    </div>
+    <div>
+      <p class="eyebrow">Strive for 5 grade-level challenge</p><h2>Who's leading this month?</h2>
+      <div id="chal"></div>
+      <div class="cusp" style="margin-top:26px"><p class="eyebrow">Plan reviews due this week</p><div id="teamDue"></div></div>
+    </div>
+  </div></div>
+  <div class="wrap page">
+    <p class="eyebrow">School data</p><h2>Load your attendance export</h2>
+    <p class="muted">Synergy U-CHRON 027 works best. The file is read only in this browser. Nothing is uploaded or saved.</p>
+    <div id="dataIntake">
+      <div class="drop" id="dropZone">
+        <p style="margin:0 0 10px"><strong>Drop a CSV file here</strong> or</p>
+        <div class="row" style="justify-content:center"><label class="btn" for="csvFile">Choose a file</label><input id="csvFile" type="file" accept=".csv,text/csv,.txt" class="sr">
+        <button class="btn secondary" id="pasteToggle" type="button">Paste data</button><button class="btn ghost" id="sampleData" type="button">Try sample data</button></div>
+        <p class="hint">One row per scholar with an absence %, an attendance %, or days absent and days enrolled. A local ID and grade help.</p>
+      </div>
+      <div id="pasteBox" hidden style="margin-top:12px"><label class="field" for="pasteArea">Paste rows (with a header row)</label><textarea class="input" id="pasteArea" rows="6" placeholder="ID,Grade,Days Absent,Days Enrolled"></textarea><button class="btn" id="pasteGo" type="button" style="margin-top:8px">Use pasted data</button></div>
+    </div>
+    <div id="dataMap" hidden></div>
+    <div id="dataDash" hidden></div>
+
+    <div class="section"><p class="eyebrow">GRPS Attendance Support &amp; Escalation Framework · April 2026</p><h2>Who owns what, by tier</h2><div class="esc" id="escBox"></div>
+      <div class="readmore"><a href="https://drive.google.com/file/d/1F-wNamt2IWeF1FkubeOC7-vZ2T1Elltc/view" target="_blank" rel="noopener">Framework one-sheet</a><a href="#ch/6/team">Building an effective team (Playbook p. 34)</a></div></div>
+    <div class="section"><p class="eyebrow">Ready to use</p><h2>Scripts, letters &amp; handouts</h2>
+      <div class="readmore"><a href="https://drive.google.com/file/d/10csNmw6Jk6imqUhQyjwgJI5HV5RpfySD/view" target="_blank" rel="noopener">Phone call scripts</a><a href="https://drive.google.com/file/d/1ovJDrZJnd7O3kUrF7DcY9JrxiYoI54Gs/view" target="_blank" rel="noopener">Robocall script</a><a href="https://drive.google.com/file/d/1oChZkNGgm8356GYjHxZ44ZB22RiEEtVT/view" target="_blank" rel="noopener">Script for Tier II</a><a href="https://drive.google.com/file/d/1J2AaSOxpfirDoZHMWPt1J784af0fr3HY/view" target="_blank" rel="noopener">"Over 10 days or 5 in a row" letter</a><a href="https://drive.google.com/drive/folders/1oGadjP_ptnrLB5fbD7iIqitSX1Xfq1Ar" target="_blank" rel="noopener">GRPS break letters</a><a href="https://www.attendanceworks.org/resources/student-attendance-success-plans/" target="_blank" rel="noopener">Scholar success plans</a><a href="https://drive.google.com/file/d/1YjBbAqap5u7RN-4EayWhiVp9rwKQczzn/view" target="_blank" rel="noopener">K–5 tips handout</a><a href="https://drive.google.com/file/d/12YPW9UZ1AJrDj-0idnBp1cgqZRyikPTh/view" target="_blank" rel="noopener">6–12 tips handout</a><a href="tools/10_20_30_Day_Review_Template.csv">10/20/30 review template</a><a href="https://www.attendanceworks.org/resources/self-assessment/" target="_blank" rel="noopener">Self-assessments</a></div></div>
+  </div>
+</section>
+
+<!-- FAMILIES -->
+<section class="view" id="view-families" aria-label="For families"><div id="famBox"></div></section>
+
+<!-- SEARCH (engine-driven; IDs required by js/engine.js and the QA runner) -->
 <section class="view" id="view-library" aria-labelledby="libTitle">
+  <div class="band"><div class="stripes"></div><div class="wrap"><p class="eyebrow">Search</p><h1 id="libTitle">Describe the situation</h1><p class="lead">Try "misses every Monday," "caregiver says absences are excused," or "no ride after a schedule change." You'll get what the guide understood, what to do now, and what to look into.</p></div></div>
+  <div class="wrap page">
   <section id="resources">
-  <div class="page-head"><p class="eyebrow">Resource library</p>
-  <h1 id="libTitle">Describe the situation in everyday words</h1>
-  <p class="lead">Try "scholar misses every Monday," "caregiver says absences are excused," or "no ride after a schedule change." The guide tells you what it understood, what to do now, and what to investigate.</p></div>
-  <div class="card">
     <div class="search-bar">
       <div class="q"><label class="field" for="q">Describe the need</label><input class="input" id="q" type="search" autocomplete="off" placeholder="e.g., scholar has missed 14% and the family's car broke down"></div>
       <div><label class="field" for="topic">Topic</label><select class="input" id="topic"><option value="">All topics</option></select></div>
@@ -131,72 +174,21 @@
       <button class="btn secondary" id="reset" type="button">Clear</button>
     </div>
     <div class="chips" id="libChips" aria-label="Common needs"></div>
-  </div>
-  <div id="meta" aria-live="polite"></div>
-  <div id="resourceGrid"></div>
+    <div id="pbHits"></div>
+    <div id="meta" aria-live="polite"></div>
+    <div id="resourceGrid"></div>
   </section>
-</section>
-
-<!-- PRACTICE -->
-<section class="view" id="view-practice" aria-labelledby="pracTitle">
-  <div class="page-head"><p class="eyebrow">Practice</p>
-  <h1 id="pracTitle">Work through a real-world case</h1>
-  <p class="lead">Make the decision first, then compare with the suggested team response. Cases for your role are marked.</p></div>
-  <div class="grid g3" id="scenarioCards"></div>
-  <div id="scenarioResult" tabindex="-1"></div>
-  <div class="card section"><h2>Action or intervention?</h2><p class="muted">An <b>action</b> is something staff did, like a call, letter or referral. An <b>intervention</b> is designed to change the reason for absence, and it is monitored.</p><div class="ref-wrap" id="actionPairs"></div></div>
-</section>
-
-<!-- TEAM -->
-<section class="view" id="view-team" aria-labelledby="teamTitle">
-  <div class="page-head"><p class="eyebrow">Attendance Team &amp; reference</p>
-  <h1 id="teamTitle">Run the system, not just the case</h1>
-  <p class="lead">Workflow, tiers, ownership, review decisions, families, and community partners. Open only what you need.</p></div>
-  <div class="grid g3 section">
-    <a class="action-tile" href="tools/Attendance_Team_Agenda.md" download><span class="ico" aria-hidden="true">🗒</span><strong>Team meeting agenda</strong><span>Decision-focused cycle for each meeting.</span></a>
-    <a class="action-tile" href="tools/10_20_30_Day_Review_Template.csv" download><span class="ico" aria-hidden="true">📅</span><strong>10/20/30 review template</strong><span>Spreadsheet for checkpoint reviews.</span></a>
-    <a class="action-tile" href="Strive_for_Less_Than_5_Playbook.pdf" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">📘</span><strong>The Playbook</strong><span>March 2026 Strive for Less Than 5 Playbook (PDF).</span></a>
   </div>
-  <details class="drawer" open><summary>GRPS attendance workflow</summary><div>
-    <div class="flow-strip"><div><b>1. Identify</b>Who needs support?</div><div><b>2. Understand</b>Why are they absent?</div><div><b>3. Match</b>What addresses the reason?</div><div><b>4. Act</b>Who will implement?</div><div><b>5. Review</b>Is it working?</div></div>
-  </div></details>
-  <details class="drawer"><summary>Tiers and ownership</summary><div class="ref-wrap"><table class="ref"><thead><tr><th>Level</th><th>Absence</th><th>Primary ownership</th><th>Monitoring</th></tr></thead><tbody>
-    <tr><td><span class="tier t1">Tier 1</span></td><td>0–9%</td><td>All staff; Attendance Team monitors</td><td>Regular team review</td></tr>
-    <tr><td><span class="tier t2">Tier 2</span></td><td>10–19%</td><td>Building Attendance Team</td><td>Monthly + 10/20/30-day checkpoints for active plans</td></tr>
-    <tr><td><span class="tier t3">Tier 3</span></td><td>20%+</td><td>FSS + Attendance Team</td><td>Frequent review; active plans at least every 10 school days</td></tr></tbody></table></div></details>
-  <details class="drawer"><summary>Root causes of absence</summary><div class="grid g2" id="rootRef"></div></details>
-  <details class="drawer"><summary>Is the intervention working? (10/20/30-day decisions)</summary><div>
-    <p>At each checkpoint for an active Tier 2 or Tier 3 plan, review three things: <b>Was the intervention delivered? Did the barrier improve? Is attendance improving?</b></p>
-    <div class="grid g2" id="decisionRef"></div>
-    <div class="callout orange">Attendance percentage informs the level of support. The identified root cause determines the intervention. A phone call, letter, or referral alone is not an intervention.</div></div></details>
-  <details class="drawer"><summary>Families &amp; caregivers</summary><div>
-    <div class="grid g3"><div><h3>Why every day matters</h3><p class="muted">Regular attendance keeps scholars connected to learning, trusted adults, friends, activities, and support.</p></div><div><h3>Something is getting in the way</h3><p class="muted">Tell the school what makes attendance hard: transportation, health, housing, anxiety, routines, peer concerns. These can be solved together.</p></div><div><h3>Find community support</h3><p class="muted"><a href="https://www.findhelp.org/" target="_blank" rel="noopener">Search Findhelp ↗</a></p></div></div></div></details>
-  <details class="drawer"><summary>Community partners: match the partner to the barrier</summary><div class="ref-wrap">
-    <p class="muted">Partners help deliver or coordinate an intervention. The partner is not the intervention.</p>
-    <table class="ref"><thead><tr><th>Need / root cause</th><th>Potential partners</th><th>What the intervention might change</th></tr></thead><tbody>
-    <tr><td>Health / dental</td><td>School health staff, school-based health center, Cherry Health, local pediatrician/clinic</td><td>Access to care, appropriate health plan, timely return to school</td></tr>
-    <tr><td>Anxiety / behavioral health</td><td>Behavioral health clinicians, counselor/social worker, Cherry Health</td><td>Avoidance, coping/re-entry supports, access to treatment</td></tr>
-    <tr><td>Transportation / basic needs</td><td>FSS, KSSN where available, parents/caregivers, community resources, city government</td><td>Reliable transportation, stabilized basic need, backup plan</td></tr>
-    <tr><td>Belonging / disengagement</td><td>Mentoring programs, Boys &amp; Girls Club, Parks &amp; Recreation, AmeriCorps programs, caring adults</td><td>Connection, engagement, trusted-adult relationship</td></tr>
-    <tr><td>Academic / credit barriers</td><td>Teachers, counselors, academic supports, tutoring/extended learning</td><td>Access to learning, manageable recovery plan, course/credit progress</td></tr>
-    <tr><td>Family routines / caregiving</td><td>Parents/caregivers, FSS, KSSN where available, community supports</td><td>Morning/evening routines, backup caregiving, family problem-solving</td></tr></tbody></table>
-    <div class="callout"><b>Warm handoff check.</b> Before calling it an intervention: What barrier are we addressing? What will change it? Who is helping deliver it? Who at GRPS owns follow-through? What will we check at 10, 20, and 30 days?</div></div></details>
-  <details class="drawer"><summary>Downloads and pilot tools</summary><div class="row">
-    <a class="btn secondary small" href="tools/Caring_Conversation_Guide.md" download>Caring conversation guide</a>
-    <a class="btn secondary small" href="tools/Root_Cause_Interview_Guide.md" download>Root-cause interview guide</a>
-    <a class="btn secondary small" href="tools/Attendance_Plan_Template.csv" download>Attendance plan template</a>
-    <a class="btn secondary small" href="tools/Action_vs_Intervention_Quick_Reference.html" target="_blank" rel="noopener">Action vs. intervention</a>
-    <a class="btn secondary small" href="attendance_qa_v2.html">QA regression runner</a></div></details>
 </section>
 
 </main>
 
-<!-- Resource detail (engine) -->
 <div id="detail" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><div class="detail-panel"><div class="spread"><div><span class="tag" id="detailTopic"></span><h2 id="detailTitle" style="margin-top:8px"></h2></div><button class="btn secondary small" id="closeDetail" type="button">Close</button></div><div id="detailBody"></div></div></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<footer class="site">Grand Rapids Public Schools · Strive for Less Than 5 · Pilot. Scholar information you enter stays on this device. Use local IDs, not names.</footer>
+<footer class="site"><div class="wrap"><span>Grand Rapids Public Schools · GRPS Attendance Playbook · Strive for Less Than 5 · Pilot</span><span>Information you enter stays on this device. Use local IDs, not names. <a href="Strive_for_Less_Than_5_Playbook.pdf" target="_blank" rel="noopener">Original Playbook (PDF)</a></span></div></footer>
 
 <script src="js/engine.js"></script>
+<script src="js/playbook.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
