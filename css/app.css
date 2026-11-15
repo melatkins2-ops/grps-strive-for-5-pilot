@@ -498,3 +498,4 @@ footer.site a{color:#fff}
 
 @media print{.pilot,.top,.tabs,.flow-nav,.no-print,footer.site{display:none!important}body{padding:0;background:#fff}}
 @media(max-width:860px){.fam .l .stripes{display:none}}
+.fam .l h1{line-height:1.04}
