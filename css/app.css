@@ -338,3 +338,43 @@ h1 em{font-style:normal;color:var(--orange)}
 .goal-card{display:none}
 footer.site{border-color:var(--line)}
 .action-tile{border-color:var(--line)}
+
+/* ===== Lists instead of cards (Nov 2026) ===== */
+.role-grid,.choice-grid,#scenarioCards,#rootRef,#decisionRef{display:block;border-top:1px solid var(--line);margin:8px 0 18px}
+.role-grid{max-width:720px}
+.role-opt,.choice,#scenarioCards>.card,#rootRef>.card,#decisionRef>.card{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;width:100%;text-align:left;
+  background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;
+  padding:16px 44px 16px 6px;margin:0;position:relative;min-height:0;color:var(--ink)}
+.role-opt::after,.choice::after{content:"›";position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:24px;color:#d9b99a;transition:transform .15s,color .15s}
+.role-opt:hover,.choice:hover,.case-row:hover{background:#fff4e8;border-color:var(--line)}
+.role-opt:hover::after,.choice:hover::after{color:var(--orange);transform:translate(3px,-50%)}
+.role-opt[aria-pressed="true"],.choice[aria-pressed="true"]{background:#fff1e2;box-shadow:inset 4px 0 0 var(--orange);border-color:var(--line)}
+.role-opt strong,.choice strong{display:inline;font-size:18px;margin:0}
+.role-opt span,.choice span{display:inline;margin:0;font-size:15px}
+.choice span.small{display:none}
+.choice{flex-direction:column;gap:2px}
+.choice.unsure{border-style:solid}
+.choice.unsure strong{color:var(--muted)}
+.step-card{padding:26px 26px 22px}
+/* practice & team rows */
+#scenarioCards>.card{display:grid;grid-template-columns:1fr auto;gap:2px 20px;padding-right:6px;align-items:center}
+#scenarioCards>.card .tag{grid-column:1;justify-self:start;background:none;padding:0;color:var(--orange);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
+#scenarioCards>.card h3{grid-column:1;margin:0;font-size:18px}
+#scenarioCards>.card p{grid-column:1;margin:0!important}
+#scenarioCards>.card .btn{grid-column:2;grid-row:1/4;border:0;background:none;color:var(--orange);font-weight:800;padding:0;margin:0!important}
+#scenarioCards>.card.mine{box-shadow:inset 4px 0 0 var(--gold)}
+#scenarioCards>.card:hover{background:#fff4e8}
+#rootRef>.card,#decisionRef>.card{display:grid;grid-template-columns:200px 1fr auto;gap:4px 20px;align-items:baseline;padding-right:6px}
+#rootRef>.card h3,#decisionRef>.card h3{margin:0!important;font-size:17px}
+#rootRef>.card p,#decisionRef>.card p{margin:0}
+#rootRef>.card .btn{border:0;background:none;color:var(--orange);padding:0;min-height:0}
+#decisionRef>.card .tag{display:none}
+@media(max-width:700px){#rootRef>.card,#decisionRef>.card{grid-template-columns:1fr}#scenarioCards>.card{grid-template-columns:1fr}#scenarioCards>.card .btn{grid-column:1;grid-row:auto;justify-self:start;margin-top:4px!important}}
+/* cases list: rows not boxes */
+#caseRows{gap:0;border-top:1px solid var(--line)}
+.case-row{border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:16px 6px}
+/* plan recommendations: lighter */
+#recList{gap:0;border-top:1px solid var(--line)}
+.rec{border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:14px 6px}
+.rec.picked{background:#fff1e2;box-shadow:inset 4px 0 0 var(--orange)}

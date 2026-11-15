@@ -54,9 +54,20 @@
   const COMMON_NEEDS = ['No ride to school', 'Anxious about coming to school', 'Missing one class', 'Misses every Monday', 'Absences are excused so they do not count', 'Family was evicted', 'Keeps coming late'];
   const getRole = () => store.get('s5_role', null);
 
+  const ROLE_SHORT = {
+    'Principal / School Leader': 'Schoolwide conditions and the Attendance Team',
+    'Teacher': 'Daily attendance, outreach and belonging',
+    'Family Support Specialist': 'Family barriers, home visits and resources',
+    'KSSN Coordinator': 'Wraparound and community resources',
+    'Secretary / Attendance Staff': 'Records and unverified absences',
+    'Social Worker / Counselor': 'Avoidance, safety and connection',
+    'Attendance Team': 'Tier 2 plans and reviews; Tier 3 with FSS',
+    'District/Department Staff': 'Districtwide guidance and data',
+    'Other': 'Start with the basics'
+  };
   function renderRoleGrid() {
     const cur = getRole();
-    $('#roleGrid').innerHTML = rolePathways.map((r) => `<button type="button" class="role-opt" data-role="${esc(r.role)}" aria-pressed="${cur === r.role}"><strong>${esc(r.role)}</strong><span>${esc(r.desc)}</span></button>`).join('');
+    $('#roleGrid').innerHTML = rolePathways.map((r) => `<button type="button" class="role-opt" data-role="${esc(r.role)}" aria-pressed="${cur === r.role}"><strong>${esc(r.role)}</strong><span>${esc(ROLE_SHORT[r.role] || '')}</span></button>`).join('');
   }
   function setRole(role) { store.set('s5_role', role); renderChrome(); renderHome(); toast('Showing next steps for ' + role); }
 
