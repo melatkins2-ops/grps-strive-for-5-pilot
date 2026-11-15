@@ -121,15 +121,15 @@
 
   /* ---------- families (EN / ES) ---------- */
   const SYMPTOMS = [
-    { k: 'fever', stay: true, en: 'Fever of 100.4° or higher, or chills', es: 'Fiebre de 100.4° o más, o escalofríos' },
+    { k: 'fever', stay: true, en: 'Fever of 100.4 °F or higher, or chills', es: 'Fiebre de 100.4 °F o más, o escalofríos' },
     { k: 'cough', stay: true, en: 'New cough or a change in cough', es: 'Tos nueva o cambio en la tos' },
     { k: 'breath', stay: true, en: 'Shortness of breath or wheezing', es: 'Falta de aire o silbido al respirar' },
     { k: 'throat', stay: true, en: 'Sore throat', es: 'Dolor de garganta' },
-    { k: 'stomach', stay: true, en: 'Diarrhea and/or vomiting', es: 'Diarrea y/o vómito' },
-    { k: 'rash', stay: true, en: 'Sores or rash with pus or liquid drainage', es: 'Llagas o sarpullido con pus o líquido' },
-    { k: 'cold', stay: false, en: 'Runny nose or mild cold', es: 'Nariz que gotea o resfriado leve' },
+    { k: 'stomach', stay: true, en: 'Diarrhea and/or vomiting', es: 'Diarrea o vómitos' },
+    { k: 'rash', stay: true, en: 'Sores or rash with pus or liquid drainage', es: 'Llagas o sarpullido que supuran pus o líquido' },
+    { k: 'cold', stay: false, en: 'Runny nose or mild cold', es: 'Moqueo o resfriado leve' },
     { k: 'tired', stay: false, en: 'Tired or a mild headache', es: 'Cansancio o dolor de cabeza leve' },
-    { k: 'worried', stay: false, worry: true, en: 'Worried or anxious about school', es: 'Preocupado o ansioso por la escuela' }
+    { k: 'worried', stay: false, worry: true, en: 'Worried or anxious about school', es: 'Preocupación o ansiedad por la escuela' }
   ];
   const T = {
     en: {
@@ -142,12 +142,12 @@
       helpH: 'Need help?', helpP: 'If something makes it hard to get to school (a ride, housing, food, health or worries), tell your school. Your Family Support Specialist can help. You can also find free help nearby:', pu: 'Parent University', src: 'Based on the GRPS Attendance Playbook. This is general guidance, not medical advice.'
     },
     es: {
-      eyebrow: 'Cada día cuenta', h1: '¿Debe ir mi hijo a la escuela hoy?', lead: 'Revise lo que está pasando. La mayoría de los resfriados leves no impiden ir a la escuela. Si no está seguro, llame a la escuela. Estamos aquí para ayudar.',
-      q: '¿Qué nota hoy?', none: 'Elija lo que observe.', goT: 'Ir a la escuela', goP: 'Esto por sí solo no es motivo para quedarse en casa. Mande pañuelos y avise al maestro.',
-      worryT: 'Vaya y avísenos', worryP: 'Estar en la escuela ayuda a que la preocupación disminuya; quedarse en casa puede aumentarla. Hable con el maestro o el consejero; pueden ayudar a su hijo a sentirse listo.',
-      stayT: 'Quedarse en casa hoy', stayP: 'Deje a su hijo en casa y llame a la escuela para reportar la ausencia. Si tiene dudas o los síntomas son graves, llame a su médico o a la enfermera escolar.',
+      eyebrow: 'Cada día cuenta', h1: '¿Debe ir mi hijo a la escuela hoy?', lead: 'Revise cómo se siente su hijo. La mayoría de los resfriados leves no impiden ir a la escuela. Si no está seguro, llame a la escuela. Estamos aquí para ayudar.',
+      q: '¿Qué nota hoy?', none: 'Elija lo que observe.', goT: 'Ir a la escuela', goP: 'Estos síntomas por sí solos no son motivo para quedarse en casa. Mándele pañuelos desechables y avísele al maestro.',
+      worryT: 'Que vaya, y avísenos', worryP: 'Estar en la escuela ayuda a que la preocupación disminuya; quedarse en casa puede aumentarla. Hable con el maestro o el consejero escolar; ellos pueden ayudar a su hijo a sentirse preparado.',
+      stayT: 'Quedarse en casa hoy', stayP: 'Deje a su hijo en casa y llame a la escuela para avisar de la ausencia. Si tiene dudas o los síntomas son graves, llame a su médico o a la enfermera escolar.',
       mathH: 'Por qué cada día cuenta', mathP: 'Faltar solo 2 días al mes suma unos 18 días en el año escolar. Eso es ausentismo crónico y significa perder aprendizaje importante.', a: '2 días al mes', b: '≈ 18 días al año', c: 'ausentismo crónico',
-      tipsH: 'Consejos que ayudan', tipsP: 'Las rutinas sencillas facilitan las mañanas: prepare la ropa la noche anterior, mantenga una hora fija para dormir y tenga un plan alterno para llegar a la escuela.', k5: 'Consejos K–5 (inglés)', g612: 'Consejos 6–12 (inglés)',
+      tipsH: 'Consejos que ayudan', tipsP: 'Las rutinas sencillas facilitan las mañanas: prepare la ropa la noche anterior, mantenga una hora fija para dormir y tenga un plan de respaldo para llegar a la escuela.', k5: 'Consejos K–5 (inglés)', g612: 'Consejos 6–12 (inglés)',
       helpH: '¿Necesita ayuda?', helpP: 'Si algo dificulta llegar a la escuela (transporte, vivienda, comida, salud o preocupaciones), dígale a la escuela. Su Especialista de Apoyo Familiar puede ayudar. También puede encontrar ayuda gratuita cerca:', pu: 'Parent University', src: 'Basado en el Manual de Asistencia de GRPS. Es orientación general, no consejo médico.'
     }
   };
@@ -371,6 +371,7 @@
   window.PB = {
     level, chapters: CH, links: ALL_LINKS,
     render(view, arg) {
+      if (view !== 'families') document.documentElement.lang = 'en';
       if (view === 'home') renderHome();
       if (view === 'ch') { renderChapter(arg && arg[0]); if (arg && arg[1]) { const s = document.getElementById('sec-' + arg[1]); if (s) setTimeout(() => s.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); } }
       if (view === 'families') renderFamilies();

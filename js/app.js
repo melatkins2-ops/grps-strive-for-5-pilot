@@ -436,6 +436,7 @@
     showView(view, parts.slice(1));
   }
   function showView(v, arg) {
+    if (v !== 'families') document.documentElement.lang = 'en';
     $$('.view').forEach((el) => el.classList.toggle('active', el.id === 'view-' + v));
     const tab = { cases: 'support', practice: 'support' }[v] || v;
     $$('.tabs a').forEach((a) => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
