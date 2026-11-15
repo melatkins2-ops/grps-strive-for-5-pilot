@@ -73,16 +73,20 @@
     $('#roleSetup').hidden = !showSetup; $('#roleHome').hidden = showSetup;
     if (showSetup) { renderRoleGrid(); return; }
     const rp = rolePathways.find((r) => r.role === role) || rolePathways[rolePathways.length - 1];
-    $('#homeRole').textContent = role;
+    $('#homeRole').textContent = 'Set up for ' + role;
     $('#homeLead').textContent = rp.desc;
-    const order = ROLE_ACTIONS[role] || ROLE_ACTIONS.Other;
+    const order = (ROLE_ACTIONS[role] || ROLE_ACTIONS.Other).filter((k) => k !== 'support');
     const dueN = dueCases().length, activeN = allCases().filter((c) => c.status === 'active').length;
-    $('#homeActions').innerHTML = order.map((k, i) => {
-      const a = ACTIONS[k]; let text = a.text;
-      if (k === 'cases') text = activeN ? `${activeN} active · ${dueN} due or overdue` : 'No cases yet. Start one from Support a scholar.';
-      return `<a class="action-tile${i === 0 ? ' primary' : ''}" href="${a.href}"><span class="ico" aria-hidden="true">${a.ico}</span><strong>${a.title}</strong><span>${esc(text)}</span></a>`;
-    }).join('');
-    $('#homeFirstWhy').textContent = `Start here as ${role.replace(/^Other$/, 'a staff member')}:`;
+    const QUICK = {
+      cases: ['My plans', activeN ? `${activeN} active · ${dueN ? dueN + ' review' + (dueN === 1 ? '' : 's') + ' due soon' : 'nothing due this week'}` : 'Save a plan to track Day 10, 20 and 30 reviews'],
+      data: ['School data', 'See tiers and who needs follow-up'],
+      library: ['Find a resource', 'Describe the situation in your words'],
+      practice: ['Practice a case', 'Make the call, then compare with the team'],
+      team: ['Attendance Team tools', 'Workflow, tiers, decisions and downloads']
+    };
+    $('#homeActions').innerHTML = order.slice(0, 3).map((k) => `<a href="${ACTIONS[k].href}"><b>${QUICK[k][0]}</b><span>${esc(QUICK[k][1])}</span></a>`).join('') +
+      `<p class="also">Also: ${order.slice(3).map((k) => `<a href="${ACTIONS[k].href}">${QUICK[k][0]}</a>`).join(' · ')}</p>`;
+    $('#homeFirstWhy').textContent = `A good first read for ${role.replace(/^Other$/, 'any staff member')}:`;
     $('#homeFirstBtn').textContent = rp.first + ' →';
     $('#homeFirstBtn').onclick = () => openDetail(rp.first);
     $('#homeChips').innerHTML = COMMON_NEEDS.slice(0, 5).map((n) => `<button class="chip" type="button" data-q="${esc(n)}">${esc(n)}</button>`).join('');
@@ -458,7 +462,7 @@
     if (v === 'cases') { $('#casesList').hidden = false; $('#caseDetail').hidden = true; renderCases(); }
     if (v === 'practice') renderPractice();
     if (v === 'team') renderTeam();
-    const titles = { home: 'Strive for Less Than 5', support: 'Support a scholar', cases: 'Cases', data: 'School data', library: 'Library', practice: 'Practice', team: 'Attendance Team' };
+    const titles = { home: 'Strive for Less Than 5', support: 'Support a scholar', cases: 'Plans', data: 'School data', library: 'Library', practice: 'Practice', team: 'Attendance Team' };
     document.title = (titles[v] || 'Strive for Less Than 5') + ' | GRPS';
     if (!S5._noScroll) window.scrollTo(0, 0);
     renderChrome();

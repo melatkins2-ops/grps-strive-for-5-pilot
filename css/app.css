@@ -270,3 +270,71 @@ footer.site{max-width:1120px;margin:20px auto 0;padding:18px 16px 30px;color:var
 @media(max-width:899px){.top{backdrop-filter:none;background:var(--bg)}}
 .tabs a,.brand-name{white-space:nowrap}
 @media(min-width:900px) and (max-width:1180px){.brand-name span{display:none}.tabs a{padding:9px 8px;font-size:13.5px}.tabs .ico{display:none}}
+
+/* ===== Option B: warm & branded (Nov 2026) ===== */
+:root{--bg:#fffaf4;--line:#f0e2d2;--cream:#fff1e2;--peach:#ffe2c9;--shadow:0 10px 30px rgba(195,90,20,.08)}
+body{background:var(--bg);overflow-x:hidden}
+.pilot{background:#fff4e0;color:#6b4a1c;border-bottom:1px solid #f3dcb5}
+.pilot strong{color:#c2410c}.pilot a{color:#0f3557;border-color:rgba(15,53,87,.35)}
+.top{background:var(--navy);border-bottom:0;backdrop-filter:none}
+.brand{color:#fff}.brand-name span{color:#b9c9d8}
+.brand-mark{background:#fff;color:var(--navy)}
+.role-chip{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+@media(min-width:900px){
+  .tabs a{color:#cfdbe6;border-radius:0;padding:9px 10px;border-bottom:3px solid transparent}
+  .tabs a:hover{color:#fff}
+  .tabs a[aria-current="page"]{background:transparent;color:#fff;border-bottom-color:var(--orange)}
+  .tabs .ico{display:none}
+}
+@media(max-width:899px){.top{background:var(--navy)}.tabs{background:#fff}.tabs a{color:var(--muted)}}
+
+/* full-bleed warm page header */
+main{padding-top:0}
+.page-head{background:linear-gradient(135deg,var(--cream),var(--peach));border-bottom:1px solid #f3d4b8;
+  margin:0 calc(50% - 50vw) 28px;padding:44px calc(50vw - 50% + 16px) 36px}
+.page-head .lead{color:#5b4a3c;margin-bottom:0}
+.page-head .eyebrow{color:#c2410c;letter-spacing:.1em}
+h1{font-weight:850}
+h1 em{font-style:normal;color:var(--orange)}
+.spread.page-head{display:flex}
+
+/* home hero */
+.hero{padding-top:56px;padding-bottom:50px}
+.hero-in{display:grid;grid-template-columns:1.35fr 1fr;gap:34px;align-items:center}
+@media(max-width:800px){.hero-in{grid-template-columns:1fr;gap:26px}.hero{padding-top:34px;padding-bottom:34px}}
+.hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.03;margin:8px 0 14px}
+.hero .lead{font-size:18px;margin-bottom:24px;max-width:500px}
+.btn.big{font-size:17px;padding:15px 24px;border-radius:12px}
+.goal-dots{background:#fff;border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(195,90,20,.12)}
+.goal-dots p{margin:0 0 12px;font-weight:750;color:var(--navy)}
+.dots{display:flex;gap:10px}.dots i{width:44px;height:44px;border-radius:50%;background:var(--orange)}.dots i.o{background:#fff;border:3px dashed #f0b48c}
+.goal-dots small{display:block;margin-top:12px;color:#7a6656;font-size:14px;line-height:1.45}
+
+/* quick links: gold rule, no boxes */
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin:6px 0 10px}
+@media(max-width:800px){.quick{grid-template-columns:1fr;gap:0}}
+.quick>a{display:block;padding:14px 0 16px;border-top:3px solid var(--gold);text-decoration:none}
+.quick>a b{display:block;font-size:18px;color:var(--navy)}.quick>a span{color:#6f6358;font-size:15px}
+.quick>a:hover b{color:var(--orange)}
+.quick .also{grid-column:1/-1;margin:4px 0 0;font-size:14px;color:var(--muted)}
+.quick .also a{font-weight:700;color:var(--navy)}
+.home-more{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}
+@media(max-width:800px){.home-more{grid-template-columns:1fr;gap:28px}}
+.home-more h2{font-size:21px}
+
+/* softer, warmer surfaces */
+.card,.kpi,.case-row,.choice,.role-opt,.rec,.tl,details.drawer,.table-wrap,.drop,.empty,.scenario-result{border-color:var(--line)}
+.card{box-shadow:var(--shadow);border-radius:18px}
+.choice:hover,.role-opt:hover,.case-row:hover{border-color:#f0b48c}
+.stepper button{background:#f6e9da;color:#8a6a4c}
+.stepper button.done{background:#ffe2c9;color:#c2410c}
+.stepper button.now{background:var(--orange);color:#fff}
+.summary-card{background:#fffdf9}
+.btn{border-radius:12px}
+.btn.secondary{border-color:#e9d6c2}
+.chip{border-color:#ecd8c4}
+.table-wrap th,table.data th{background:#fff4e8}
+.callout{background:#fdf6ee;border-color:var(--gold);color:#4a3a28}
+.goal-card{display:none}
+footer.site{border-color:var(--line)}
+.action-tile{border-color:var(--line)}

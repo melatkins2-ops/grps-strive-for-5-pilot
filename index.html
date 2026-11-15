@@ -21,7 +21,7 @@
     <nav class="tabs" aria-label="Main">
       <a href="#home" data-tab="home"><span class="ico" aria-hidden="true">⌂</span>Home</a>
       <a href="#support" data-tab="support"><span class="ico" aria-hidden="true">✚</span>Support</a>
-      <a href="#cases" data-tab="cases"><span class="ico" aria-hidden="true">☰</span>Cases <span class="badge" id="dueBadge" hidden></span></a>
+      <a href="#cases" data-tab="cases"><span class="ico" aria-hidden="true">☰</span>Plans <span class="badge" id="dueBadge" hidden></span></a>
       <a href="#data" data-tab="data"><span class="ico" aria-hidden="true">▤</span>School data</a>
       <a href="#library" data-tab="library"><span class="ico" aria-hidden="true">⌕</span>Library</a>
       <a href="#practice" data-tab="practice" class="desk-only"><span class="ico" aria-hidden="true">◎</span>Practice</a>
@@ -36,34 +36,41 @@
 <!-- HOME -->
 <section class="view" id="view-home" aria-labelledby="homeTitle">
   <div id="roleSetup" hidden>
-    <p class="eyebrow">Welcome</p>
+    <div class="page-head"><p class="eyebrow">Welcome</p>
     <h1 id="homeTitle">What is your role?</h1>
-    <p class="lead">Pick once. The guide puts your most common next steps first. You can change it anytime.</p>
+    <p class="lead">Pick once. The guide puts your most common next steps first. You can change it anytime.</p></div>
     <div class="role-grid" id="roleGrid"></div>
   </div>
   <div id="roleHome" hidden>
-    <div class="hello">
-      <div>
-        <p class="eyebrow" id="homeRole"></p>
-        <h1 id="homeHeadline">How do we help every scholar get to school, belong, and succeed?</h1>
-        <p class="lead" id="homeLead"></p>
+    <div class="hero page-head">
+      <div class="hero-in">
+        <div>
+          <p class="eyebrow">Every day counts</p>
+          <h1 id="homeHeadline">Help every scholar miss <em>fewer than 5</em> days.</h1>
+          <p class="lead">Find the reason a scholar is missing school, match the right support, and check that it's working.</p>
+          <div class="row"><a class="btn orange big" href="#support">Support a scholar →</a><span class="muted small" id="homeRole"></span></div>
+        </div>
+        <div class="goal-dots" aria-label="Goal: fewer than five absences">
+          <p>The goal this year</p>
+          <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="o"></i></div>
+          <small>Fewer than five absences. The reason decides the support; the percentage decides how much.</small>
+        </div>
       </div>
-      <div class="goal-card"><h3>Strive for Less Than 5</h3><p>Miss fewer than five days of school. Attendance percentage sets the intensity of support; the root cause decides the support.</p></div>
     </div>
-    <div class="grid g3 section" id="homeActions"></div>
-    <div class="grid g2">
-      <div class="card"><div class="spread"><h2>Reviews coming up</h2><a class="btn small secondary" href="#cases">All cases</a></div><div id="homeDue"></div></div>
-      <div class="card"><h2>Your first resource</h2><p class="muted" id="homeFirstWhy"></p><button class="btn secondary" id="homeFirstBtn" type="button"></button>
-        <h3 style="margin-top:18px">Common needs</h3><div class="chips" id="homeChips"></div></div>
+    <div class="quick" id="homeActions"></div>
+    <div class="home-more">
+      <div><h2>Reviews coming up</h2><div id="homeDue"></div></div>
+      <div><h2>For your role</h2><p class="muted" id="homeLead"></p><p class="muted small" id="homeFirstWhy"></p><button class="btn secondary" id="homeFirstBtn" type="button"></button>
+        <h3 style="margin-top:20px">Common needs</h3><div class="chips" id="homeChips"></div></div>
     </div>
   </div>
 </section>
 
 <!-- SUPPORT: guided flow -->
 <section class="view" id="view-support" aria-labelledby="supportTitle">
-  <p class="eyebrow">Support a scholar</p>
+  <div class="page-head"><p class="eyebrow">Support a scholar</p>
   <h1 id="supportTitle">Match the support to the reason</h1>
-  <p class="lead">One question at a time. You'll end with a matched plan you can save as a case with 10/20/30-day reviews.</p>
+  <p class="lead">One question at a time. You'll end with a matched plan you can save as a case with 10/20/30-day reviews.</p></div>
   <div class="stepper" id="stepper" role="list"></div>
   <div class="flow">
     <div class="card step-card" id="stepHost" tabindex="-1"></div>
@@ -75,7 +82,7 @@
 <!-- CASES -->
 <section class="view" id="view-cases" aria-labelledby="casesTitle">
   <div id="casesList">
-    <div class="spread"><div><p class="eyebrow">Case tracker</p><h1 id="casesTitle">Active plans and reviews</h1>
+    <div class="spread page-head"><div><p class="eyebrow">Case tracker</p><h1 id="casesTitle">Active plans and reviews</h1>
       <p class="lead">Every active plan, its owner, and its next 10/20/30-day checkpoint. Review delivery, the barrier, and attendance before deciding what's next.</p></div>
       <div class="row no-print"><a class="btn orange" href="#support">+ New case</a></div></div>
     <div class="row no-print" style="margin:4px 0 14px">
@@ -94,9 +101,9 @@
 
 <!-- SCHOOL DATA -->
 <section class="view" id="view-data" aria-labelledby="dataTitle">
-  <p class="eyebrow">School data</p>
+  <div class="page-head"><p class="eyebrow">School data</p>
   <h1 id="dataTitle">See your school's attendance picture</h1>
-  <p class="lead">Upload or paste an attendance export, such as Synergy U-CHRON 027. The file is read only in this browser. Nothing is uploaded or saved.</p>
+  <p class="lead">Upload or paste an attendance export, such as Synergy U-CHRON 027. The file is read only in this browser. Nothing is uploaded or saved.</p></div>
   <div id="dataIntake">
     <div class="drop" id="dropZone">
       <p style="margin:0 0 10px"><strong>Drop a CSV file here</strong> or</p>
@@ -113,9 +120,9 @@
 <!-- LIBRARY (engine-driven search; IDs required by js/engine.js and the QA runner) -->
 <section class="view" id="view-library" aria-labelledby="libTitle">
   <section id="resources">
-  <p class="eyebrow">Resource library</p>
+  <div class="page-head"><p class="eyebrow">Resource library</p>
   <h1 id="libTitle">Describe the situation in everyday words</h1>
-  <p class="lead">Try "scholar misses every Monday," "caregiver says absences are excused," or "no ride after a schedule change." The guide tells you what it understood, what to do now, and what to investigate.</p>
+  <p class="lead">Try "scholar misses every Monday," "caregiver says absences are excused," or "no ride after a schedule change." The guide tells you what it understood, what to do now, and what to investigate.</p></div>
   <div class="card">
     <div class="search-bar">
       <div class="q"><label class="field" for="q">Describe the need</label><input class="input" id="q" type="search" autocomplete="off" placeholder="e.g., scholar has missed 14% and the family's car broke down"></div>
@@ -132,9 +139,9 @@
 
 <!-- PRACTICE -->
 <section class="view" id="view-practice" aria-labelledby="pracTitle">
-  <p class="eyebrow">Practice</p>
+  <div class="page-head"><p class="eyebrow">Practice</p>
   <h1 id="pracTitle">Work through a real-world case</h1>
-  <p class="lead">Make the decision first, then compare with the suggested team response. Cases for your role are marked.</p>
+  <p class="lead">Make the decision first, then compare with the suggested team response. Cases for your role are marked.</p></div>
   <div class="grid g3" id="scenarioCards"></div>
   <div id="scenarioResult" tabindex="-1"></div>
   <div class="card section"><h2>Action or intervention?</h2><p class="muted">An <b>action</b> is something staff did, like a call, letter or referral. An <b>intervention</b> is designed to change the reason for absence, and it is monitored.</p><div class="ref-wrap" id="actionPairs"></div></div>
@@ -142,9 +149,9 @@
 
 <!-- TEAM -->
 <section class="view" id="view-team" aria-labelledby="teamTitle">
-  <p class="eyebrow">Attendance Team &amp; reference</p>
+  <div class="page-head"><p class="eyebrow">Attendance Team &amp; reference</p>
   <h1 id="teamTitle">Run the system, not just the case</h1>
-  <p class="lead">Workflow, tiers, ownership, review decisions, families, and community partners. Open only what you need.</p>
+  <p class="lead">Workflow, tiers, ownership, review decisions, families, and community partners. Open only what you need.</p></div>
   <div class="grid g3 section">
     <a class="action-tile" href="tools/Attendance_Team_Agenda.md" download><span class="ico" aria-hidden="true">🗒</span><strong>Team meeting agenda</strong><span>Decision-focused cycle for each meeting.</span></a>
     <a class="action-tile" href="tools/10_20_30_Day_Review_Template.csv" download><span class="ico" aria-hidden="true">📅</span><strong>10/20/30 review template</strong><span>Spreadsheet for checkpoint reviews.</span></a>
